@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tjh.base.annotation.Function;
 import com.tjh.util.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,15 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 
-
+	@Function(functionName = "loadAllStudent")
 	@RequestMapping("loadAllStudent")
-
-	@ResponseBody public DataGridView loadAllStudent(StudentVo studentVo){
+	@ResponseBody
+	public DataGridView loadAllStudent(StudentVo studentVo){
 		DataGridView allStudent = this.studentService.loadAllStudent(studentVo);
 		return allStudent;
 	}
 
+	@Function(functionName = "loadStudentByClassId")
 	@RequestMapping("loadStudentByClassId")
 	@ResponseBody
 	public List<Student> loadStudentByClassId(Integer classId){
@@ -36,6 +38,7 @@ public class StudentController {
 		return Student;
 	}
 
+	@Function(functionName = "addStudent")
 	@RequestMapping("addStudent")
 	@ResponseBody
 	public Map<String,String> addStudent(Student student){
@@ -52,12 +55,14 @@ public class StudentController {
 		}
 	}
 
+	@Function(functionName = "loadOneStudentByStudentId")
 	@RequestMapping("loadOneStudentByStudentId")
 	@ResponseBody
 	public Student loadOneStudentByStudentId(Integer studentId){
 		return  this.studentService.loadOneStudentByStudentId(studentId);
 	}
 
+	@Function(functionName = "updateStudentByStudentId")
 	@RequestMapping("updateStudentByStudentId")
 	@ResponseBody
 	public ResultMessage updateStudentByStudentId(Student student){

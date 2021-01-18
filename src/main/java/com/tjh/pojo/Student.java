@@ -12,35 +12,47 @@ public class Student {
 
     private String studentName;
 
-   
+
     private String studentPhone;
-    
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date studentBirthday;
 
     private String studentReason;
 
+	private String studentSource;
+
+	private Integer dictionaryId;//请假类型
+
     private Integer classId;//班级
 
     private Integer teacherId;//老师
-    
+
     private Integer userId;//家长
 
     private Integer state;
 
     private String remark;
-    
+
+
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
-    
+
     private Integer createPerson;//添加人
 
 	public Integer getUserId() {
 		return userId;
 	}
 
+	public String getStudentSource() {
+		return studentSource;
+	}
+	public void setStudentSource(String studentSource) {
+		this.studentSource = studentSource;
+	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
@@ -63,6 +75,14 @@ public class Student {
 
 	public String getStudentPhone() {
 		return studentPhone;
+	}
+
+	public Integer getDictionaryId() {
+		return dictionaryId;
+	}
+
+	public void setDictionaryId(Integer dictionaryId) {
+		this.dictionaryId = dictionaryId;
 	}
 
 	public void setStudentPhone(String studentPhone) {
@@ -132,5 +152,5 @@ public class Student {
 	public void setCreatePerson(Integer createPerson) {
 		this.createPerson = createPerson;
 	}
-    
+
 }

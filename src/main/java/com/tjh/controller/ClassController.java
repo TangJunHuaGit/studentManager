@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tjh.base.annotation.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,23 +19,25 @@ import com.tjh.vo.ClassVo;
 @Controller
 @RequestMapping("class")
 public class ClassController {
-	
+
 	@Autowired
 	private ClassService classService;
-	
+
+	@Function(functionName = "loadAllClassComboBox")
 	@RequestMapping("loadAllClassComboBox")
 	@ResponseBody
 	public  List<Map<String, Object>> loadAllClass(){
 		List<Map<String, Object>> allClass = this.classService.loadAllClassComboBox();
 		return allClass;
 	}
-	
+
+	@Function(functionName = "loadAllClass")
 	@RequestMapping("loadAllClass")
 	@ResponseBody
 	public DataGridView loadAllClass(ClassVo classVo) {//分页查询所有
 		return this.classService.loadAllClass(classVo);
 	}
-	
+
 	@RequestMapping("updateClassByClassId")
 	@ResponseBody
 	public Map<String,String> updateClassByClassId(Class classes) {//修改
@@ -51,6 +54,7 @@ public class ClassController {
 		}
 	}
 	//更新单个状态
+	@Function(functionName = "updateClassStateByClassId")
 	@RequestMapping("updateClassStateByClassId")
 	@ResponseBody
 	public Map<String,String> updateClassStateByClassId(Integer classId) {
@@ -67,6 +71,7 @@ public class ClassController {
 		}
 	}
 	//更新多个状态
+	@Function(functionName = "updateClassStateByClassIds")
 	@RequestMapping("updateClassStateByClassIds")
 	@ResponseBody
 	public Map<String,String> updateClassStateByClassIds(Integer[] ids) {
@@ -83,13 +88,15 @@ public class ClassController {
 		}
 	}
 	//查询单个
+	@Function(functionName = "loadOneClassByClassId")
 	@RequestMapping("loadOneClassByClassId")
 	@ResponseBody
 	public Class loadOneClassByClassId(Integer classId) {
 		return this.classService.loadOneClassByClassId(classId);
 	}
-	
+
 	//	添加
+	@Function(functionName = "addClass")
 	@RequestMapping("addClass")
 	@ResponseBody
 	public Map<String,String> addClass(Class classes) {
@@ -105,7 +112,7 @@ public class ClassController {
 			return map;
 		}
 	}
-	
-	
-	
+
+
+
 }

@@ -8,6 +8,8 @@
         <result column="studentBirthday" jdbcType="TIMESTAMP" property="studentBirthday" />
         <result column="studentReason" jdbcType="VARCHAR" property="studentReason" />
         <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="studentSource" jdbcType="VARCHAR" property="studentSource" />
+        <result column="dictionaryId" jdbcType="INTEGER" property="dictionaryId" />
         <result column="classId" jdbcType="INTEGER" property="classId" />
         <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -26,6 +28,8 @@
         <result column="classId" jdbcType="INTEGER" property="classId" />
         <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="studentSource" jdbcType="VARCHAR" property="studentSource" />
+        <result column="dictionaryId" jdbcType="INTEGER" property="dictionaryId" />
         <result column="state" jdbcType="INTEGER" property="state" />
         <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
         <result column="createPerson" jdbcType="INTEGER" property="createPerson" />

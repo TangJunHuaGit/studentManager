@@ -46,7 +46,27 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             // 反射获取请求的controller类的所有方法
             Method[] methods = handlerMethod.getBean().getClass().getDeclaredMethods();
+            boolean flag = false;
             for (Method method : methods) {
+                if(flag){
+                    break;
+                }
+                if (method.isAnnotationPresent(Function.class)) {
+                    for (SysFunction function : functions) {
+                        System.out.println(method.getAnnotation(Function.class).functionName());
+                        if(method.getAnnotation(Function.class).functionName().equals(function.getFunctionCode())){
+                            flag = true;
+                            break;
+                        }
+                    }
+                }else{
+                    return true;
+                }
+            }
+            if(!flag){
+                throw new ReturnViewException("501");
+            }
+            /*for (Method method : methods) {
                 //判断方法是否有@Function注解
                 if (method.isAnnotationPresent(Function.class)) {
                     //拿到Function注解对象
@@ -65,7 +85,7 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
                         }
                     }
                 }
-            }
+            }*/
         }
         return true;
     }

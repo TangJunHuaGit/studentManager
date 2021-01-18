@@ -22,7 +22,8 @@ import com.tjh.vo.DictionaryVo;
 public class DictionaryController {
 	@Autowired
 	private DictionaryService dictionaryService;
-	
+
+	@Function(functionName = "addDictionary")
 	@RequestMapping("addDictionary")
 	@ResponseBody
 	public Map<String,String> addDictionary(Dictionary dictionary){
@@ -45,7 +46,8 @@ public class DictionaryController {
 		DataGridView loadAllDictionary = dictionaryService.loadAllDictionary(dictionaryVo);
 		return loadAllDictionary;
 	}
-	
+
+	@Function(functionName = "updateDictionaryStateByReasonId")
 	@RequestMapping("updateDictionaryStateByReasonId")
 	@ResponseBody
 	public Map<String,String> updateDictionaryStateByReasonId(String reasonId){
@@ -61,7 +63,8 @@ public class DictionaryController {
 			return map;
 		}
 	}
-	
+
+	@Function(functionName = "updateByDictionaryReasonId")
 	@RequestMapping("updateByDictionaryReasonId")
 	@ResponseBody
 	public Map<String,String> updateByDictionaryReasonId(Dictionary dictionary){
@@ -77,22 +80,25 @@ public class DictionaryController {
 			return map;
 		}
 	}
-	
+
+	@Function(functionName = "loadParentDictionary")
 	@RequestMapping("loadParentDictionary")
 	@ResponseBody
 	public List<Map<String, Object>> loadParentDictionary(){
 		List<Map<String, Object>> parentDictionary = dictionaryService.loadParentDictionary();
 		return parentDictionary;
-		
+
 	}
-	
+
+	@Function(functionName = "loadOneDictionary")
 	@RequestMapping("loadOneDictionary")
 	@ResponseBody
 	public Dictionary loadOneDictionary(String reasonId){
 		Dictionary dictionary = dictionaryService.loadOneDictionary(Integer.valueOf(reasonId));
 		return dictionary;
 	}
-	
+
+	@Function(functionName = "updateDictionaryStateByReasonIds")
 	@RequestMapping("updateDictionaryStateByReasonIds")
 	@ResponseBody
 	public  Map<String,String> updateDictionaryStateByReasonIds(DictionaryVo dictionaryVo){
