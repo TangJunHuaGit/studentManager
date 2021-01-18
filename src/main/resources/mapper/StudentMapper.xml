@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjh.mapper.StudentMapper">
+    <resultMap id="studentResultMap" type="com.tjh.pojo.Student">
+        <id column="studentId" jdbcType="INTEGER" property="studentId" />
+        <result column="studentName" jdbcType="VARCHAR" property="studentName" />
+        <result column="studentPhone" jdbcType="VARCHAR" property="studentPhone" />
+        <result column="studentBirthday" jdbcType="TIMESTAMP" property="studentBirthday" />
+        <result column="studentReason" jdbcType="VARCHAR" property="studentReason" />
+        <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="classId" jdbcType="INTEGER" property="classId" />
+        <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
+    </resultMap>
+
+    <resultMap id="studentTable" type="com.tjh.vo.StudentVo">
+        <id column="studentId" jdbcType="INTEGER" property="studentId" />
+        <result column="studentName" jdbcType="VARCHAR" property="studentName" />
+        <result column="studentPhone" jdbcType="VARCHAR" property="studentPhone" />
+        <result column="studentBirthday" jdbcType="TIMESTAMP" property="studentBirthday" />
+        <result column="studentReason" jdbcType="VARCHAR" property="studentReason" />
+        <result column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="classId" jdbcType="INTEGER" property="classId" />
+        <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
+        <result column="teacherName" jdbcType="VARCHAR" property="teacherName" />
+        <result column="className" jdbcType="VARCHAR" property="className" />
+    </resultMap>
+    <resultMap id="studentList" type="java.util.HashMap">
+        <id column="studentId" property="studentId" jdbcType="INTEGER" />
+        <result column="studentName" property="studentName" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="loadAllStudent" resultMap="studentTable" parameterType="com.tjh.vo.StudentVo">
+        select  s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.remark,s.createTime,t.teacherName,c.className,s.state,
+        u.userName from student s
+        inner join sys_user u on u.userId = s.createPerson
+        left join class c on c.classId = s.classId
+        left join teacher t on t.teacherId = s.teacherId
+
+        <if test="studentName != null and studentName != ''">
+            and s.studentName=#{studentName}
+        </if>
+        <if test="className != null and className != ''">
+            and c.className like CONCAT('%',#{className},'%')
+        </if>
+        <if test="startTime != null">
+            <![CDATA[ and d.createTime  >=  #{startTime}  ]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[ and d.createTime  <=  #{endTime}  ]]>
+        </if>
+        limit #{page},#{limit}
+    </select>
+    <select id="loadTotalStudent" resultType="Integer" parameterType="com.tjh.vo.StudentVo">
+        select count(*) as total from(select  s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.remark,s.createTime,t.teacherName,c.className,
+        u.userName from student s
+        inner join sys_user u on u.userId = s.createPerson
+        left join teacher t on t.teacherId = s.teacherId
+        left join class c on c.classId = s.classId
+                                 and t.state = 1 and u.state = 1 and s.state=1
+        <if test="studentName != null and studentName != ''">
+            and s.studentName=#{studentName}
+        </if>
+        <if test="className != null and className != ''">
+            and c.className like CONCAT('%',#{className},'%')
+        </if>
+        <if test="startTime != null">
+            <![CDATA[ and d.createTime  >=  #{startTime}  ]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[ and d.createTime  <=  #{endTime}  ]]>
+        </if>
+        ) as a
+    </select>
+    <select id="loadStudentByClassId" resultMap="studentList" parameterType="Integer">
+        select studentId,studentName from student where classId = #{classId}
+    </select>
+    <select id="loadOneStudentByStudentId" parameterType="Integer"  resultMap="studentTable">
+        select studentId,studentName,studentPhone,studentBirthday,studentReason,classId,teacherId,userId,state,remark,createTime,createPerson
+        from student where studentId = #{studentId}
+    </select>
+    <update id="updateStudentByStudentId" parameterType="com.tjh.pojo.Student">
+        update student
+        <set>
+            <if test="studentName != null and studentName != ''">
+                 studentName=#{studentName},
+            </if>
+            <if test="studentPhone != null and studentPhone != ''">
+                studentPhone=#{studentPhone},
+            </if>
+            <if test="studentBirthday != null">
+                studentBirthday=#{studentBirthday},
+            </if>
+            <if test="studentReason != null and studentReason != ''">
+                studentReason=#{studentReason},
+            </if>
+            <if test="classId != null and classId != ''">
+                classId=#{classId},
+            </if>
+            <if test="teacherId != null and teacherId != ''">
+                teacherId=#{teacherId},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark=#{remark}
+            </if>
+        </set>
+        where studentId = #{studentId,jdbcType=INTEGER}
+    </update>
+    <update id="updateStudentStateByStudentId" parameterType="Integer">
+        update student set state = 2   where studentId = #{studentId,jdbcType=INTEGER}
+    </update>
+    <update id="updateStudentStateByStudentIds" parameterType="Integer[]">
+        <foreach collection="ids" separator=";" item="studentId">
+            update student
+            <set>
+                state = 2
+            </set>
+            <where>
+                studentId = #{studentId,jdbcType=INTEGER}
+            </where>
+        </foreach>
+    </update>
+    <!-- 插入 -->
+    <insert id="addStudent" parameterType="com.tjh.pojo.Student">
+        insert into student
+        (studentName,studentPhone,studentBirthday,studentReason,classId,teacherId,userId,remark,createPerson)
+        values
+        (#{studentName,jdbcType=VARCHAR}, #{studentPhone,jdbcType=VARCHAR},#{studentBirthday,jdbcType=TIMESTAMP},#{studentReason,jdbcType=VARCHAR},
+         #{classId,jdbcType=INTEGER},#{teacherId,jdbcType=INTEGER},#{userId,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER})
+    </insert>
+
+</mapper>

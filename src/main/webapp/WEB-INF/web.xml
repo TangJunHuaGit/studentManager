@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>SSM</display-name>
+	<!-- 配置spring的编码过滤器 开始 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- 配置编码的值 -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<!-- <url-pattern>*.action</url-pattern> -->
+		<!-- 指定某个servlet去过滤 -->
+		<servlet-name>springmvc</servlet-name>
+	</filter-mapping>
+	<filter>
+		<filter-name>functionFilter</filter-name>
+		<filter-class>com.tjh.base.filter.FunctionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>functionFilter</filter-name>
+		<servlet-name>springmvc</servlet-name>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<!--contextConfigLocation org.springframework.web.context.ContextLoader里面的第102行 -->
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>com.tjh.base.BaseServlet</servlet-class>
+		<!-- 加载springmvc.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc.xml</param-value>
+		</init-param>
+		<!-- 启动加载 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- 访问以.action结尾 由DispatcherServlet进行解析 user.action jquery.js -->
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+	<!-- 配置前端控制器结束 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

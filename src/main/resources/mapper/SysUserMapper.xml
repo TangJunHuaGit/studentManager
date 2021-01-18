@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjh.mapper.SysUserMapper">
+	<resultMap id="SysUserMap" type="com.tjh.pojo.SysUser">
+    <id column="userId" jdbcType="INTEGER" property="userId" />
+    <result column="userName" jdbcType="INTEGER" property="userName" />
+    <result column="userMobilePhone" jdbcType="VARCHAR" property="userMobilePhone" />
+    <result column="userHomePhone" jdbcType="VARCHAR" property="userHomePhone" />
+    <result column="userEmail" jdbcType="VARCHAR" property="userEmail" />
+    <result column="userQQ" jdbcType="VARCHAR" property="userQQ" />
+    <result column="userLogName" jdbcType="VARCHAR" property="userLogName" />
+    <result column="userLogPwd" jdbcType="VARCHAR" property="userLogPwd" />
+    <result column="userSex" jdbcType="INTEGER" property="userSex" />
+	<result column="userFax" jdbcType="VARCHAR" property="userFax" />
+	<result column="userAddress" jdbcType="VARCHAR" property="userAddress" />
+	<result column="userZipCode" jdbcType="VARCHAR" property="userZipCode" />
+	<result column="userImages" jdbcType="VARCHAR" property="userImages" />
+	<result column="userCard" jdbcType="VARCHAR" property="userCard" />
+	<result column="userSalt" jdbcType="VARCHAR" property="userSalt" />
+	<result column="userBirthday" jdbcType="TIMESTAMP" property="userBirthday" />
+	<result column="userOrderNum" jdbcType="INTEGER" property="userOrderNum" />
+	<result column="userLastLogTime" jdbcType="TIMESTAMP" property="userLastLogTime" />
+	<result column="userPosition" jdbcType="INTEGER" property="userPosition" />
+	<result column="userProvinceId" jdbcType="INTEGER" property="userProvinceId" />
+	<result column="userCityId" jdbcType="INTEGER" property="userCityId" />
+	<result column="userCountyId" jdbcType="INTEGER" property="userCountyId" />
+	<result column="deptId" jdbcType="INTEGER" property="deptId" />
+	<result column="state" jdbcType="INTEGER" property="state" />
+	<result column="remark" jdbcType="VARCHAR" property="remark" />
+	<result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+	<result column="createPerson" jdbcType="INTEGER" property="createPerson" />
+  </resultMap>
+	<insert id="addUser" parameterType="com.tjh.pojo.SysUser">
+		INSERT INTO sys_user
+		(userName,userLogName,userLogPwd)
+		 VALUES
+		(#{userName,jdbcType=VARCHAR},
+		#{userLogName,jdbcType=VARCHAR},
+		#{userLogPwd,jdbcType=VARCHAR});
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="userId">
+			SELECT LAST_INSERT_ID() AS userId;
+		</selectKey>
+	</insert>
+	
+	<select id="queryUserByUserLoginName" parameterType="String" resultType="com.tjh.pojo.SysUser">
+		select * from sys_user  where userlogName = #{userLoginName,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryUserByUserMobilePhone" parameterType="com.tjh.pojo.SysUser" resultType="com.tjh.pojo.SysUser">
+		select * from sys_user  where userMobilePhone = #{userMobilePhone,jdbcType=VARCHAR} and userLogName = #{userLogName,jdbcType=VARCHAR}
+	</select>
+	
+	
+</mapper>

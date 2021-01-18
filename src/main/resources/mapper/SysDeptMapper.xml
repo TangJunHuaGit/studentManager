@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjh.mapper.SysDeptMapper">
+	<resultMap id="SysDeptMap" type="com.tjh.pojo.SysDept">
+		<id column="deptId" jdbcType="INTEGER" property="deptId" />
+		<result column="deptParentId" jdbcType="INTEGER" property="deptParentId" />
+		<result column="deptName" jdbcType="VARCHAR" property="deptName" />
+		<result column="deptAdress" jdbcType="VARCHAR" property="deptAdress" />
+		<result column="deptNameRemarks" jdbcType="VARCHAR" property="deptNameRemarks" />
+		<result column="deptOrderNum" jdbcType="INTEGER" property="deptOrderNum" />
+		<result column="deptIsOpen" jdbcType="INTEGER" property="deptIsOpen" />
+		<result column="deptTel" jdbcType="VARCHAR" property="deptTel" />
+		<result column="deptFax" jdbcType="VARCHAR" property="deptFax" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+	    <result column="state" jdbcType="INTEGER" property="state" />
+	    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
+	</resultMap>
+	<resultMap id="SysDeptMapTree" type="java.util.HashMap">
+		<id column="deptId" property="id" jdbcType="INTEGER" />
+		<result column="deptParentId" property="Pid" jdbcType="INTEGER" />
+		<result column="deptName" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="loadAllDept" resultMap="SysDeptMapTree">
+		select a.deptId,a.deptParentId,a.deptName from sys_dept as a  
+	</select>
+</mapper>

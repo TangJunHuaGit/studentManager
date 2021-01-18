@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjh.mapper.DictionaryMapper">
+  <resultMap id="DictionaryMap" type="com.tjh.pojo.Dictionary">
+    <id column="reasonId" jdbcType="INTEGER" property="reasonId" />
+    <result column="reasonText" jdbcType="VARCHAR" property="reasonText" />
+    <result column="reasonPid" jdbcType="INTEGER" property="reasonPid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
+  </resultMap>
+  
+  <resultMap id="DictionaryVoMap" type="com.tjh.vo.DictionaryVo">
+    <id column="reasonId" jdbcType="INTEGER" property="reasonId" />
+    <result column="reasonText" jdbcType="VARCHAR" property="reasonText" />
+    <result column="reasonPid" jdbcType="INTEGER" property="reasonPid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <resultMap id="DictionaryList" type="java.util.HashMap">
+		<id column="reasonId" property="reasonId" jdbcType="INTEGER" />
+		<result column="reasonText" property="reasonText" jdbcType="VARCHAR" />
+</resultMap>
+  <!-- 查询 -->
+  <select id="loadAllDictionary"  resultMap="DictionaryVoMap">
+		select  d.reasonId, d.reasonText, d.reasonPid, d.remark, d.state, d.createTime, u.userName from dictionary as d 
+		inner join sys_user as u on d.createPerson = u.userId 
+		where  u.state = 1 and d.state = 1
+	    <if test="dictionaryVo.reasonId != null and dictionaryVo.reasonId != ''">
+         	and d.reasonPid=#{dictionaryVo.reasonId}
+	    </if>
+	    <if test="dictionaryVo.reasonText != null and dictionaryVo.reasonText != ''">
+	        and d.reasonText like CONCAT('%',#{dictionaryVo.reasonText},'%')
+	    </if>
+	    <if test="dictionaryVo.startTime != null">
+	    	<![CDATA[ and d.createTime  >=  #{dictionaryVo.startTime}  ]]>
+	    </if>
+	    <if test="dictionaryVo.endTime != null">
+	    	<![CDATA[ and d.createTime  <=  #{dictionaryVo.endTime}  ]]>
+	    </if>
+	    LIMIT #{dictionaryVo.page} ,#{dictionaryVo.limit}
+  </select>
+  <select id="loadTotalDictionary"  resultType="Integer">
+  		 select count(*) as total from ( 
+		 select  d.reasonId, d.reasonText, d.reasonPid, d.remark, d.state, d.createTime, u.userName from dictionary as d 
+		 inner join sys_user as u on d.createPerson = u.userId 
+		 where  u.state = 1 and d.state = 1
+		 <if test="dictionaryVo.reasonId != null and dictionaryVo.reasonId != ''">
+         	and d.reasonPid=#{dictionaryVo.reasonId}
+	    </if>
+	    <if test="dictionaryVo.reasonText != null and dictionaryVo.reasonText != ''">
+	        and d.reasonText like CONCAT('%',#{dictionaryVo.reasonText},'%')
+	    </if>
+	    <if test="dictionaryVo.startTime != null">
+	    	<![CDATA[ and d.createTime  >=  #{dictionaryVo.startTime}  ]]>
+	    </if>
+	    <if test="dictionaryVo.endTime != null">
+	    	<![CDATA[ and d.createTime  <=  #{dictionaryVo.endTime}  ]]>
+	    </if>
+		 ) as a
+  </select>
+  <!-- 插入 -->
+   <insert id="addDictionary" parameterType="com.tjh.pojo.Dictionary">
+    insert into dictionary 
+    (reasonText, reasonPid,remark,createPerson,state)
+    values 
+    (#{reasonText,jdbcType=VARCHAR}, #{reasonPid,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER},1)
+  </insert>
+  <!-- 修改数据状态 -->
+   <update id="updateDictionaryStateByReasonId" parameterType="Integer">
+    	update dictionary set  state = 2 where reasonId = #{reasonId}
+  </update>
+ <!-- 修改值 -->
+  <update id="updateByDictionaryReasonId" parameterType="com.tjh.pojo.Dictionary">
+    update dictionary
+    <set>
+      <if test="reasonText != null">
+        reasonText = #{reasonText,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonPid != null">
+        reasonPid = #{reasonPid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createPerson != null">
+        createPerson = #{createPerson,jdbcType=INTEGER},
+      </if>
+    </set>
+    where reasonId = #{reasonId,jdbcType=INTEGER}
+  </update>
+  <!-- 加载父类型 -->
+  <select id="loadParentDictionary" resultMap="DictionaryList">
+  		select reasonId,reasonText,reasonPid from dictionary where reasonPid = 0 and dictionary.state = 1
+  </select>
+  <!-- 加载单个数据 -->
+  <select id="loadOneDictionary" resultType="com.tjh.pojo.Dictionary">
+  		select reasonId, reasonText, reasonPid, remark, state, createTime, createPerson from dictionary where  reasonId = #{reasonId,jdbcType=INTEGER} and dictionary.state = 1
+  </select>
+  <update id="updateDictionaryStateByReasonIds" parameterType="Integer[]">
+	<foreach collection="reasonIds" separator=";" item="reasonId">
+		update dictionary
+		<set>  
+          state = 2
+        </set>  
+        <where>  
+            reasonId = #{reasonId,jdbcType=INTEGER}
+        </where> 
+	</foreach>
+</update>
+</mapper>
