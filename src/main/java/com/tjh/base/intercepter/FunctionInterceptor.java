@@ -53,7 +53,7 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
                 }
                 if (method.isAnnotationPresent(Function.class)) {
                     for (SysFunction function : functions) {
-                        System.out.println(method.getAnnotation(Function.class).functionName());
+                        //System.out.println(method.getAnnotation(Function.class).functionName());
                         if(method.getAnnotation(Function.class).functionName().equals(function.getFunctionCode())){
                             flag = true;
                             break;

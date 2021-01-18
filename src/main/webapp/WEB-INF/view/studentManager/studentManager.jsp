@@ -54,10 +54,10 @@
 </body>
 <script type="text/javascript">
 	var tableIns;
-    layui.use(['form','layer','table','laydate'],function(){
+    layui.use(['form','layer','table','laydate','layer'],function(){
 	        var form = layui.form,
-	        layer = parent.layer === undefined ? layui.layer : top.layer,
-	        $ = layui.jquery,
+	        layer = layui.layer,
+	        $ = layui.jquery, $ = layui.jquery,
 	        laydate=layui.laydate,
 	        table = layui.table;
 		    laydate.render({
@@ -125,7 +125,7 @@
         	    var data = obj.data //获得当前行数据
         	    ,layEvent = obj.event; //获得 lay-event 对应的值
         	    
-        	    var StudentId = obj.data.StudentId; //得到id
+        	    var studentId = obj.data.studentId; //得到id
         	    if(layEvent === 'del'){
         	      layer.confirm('真的删除行么', function(index){
         	        obj.del(); //删除对应行（tr）的DOM结构
@@ -135,7 +135,7 @@
         	               url:"${ctx}/student/updateStudentStateByStudentId.action",
         	               type:'POST',
        				       async:true,    //或false,是否异步
-       				       data:{StudentId:StudentId},
+       				       data:{studentId:studentId},
        				       timeout:5000,    //超时时间
        				       dataType:'json',
         	               success:function(data){
@@ -145,7 +145,7 @@
         	           });
         	      });
         	    } else if(layEvent === 'edit'){
-        	    	toUpdateStudent(StudentId);
+        	    	toUpdateStudent(studentId);
         	    }
         	  });
            //批量删除
@@ -156,7 +156,7 @@
                var ids = new Array();
                if(data.length > 0) {
                    for (var i in data) {
-                       ids.push(data[i].StudentId);
+                       ids.push(data[i].studentId);
                    }
                    layer.confirm('确定删除选中的学生？', {icon: 3, title: '提示信息'}, function (index) {
                       	   $.post("${ctx}/student/updateStudentStateByStudentIds.action?ids="+ids,function(data){
@@ -184,7 +184,8 @@
                            layui.layer.tips('点击此处返回学生列表', '.layui-layer-setwin .layui-layer-close', {
                                tips: 3
                            });
-                       },500)
+                       },500);
+                       layer.full(index);
                    }
                });
            }
@@ -193,13 +194,16 @@
                    title : "修改学生",
                    type : 2,//ifream层
                    area:["600px","500px"],
+                   zIndex: layer.zIndex, //重点1
                    content : "${ctx}/studentManager/updateStudent.action?studentId="+studentId,
                    success : function(layero, index){
+                       layer.setTop(layero); //重点2
                        setTimeout(function(){
                            layui.layer.tips('点击此处返回学生列表', '.layui-layer-setwin .layui-layer-close', {
                                tips: 3
                            });
-                       },500)
+                       },500);
+
                    }
                });
            }

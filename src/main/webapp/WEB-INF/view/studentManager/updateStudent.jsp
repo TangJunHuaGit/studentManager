@@ -12,7 +12,7 @@
 <body>
 <!-- -->
 
-<form class="layui-form" action="" lay-filter="studentForm" style="padding: 20px 30px 0 0; ">
+<form class="layui-form" action=""  id="studentForm" lay-filter="studentForm" style="padding: 20px 30px 0 0; ">
   <input type="text" name="studentId" style="display: none;" class="layui-input" >
   <div class="layui-form-item">
     <label class="layui-form-label">学生名称</label>
@@ -43,13 +43,12 @@
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">下载文件</label>
-    <button type="button" class="layui-btn" id="test4"><i class="layui-icon"></i>下载文件</button>
-    <input type="text" name="studentSources" style="display: none;" class="layui-input">
+    <button type="button" class="layui-btn" id="downLoadFile" onclick="downLoad()"><i class="layui-icon"></i>下载文件</button>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">上传文件</label>
     <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
-    <input type="text" name="studentSources" style="display: none;" class="layui-input">
+    <input type="text" name="studentSource" style="display: none;" class="layui-input">
   </div>
   <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">备注</label>
@@ -66,6 +65,7 @@
 </body>
 <script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
 <script type="text/javascript">
+  var studentId = getQueryVariable("studentId");//获取界面穿的id
 layui.config({
     base: '${ctx}/resources/layuiadmin/' //静态资源所在路径
   }).extend({
@@ -85,7 +85,6 @@ layui.config({
     ,type: 'date'
   })
 
-    var studentId = getQueryVariable("studentId");//获取界面穿的id
     /* 加载班级 */
     $.ajax({
       url:'${ctx}/class/loadAllClassComboBox.action',
@@ -140,17 +139,26 @@ layui.config({
 			});
    	        return false;
    	    });
-       //获取界面传参的方法
-	   function getQueryVariable(variable) {
-          var query = window.location.search.substring(1);
-          var vars = query.split("&");
-          for (var i=0;i<vars.length;i++) {
-                  var pair = vars[i].split("=");
-                  if(pair[0] == variable){return pair[1];}
-          }
-          return(false);
-	   }
   });
+    //获取界面传参的方法
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+      }
+      return(false);
+    }
+    function downLoad() {
+      var curWwwPath = window.document.location.href;
+      var pathName = window.document.location.pathname;
+      var pos = curWwwPath.indexOf(pathName);
+      var localhostPath = curWwwPath.substring(0, pos);
+      var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+      var url = "${ctx}/upload/downLoadFile.action?studentId="+studentId;
+      window.open(url);
+    }
 
 </script>
 </html>

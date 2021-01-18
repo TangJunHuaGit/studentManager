@@ -1,13 +1,17 @@
 package com.tjh.controller;
 
-        import java.io.File;
-        import java.io.IOException;
+        import java.io.*;
         import java.util.HashMap;
         import java.util.Map;
 
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
         import javax.servlet.http.HttpSession;
 
+        import com.tjh.pojo.Student;
+        import com.tjh.service.StudentService;
         import com.tjh.util.ResultMessage;
+        import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Controller;
         import org.springframework.web.bind.annotation.RequestMapping;
         import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +23,9 @@ package com.tjh.controller;
 @RequestMapping("upload")
 public class UploadController {
 
+    @Autowired
+    private StudentService studentService;
+
     @RequestMapping("uploadFile")
     @ResponseBody
     public Map<String,Object> uploadFile(MultipartFile mf,HttpSession session){
@@ -26,12 +33,14 @@ public class UploadController {
         map.put("code", 0);
         map.put("msg", "");
 
+
+
         // 1,得到老名字
         String oldName = mf.getOriginalFilename();
         // 2,得到tomcat里面的upload目录
         String realPath = session.getServletContext().getRealPath(
                 "/upload/");
-        // 3,得到当前时间2018-07-14
+        // 3,得到当前时间
         String currentDate = RandomStrUtils.getCurrentDateToStr();
         // 4,得到新的父目录的路径 并判断是否存在 如果不存在就创建
         String newRealPath = realPath + "/" + currentDate;
@@ -49,15 +58,48 @@ public class UploadController {
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
+        String  path = session.getServletContext().getRealPath("/");
         Map<String,Object> data=new HashMap<>();
-        data.put("src", "../upload/"+currentDate+"/"+newName);
+        data.put("src", path+currentDate+"/"+newName);
         map.put("data", data);
         return map;
     }
 
     @RequestMapping("downLoadFile")
     @ResponseBody
-    public ResultMessage downLoadFile(){
+    public ResultMessage downLoadFile(Integer studentId, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        //判断空 建立文件模板
+
+        response.setContentType("application/force-download");
+        response.setCharacterEncoding("utf-8");
+        //查询当前学生
+        Student student = studentService.loadOneStudentByStudentId(studentId);
+        //获取存入的文件路径
+        String studentSource = student.getStudentSource();
+        String suffix = studentSource.substring(studentSource.lastIndexOf(".") + 1);
+
+        response.setHeader("Content-Disposition", "attachment;fileName="
+                +java.net.URLEncoder.encode("病假情况."+suffix,"UTF-8"));
+
+
+        //得到项目路径
+        //String  path = request.getSession().getServletContext().getRealPath("/");
+        File tempFile = new File(studentSource);
+        try {
+            InputStream inputStream = new FileInputStream(tempFile);
+            OutputStream os = response.getOutputStream();
+            byte[] b = new byte[2048];
+            int length;
+            while ((length = inputStream.read(b)) > 0) {
+                os.write(b, 0, length);
+            }
+            os.flush();
+            os.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+        }
 
         return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
     }

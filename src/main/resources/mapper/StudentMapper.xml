@@ -86,7 +86,7 @@
         select studentId,studentName from student where classId = #{classId}
     </select>
     <select id="loadOneStudentByStudentId" parameterType="Integer"  resultMap="studentTable">
-        select studentId,studentName,studentPhone,studentBirthday,studentReason,classId,teacherId,userId,state,remark,createTime,createPerson
+        select studentId,studentName,studentPhone,studentBirthday,studentReason,studentSource,classId,teacherId,userId,state,remark,createTime,createPerson
         from student where studentId = #{studentId}
     </select>
     <update id="updateStudentByStudentId" parameterType="com.tjh.pojo.Student">

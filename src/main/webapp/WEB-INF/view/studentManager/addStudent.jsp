@@ -65,9 +65,11 @@
   <div class="layui-form-item">
     <label class="layui-form-label">文件名</label>
     <div class="layui-input-block">
-      <input type="text" name="studentSources" id="studentSources"  placeholder="上传后显示文件名" readonly="readonly" autocomplete="off" class="layui-input">
+      <input type="text" name="studentSourceName" id="studentSourceName"  placeholder="上传后显示文件名" readonly="readonly" autocomplete="off" class="layui-input">
     </div>
   </div>
+  <%--用于保存文件名--%>
+  <input type="text" name="studentSource" style="display: none;" id="studentSource" class="layui-input">
   <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">描述</label>
     <div class="layui-input-block">
@@ -94,7 +96,7 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'user','form','jquery','laydate','upload'], function(){
-    var $ = layui.$
+            var $ = layui.$
             ,setter = layui.setter
             ,admin = layui.admin
             ,form = layui.form
@@ -159,7 +161,7 @@
       });
       return false;
     });
-
+    var index;
     //普通图片上传
     //指定允许上传的文件类型
     upload.render({
@@ -168,12 +170,15 @@
       ,accept: 'file' //普通文件	field:'mf',
       ,field:'mf'
       ,before: function(obj){ //
-        //layer.load(); //上传loading
+        index = layer.load();
         var files = obj.pushFile();
-        $("#studentSources").setValue(files.name);
+        obj.preview(function (index, file, result) {
+         $("#studentSourceName").attr("value",files[index].name);
+        });
       }
       ,done: function(res){
-        console.log(res);
+        layer.close(index);
+        $("#studentSource").attr("value",res.data.src);
       }
     });
 
