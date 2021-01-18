@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50717
+ Source Server Version : 80022
  Source Host           : localhost:3306
  Source Schema         : ssm
 
  Target Server Type    : MySQL
- Target Server Version : 50717
+ Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 18/01/2021 17:07:14
+ Date: 19/01/2021 01:00:10
 */
 
 SET NAMES utf8mb4;
@@ -22,12 +22,12 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `class`;
 CREATE TABLE `class`  (
-  `classId` int(11) NOT NULL AUTO_INCREMENT,
-  `className` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `Sate` int(11) NULL DEFAULT NULL COMMENT '1为正常，2为注销',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `createTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `classId` int(0) NOT NULL AUTO_INCREMENT,
+  `className` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `Sate` int(0) DEFAULT NULL COMMENT '1为正常，2为注销',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`classId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
 
@@ -42,42 +42,38 @@ INSERT INTO `class` VALUES (4, '18班', 1, '软件版', '2021-01-18 14:35:40', 1
 -- ----------------------------
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course`  (
-  `courseId` int(11) NOT NULL AUTO_INCREMENT,
-  `courseName` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `teacherId` int(11) NULL DEFAULT NULL,
-  `state` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `createTime` datetime(0) NULL DEFAULT NULL,
-  `createPerson` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
+  `courseId` int(0) NOT NULL AUTO_INCREMENT,
+  `courseName` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `teacherId` int(0) DEFAULT NULL,
+  `state` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `createTime` datetime(0) DEFAULT NULL,
+  `createPerson` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
   PRIMARY KEY (`courseId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of course
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for dictionary
 -- ----------------------------
 DROP TABLE IF EXISTS `dictionary`;
 CREATE TABLE `dictionary`  (
-  `reasonId` int(11) NOT NULL AUTO_INCREMENT,
-  `reasonText` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `reasonPid` int(11) NULL DEFAULT 0,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `state` int(10) UNSIGNED NULL DEFAULT NULL,
-  `createTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `reasonId` int(0) NOT NULL AUTO_INCREMENT,
+  `reasonText` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `reasonPid` int(0) DEFAULT 0,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `state` int unsigned,
+  `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`reasonId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dictionary
 -- ----------------------------
-INSERT INTO `dictionary` VALUES (14, '请假类', 0, '请假类', 2, '2021-01-10 18:56:17', 1);
-INSERT INTO `dictionary` VALUES (15, '病假', 14, '病假', 2, '2021-01-10 18:56:38', 1);
-INSERT INTO `dictionary` VALUES (16, '婚假', 14, '结婚', 2, '2021-01-10 22:06:53', NULL);
-INSERT INTO `dictionary` VALUES (17, '事假', 18, '有事情', 2, '2021-01-10 22:07:12', NULL);
+INSERT INTO `dictionary` VALUES (14, '请假类', 0, '请假类', 1, '2021-01-10 18:56:17', 1);
+INSERT INTO `dictionary` VALUES (15, '病假', 14, '病假', 1, '2021-01-10 18:56:38', 1);
+INSERT INTO `dictionary` VALUES (16, '婚假', 14, '结婚', 1, '2021-01-10 22:06:53', NULL);
+INSERT INTO `dictionary` VALUES (17, '事假', 18, '有事情', 1, '2021-01-10 22:07:12', NULL);
 INSERT INTO `dictionary` VALUES (18, '测试类', 0, '测试类', 1, '2021-01-10 22:17:16', NULL);
 
 -- ----------------------------
@@ -85,59 +81,56 @@ INSERT INTO `dictionary` VALUES (18, '测试类', 0, '测试类', 1, '2021-01-10
 -- ----------------------------
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student`  (
-  `studentId` int(11) NOT NULL AUTO_INCREMENT,
-  `studentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `studentPhone` varchar(30) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `studentBirthday` date NULL DEFAULT NULL,
-  `studentReason` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `studentSource` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `classId` int(11) NULL DEFAULT NULL,
-  `teacherId` int(11) NULL DEFAULT NULL,
-  `userId` int(11) NULL DEFAULT NULL,
-  `dictionaryId` int(11) NULL DEFAULT NULL,
-  `state` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `createTime` datetime(0) NULL DEFAULT NULL,
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `studentId` int(0) NOT NULL AUTO_INCREMENT,
+  `studentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `studentPhone` varchar(30) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `studentBirthday` date DEFAULT NULL,
+  `studentReason` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `studentSource` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `classId` int(0) DEFAULT NULL,
+  `teacherId` int(0) DEFAULT NULL,
+  `userId` int(0) DEFAULT NULL,
+  `dictionaryId` int(0) DEFAULT NULL,
+  `state` int(0) DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`studentId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
+INSERT INTO `student` VALUES (3, '张三', '15675287477', '2021-02-03', '1', 'F:\\studentManager.git\\target\\SSM\\upload\\2021-01-19\\20210119005429103_3074.xls', 1, 1, 1, 2, 1, '1', NULL, 1);
 
 -- ----------------------------
 -- Table structure for student_course
 -- ----------------------------
 DROP TABLE IF EXISTS `student_course`;
 CREATE TABLE `student_course`  (
-  `studentId` int(11) NOT NULL,
-  `courseId` int(11) NOT NULL,
+  `studentId` int(0) NOT NULL,
+  `courseId` int(0) NOT NULL,
   PRIMARY KEY (`studentId`, `courseId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of student_course
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept`  (
-  `deptId` int(11) NOT NULL AUTO_INCREMENT COMMENT '部门ID',
-  `deptParentId` int(11) NULL DEFAULT NULL COMMENT '构成菜单的时候用',
-  `deptName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门名称',
-  `deptAdress` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门地址',
-  `deptNameRemarks` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门描述',
-  `deptOrderNum` int(11) NULL DEFAULT NULL COMMENT '排序用',
-  `deptIsOpen` int(11) NULL DEFAULT NULL COMMENT '是否展开 1为展开  2为不展开',
-  `deptTel` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '部门电话',
-  `deptFax` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门传真',
-  `state` int(11) NULL DEFAULT NULL COMMENT '状态 1为可用 2为不可用',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createTime` date NULL DEFAULT NULL COMMENT '部门创建时间',
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `deptId` int(0) NOT NULL AUTO_INCREMENT COMMENT '部门ID',
+  `deptParentId` int(0) DEFAULT NULL COMMENT '构成菜单的时候用',
+  `deptName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '部门名称',
+  `deptAdress` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '部门地址',
+  `deptNameRemarks` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '部门描述',
+  `deptOrderNum` int(0) DEFAULT NULL COMMENT '排序用',
+  `deptIsOpen` int(0) DEFAULT NULL COMMENT '是否展开 1为展开  2为不展开',
+  `deptTel` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '部门电话',
+  `deptFax` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '部门传真',
+  `state` int(0) DEFAULT NULL COMMENT '状态 1为可用 2为不可用',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `createTime` date DEFAULT NULL COMMENT '部门创建时间',
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`deptId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -152,21 +145,21 @@ INSERT INTO `sys_dept` VALUES (2, -1, '开发部', '湖南长沙', '开发部门
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_function`;
 CREATE TABLE `sys_function`  (
-  `functionId` int(11) NOT NULL AUTO_INCREMENT COMMENT '功能ID',
-  `functionParentId` int(11) NULL DEFAULT NULL COMMENT '功能的父ID',
-  `functionType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能类型[menu/permission]',
-  `functionIsParent` int(11) NULL DEFAULT 0 COMMENT '0子节点 1父节点',
-  `functionCode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能编码[只有type= permission才有  user:view]',
-  `functionName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能名称',
-  `functionIcon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能图标',
-  `functionHref` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能链接',
-  `functionTarget` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能链接',
-  `functionIsOpen` int(11) NULL DEFAULT NULL COMMENT '功能是否展开',
-  `functionOrderNum` int(11) NULL DEFAULT NULL COMMENT '功能编码',
-  `state` int(11) NULL DEFAULT 1 COMMENT '功能状态【0不可用1可用】',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `functionId` int(0) NOT NULL AUTO_INCREMENT COMMENT '功能ID',
+  `functionParentId` int(0) DEFAULT NULL COMMENT '功能的父ID',
+  `functionType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '功能类型[menu/permission]',
+  `functionIsParent` int(0) DEFAULT 0 COMMENT '0子节点 1父节点',
+  `functionCode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '功能编码[只有type= permission才有  user:view]',
+  `functionName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '功能名称',
+  `functionIcon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '功能图标',
+  `functionHref` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '功能链接',
+  `functionTarget` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '功能链接',
+  `functionIsOpen` int(0) DEFAULT NULL COMMENT '功能是否展开',
+  `functionOrderNum` int(0) DEFAULT NULL COMMENT '功能编码',
+  `state` int(0) DEFAULT 1 COMMENT '功能状态【0不可用1可用】',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`functionId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -242,28 +235,24 @@ INSERT INTO `sys_function` VALUES (97, 8, 'permission', 0, 'loadOneStudentByStud
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_position`;
 CREATE TABLE `sys_position`  (
-  `positionId` int(11) NOT NULL AUTO_INCREMENT COMMENT '职务ID',
-  `positionName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职务名称',
-  `positionRemarks` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职务描述',
-  `deptId` int(11) NULL DEFAULT NULL COMMENT '职务所属部门',
+  `positionId` int(0) NOT NULL AUTO_INCREMENT COMMENT '职务ID',
+  `positionName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '职务名称',
+  `positionRemarks` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '职务描述',
+  `deptId` int(0) DEFAULT NULL COMMENT '职务所属部门',
   PRIMARY KEY (`positionId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_position
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-  `roleId` int(11) NOT NULL AUTO_INCREMENT,
-  `roleName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
-  `state` int(11) NULL DEFAULT 1 COMMENT '该角色是否被启用 0为不启用，1为启用',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createTime` datetime(0) NULL DEFAULT NULL,
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `roleId` int(0) NOT NULL AUTO_INCREMENT,
+  `roleName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色名称',
+  `state` int(0) DEFAULT 1 COMMENT '该角色是否被启用 0为不启用，1为启用',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `createTime` datetime(0) DEFAULT NULL,
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`roleId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -279,9 +268,9 @@ INSERT INTO `sys_role` VALUES (16, '老师', 1, NULL, NULL, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_function`;
 CREATE TABLE `sys_role_function`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `roleid` int(11) NULL DEFAULT NULL,
-  `functionid` int(11) NULL DEFAULT NULL,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `roleid` int(0) DEFAULT NULL,
+  `functionid` int(0) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
 
@@ -305,8 +294,8 @@ INSERT INTO `sys_role_function` VALUES (17, 15, 90);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_user`;
 CREATE TABLE `sys_role_user`  (
-  `roleId` int(11) NOT NULL COMMENT '角色ID',
-  `userId` int(11) NOT NULL COMMENT '用户ID'
+  `roleId` int(0) NOT NULL COMMENT '角色ID',
+  `userId` int(0) NOT NULL COMMENT '用户ID'
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -321,34 +310,34 @@ INSERT INTO `sys_role_user` VALUES (15, 19);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-  `userId` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户姓名',
-  `userMobilePhone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户手机电话',
-  `userHomePhone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户家庭电话',
-  `userEmail` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户邮箱',
-  `userQQ` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'QQ',
-  `userLogName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户登录名',
-  `userLogPwd` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户登录密码',
-  `userSex` int(11) NULL DEFAULT NULL COMMENT '用户性别 1为先生 2为女士',
-  `userFax` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '传真',
-  `userAddress` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '家庭住址',
-  `userZipCode` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮编',
-  `userImages` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `userCard` varchar(18) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '身份证',
-  `userSalt` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户密码加密',
-  `userBirthday` date NULL DEFAULT NULL COMMENT '出生年月',
-  `userOrderNum` int(11) NULL DEFAULT NULL COMMENT '排序用',
-  `userLastLogTime` datetime(0) NULL DEFAULT NULL COMMENT '用户最后登陆时间',
-  `userPosition` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户职位 选择职位时 插入下拉框的TEXT值',
-  `userRelation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关系',
-  `userProvinceId` int(11) NULL DEFAULT NULL COMMENT '省',
-  `userCityId` int(11) NULL DEFAULT NULL COMMENT '市',
-  `userCountyId` int(11) NULL DEFAULT NULL COMMENT '县',
-  `deptId` int(11) NULL DEFAULT NULL COMMENT '用户所属部门',
-  `state` int(11) NULL DEFAULT 1 COMMENT '用户状态 1为可用 2为不可用 3为离职',
-  `remark` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `createTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '用户入职时间',
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `userId` int(0) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户姓名',
+  `userMobilePhone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户手机电话',
+  `userHomePhone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户家庭电话',
+  `userEmail` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户邮箱',
+  `userQQ` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'QQ',
+  `userLogName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户登录名',
+  `userLogPwd` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户登录密码',
+  `userSex` int(0) DEFAULT NULL COMMENT '用户性别 1为先生 2为女士',
+  `userFax` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '传真',
+  `userAddress` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '家庭住址',
+  `userZipCode` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮编',
+  `userImages` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '头像',
+  `userCard` varchar(18) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '身份证',
+  `userSalt` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户密码加密',
+  `userBirthday` date DEFAULT NULL COMMENT '出生年月',
+  `userOrderNum` int(0) DEFAULT NULL COMMENT '排序用',
+  `userLastLogTime` datetime(0) DEFAULT NULL COMMENT '用户最后登陆时间',
+  `userPosition` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户职位 选择职位时 插入下拉框的TEXT值',
+  `userRelation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '关系',
+  `userProvinceId` int(0) DEFAULT NULL COMMENT '省',
+  `userCityId` int(0) DEFAULT NULL COMMENT '市',
+  `userCountyId` int(0) DEFAULT NULL COMMENT '县',
+  `deptId` int(0) DEFAULT NULL COMMENT '用户所属部门',
+  `state` int(0) DEFAULT 1 COMMENT '用户状态 1为可用 2为不可用 3为离职',
+  `remark` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
+  `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP COMMENT '用户入职时间',
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`userId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -363,20 +352,16 @@ INSERT INTO `sys_user` VALUES (2, '熊志伟', '13873335777', NULL, NULL, NULL, 
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
-  `teacherId` int(11) NOT NULL AUTO_INCREMENT,
-  `teacherName` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `teacherPhone` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `teacherBrithday` time(0) NULL DEFAULT NULL,
-  `teacherSex` int(11) NULL DEFAULT NULL,
-  `state` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `createTime` datetime(0) NULL DEFAULT NULL,
-  `createPerson` int(11) NULL DEFAULT NULL,
+  `teacherId` int(0) NOT NULL AUTO_INCREMENT,
+  `teacherName` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `teacherPhone` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `teacherBrithday` time(0) DEFAULT NULL,
+  `teacherSex` int(0) DEFAULT NULL,
+  `state` int(0) DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `createTime` datetime(0) DEFAULT NULL,
+  `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`teacherId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of teacher
--- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
