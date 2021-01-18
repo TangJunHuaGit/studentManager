@@ -42,4 +42,9 @@ public class SysUserServiceImpl implements SysUserService{
 		return sysUserDao.getUserInfo(userId);
 	}
 
+	@Override
+	public boolean updateUserPassWord(SysUser user) {
+		return sysUserMapper.updateUserPassWord(user);
+	}
+
 }

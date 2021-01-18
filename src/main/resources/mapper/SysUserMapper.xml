@@ -41,14 +41,17 @@
 			SELECT LAST_INSERT_ID() AS userId;
 		</selectKey>
 	</insert>
-	
-	<select id="queryUserByUserLoginName" parameterType="String" resultType="com.tjh.pojo.SysUser">
+    <update id="updateUserPassWord"  parameterType="com.tjh.pojo.SysUser">
+		update  sys_user set  userLogPwd = #{userLogPwd} where userId=#{userId}
+	</update>
+
+    <select id="queryUserByUserLoginName" parameterType="String" resultType="com.tjh.pojo.SysUser">
 		select * from sys_user  where userlogName = #{userLoginName,jdbcType=VARCHAR}
 	</select>
-	
+
 	<select id="queryUserByUserMobilePhone" parameterType="com.tjh.pojo.SysUser" resultType="com.tjh.pojo.SysUser">
 		select * from sys_user  where userMobilePhone = #{userMobilePhone,jdbcType=VARCHAR} and userLogName = #{userLogName,jdbcType=VARCHAR}
 	</select>
-	
-	
+
+
 </mapper>

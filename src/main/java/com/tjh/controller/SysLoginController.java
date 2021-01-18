@@ -20,10 +20,10 @@ import com.tjh.util.SessionUtils;
 @Controller
 @RequestMapping("login")
 public class SysLoginController {
-	
+
 	@Autowired
 	private SysUserService sysUserService;
-	
+
 	@RequestMapping("doLogin")
 	@ResponseBody
 	public ResultMessage doLogin(SysUser user, Model model, HttpServletRequest request){
@@ -56,13 +56,24 @@ public class SysLoginController {
 		}
 	}
 
+	@RequestMapping("updateUserPassWord")
+	@ResponseBody
+	public ResultMessage updateUserPassWord(SysUser user){
+		boolean flag= this.sysUserService.updateUserPassWord(user);
+		if(flag){
+			return  ResultMessage.success(ResultMessage.SUCCESSCODE,ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+		}
+	}
+
 	@RequestMapping("loginOut")
 	@ResponseBody
 	public ResultMessage loginOut(HttpServletRequest request){
 		request.getSession().removeAttribute("user");
 		return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 	}
-	
-	
-	
+
+
+
 }
