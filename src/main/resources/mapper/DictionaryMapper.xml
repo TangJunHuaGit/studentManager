@@ -10,7 +10,7 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
   </resultMap>
-  
+
   <resultMap id="DictionaryVoMap" type="com.tjh.vo.DictionaryVo">
     <id column="reasonId" jdbcType="INTEGER" property="reasonId" />
     <result column="reasonText" jdbcType="VARCHAR" property="reasonText" />
@@ -21,14 +21,14 @@
     <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
     <result column="userName" jdbcType="VARCHAR" property="userName" />
   </resultMap>
-  <resultMap id="DictionaryList" type="java.util.HashMap">
+  <resultMap id="dictionaryList" type="java.util.HashMap">
 		<id column="reasonId" property="reasonId" jdbcType="INTEGER" />
 		<result column="reasonText" property="reasonText" jdbcType="VARCHAR" />
 </resultMap>
   <!-- 查询 -->
   <select id="loadAllDictionary"  resultMap="DictionaryVoMap">
-		select  d.reasonId, d.reasonText, d.reasonPid, d.remark, d.state, d.createTime, u.userName from dictionary as d 
-		inner join sys_user as u on d.createPerson = u.userId 
+		select  d.reasonId, d.reasonText, d.reasonPid, d.remark, d.state, d.createTime, u.userName from dictionary as d
+		inner join sys_user as u on d.createPerson = u.userId
 		where  u.state = 1 and d.state = 1
 	    <if test="dictionaryVo.reasonId != null and dictionaryVo.reasonId != ''">
          	and d.reasonPid=#{dictionaryVo.reasonId}
@@ -45,9 +45,9 @@
 	    LIMIT #{dictionaryVo.page} ,#{dictionaryVo.limit}
   </select>
   <select id="loadTotalDictionary"  resultType="Integer">
-  		 select count(*) as total from ( 
-		 select  d.reasonId, d.reasonText, d.reasonPid, d.remark, d.state, d.createTime, u.userName from dictionary as d 
-		 inner join sys_user as u on d.createPerson = u.userId 
+  		 select count(*) as total from (
+		 select  d.reasonId, d.reasonText, d.reasonPid, d.remark, d.state, d.createTime, u.userName from dictionary as d
+		 inner join sys_user as u on d.createPerson = u.userId
 		 where  u.state = 1 and d.state = 1
 		 <if test="dictionaryVo.reasonId != null and dictionaryVo.reasonId != ''">
          	and d.reasonPid=#{dictionaryVo.reasonId}
@@ -65,9 +65,9 @@
   </select>
   <!-- 插入 -->
    <insert id="addDictionary" parameterType="com.tjh.pojo.Dictionary">
-    insert into dictionary 
+    insert into dictionary
     (reasonText, reasonPid,remark,createPerson,state)
-    values 
+    values
     (#{reasonText,jdbcType=VARCHAR}, #{reasonPid,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER},1)
   </insert>
   <!-- 修改数据状态 -->
@@ -100,22 +100,25 @@
     where reasonId = #{reasonId,jdbcType=INTEGER}
   </update>
   <!-- 加载父类型 -->
-  <select id="loadParentDictionary" resultMap="DictionaryList">
+  <select id="loadParentDictionary" resultMap="dictionaryList">
   		select reasonId,reasonText,reasonPid from dictionary where reasonPid = 0 and dictionary.state = 1
   </select>
   <!-- 加载单个数据 -->
   <select id="loadOneDictionary" resultType="com.tjh.pojo.Dictionary">
   		select reasonId, reasonText, reasonPid, remark, state, createTime, createPerson from dictionary where  reasonId = #{reasonId,jdbcType=INTEGER} and dictionary.state = 1
   </select>
-  <update id="updateDictionaryStateByReasonIds" parameterType="Integer[]">
+    <select id="loadChildByDictionaryParentId" resultMap="dictionaryList" parameterType="integer">
+        select reasonId,reasonText from dictionary where reasonPid = #{reasonId} and dictionary.state = 1
+    </select>
+    <update id="updateDictionaryStateByReasonIds" parameterType="Integer[]">
 	<foreach collection="reasonIds" separator=";" item="reasonId">
 		update dictionary
-		<set>  
+		<set>
           state = 2
-        </set>  
-        <where>  
+        </set>
+        <where>
             reasonId = #{reasonId,jdbcType=INTEGER}
-        </where> 
+        </where>
 	</foreach>
 </update>
 </mapper>

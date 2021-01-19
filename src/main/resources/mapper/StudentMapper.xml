@@ -40,6 +40,9 @@
         <id column="studentId" property="studentId" jdbcType="INTEGER" />
         <result column="studentName" property="studentName" jdbcType="VARCHAR" />
     </resultMap>
+    <delete id="deleteStudentByStudentId" parameterType="Integer">
+        delete from student where studentId = #{studentId}
+    </delete>
     <select id="loadAllStudent" resultMap="studentTable" parameterType="com.tjh.vo.StudentVo">
         select  s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.remark,s.createTime,t.teacherName,c.className,s.state,
         u.userName from student s
@@ -86,8 +89,11 @@
         select studentId,studentName from student where classId = #{classId}
     </select>
     <select id="loadOneStudentByStudentId" parameterType="Integer"  resultMap="studentTable">
-        select studentId,studentName,studentPhone,studentBirthday,studentReason,studentSource,classId,teacherId,userId,state,remark,createTime,createPerson
-        from student where studentId = #{studentId}
+        select s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.studentSource,c.className,t.teacherName,c.classId,t.teacherId,s.userId,s.state,s.remark,s.createTime,s.createPerson
+        from student s
+        inner join teacher t on s.teacherId = t.teacherId
+        inner join class c on  c.classId = s.classId
+        where studentId = #{studentId}
     </select>
     <update id="updateStudentByStudentId" parameterType="com.tjh.pojo.Student">
         update student
@@ -117,26 +123,20 @@
         where studentId = #{studentId,jdbcType=INTEGER}
     </update>
     <update id="updateStudentStateByStudentId" parameterType="Integer">
-        update student set state = 2   where studentId = #{studentId,jdbcType=INTEGER}
+        update student set state = #{state}   where studentId = #{studentId,jdbcType=INTEGER}
     </update>
-    <update id="updateStudentStateByStudentIds" parameterType="Integer[]">
+    <update id="deleteStudentByStudentIds" parameterType="Integer[]">
         <foreach collection="ids" separator=";" item="studentId">
-            update student
-            <set>
-                state = 2
-            </set>
-            <where>
-                studentId = #{studentId,jdbcType=INTEGER}
-            </where>
+            delete from student where studentId = #{studentId,jdbcType=INTEGER}
         </foreach>
     </update>
     <!-- 插入 -->
     <insert id="addStudent" parameterType="com.tjh.pojo.Student">
         insert into student
-        (studentName,studentPhone,studentBirthday,studentReason,classId,teacherId,userId,remark,createPerson)
+        (studentName,studentPhone,studentBirthday,studentReason,studentSource,classId,teacherId,userId,remark,createPerson,dictionaryId)
         values
-        (#{studentName,jdbcType=VARCHAR}, #{studentPhone,jdbcType=VARCHAR},#{studentBirthday,jdbcType=TIMESTAMP},#{studentReason,jdbcType=VARCHAR},
-         #{classId,jdbcType=INTEGER},#{teacherId,jdbcType=INTEGER},#{userId,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER})
+        (#{studentName,jdbcType=VARCHAR}, #{studentPhone,jdbcType=VARCHAR},#{studentBirthday,jdbcType=TIMESTAMP},#{studentReason,jdbcType=VARCHAR},#{studentSource,jdbcType=VARCHAR},
+         #{classId,jdbcType=INTEGER},#{teacherId,jdbcType=INTEGER},#{userId,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER},#{dictionaryId,jdbcType=INTEGER})
     </insert>
 
 </mapper>

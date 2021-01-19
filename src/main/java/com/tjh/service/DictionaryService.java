@@ -10,19 +10,22 @@ import com.tjh.util.DataGridView;
 import com.tjh.vo.DictionaryVo;
 
 public interface DictionaryService {
-	
+
 	public boolean addDictionary(Dictionary dictionary);
-	
+
 	public DataGridView loadAllDictionary(DictionaryVo dictionaryVo);
-	
+
 	public boolean updateDictionaryStateByReasonId(Integer reasonId);
 
 	public boolean updateByDictionaryReasonId(Dictionary dictionary);
-	
+
 	public List<Map<String, Object>> loadParentDictionary();
-	
+
 	public Dictionary loadOneDictionary(Integer reasonId);
-	
+
 	public int updateDictionaryStateByReasonIds(Integer[] reasonIds);
+
+	//根居上級字典獲取字典
+	public List<Map<String, Object>> loadChildByDictionaryParentId(Integer reasonId);
 
 }

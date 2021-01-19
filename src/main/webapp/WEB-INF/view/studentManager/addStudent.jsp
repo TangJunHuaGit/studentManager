@@ -23,16 +23,22 @@
   <div class="layui-form-item">
     <label class="layui-form-label">班级</label>
     <div class="layui-input-block">
-      <select name="classId" id="className" lay-filter="classId">
+      <select name="classId" id="className" lay-filter="classId" lay-verify="required">
         <option value="">请选择班级</option>
       </select>
     </div>
-
   </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">班主任</label>
+    <div class="layui-input-block">
+      <input type="text" name="teacherName" id="teacherName"  placeholder="选择班级后显示" readonly="readonly" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <input type="text" name="teacherId" style="display: none;" id="teacherId" readonly="readonly" autocomplete="off" class="layui-input">
   <div class="layui-form-item">
     <label class="layui-form-label">请假类型</label>
     <div class="layui-input-block">
-      <select name="dictionaryParentName"  id="dictionaryPid">
+      <select name="dictionaryParentName"  id="dictionaryPid" lay-filter="dictionaryPid">
         <option value="">请选择</option>
       </select>
     </div>
@@ -40,7 +46,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">请假小类</label>
     <div class="layui-input-block">
-      <select name="dictionaryName"  id="dictionaryId">
+      <select name="dictionaryId"  id="dictionaryId">
         <option value="">请选择</option>
       </select>
     </div>
@@ -60,7 +66,6 @@
   <div class="layui-form-item">
     <label class="layui-form-label">上传文件</label>
     <button type="button" class="layui-btn" id="uploadFile"><i class="layui-icon"></i>上传文件</button>
-
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">文件名</label>
@@ -124,7 +129,7 @@
       }
     });
 
-    /* 加载下拉框 */
+    /* 加載請假類型 */
     $.ajax({
       url:"${ctx}/dictionary/loadParentDictionary.action",
       success:function(res){
@@ -134,6 +139,41 @@
         //重新渲染
         layui.form.render("select");
       }
+    });
+    //監聽請假類型,根據所選請假類型加載子類型
+    form.on('select(dictionaryPid)', function (data) {
+      var  reasonId= data.value;
+      if (reasonId === "" || reasonId < 1) {
+        return;
+      }
+      $.post("${ctx}/dictionary/loadChildByDictionaryParentId.action", {reasonId: reasonId}, function (res) {
+        var options="";
+        for (var i = 0; i < res.length; i++) {
+          options+=' <option value="'+res[i].reasonId+'">'+res[i].reasonText+'</option>';
+        }
+        $("select[name='dictionaryId']").html(options)
+        //初始化子分类
+        //参数1 type  参数2 filter
+        layui.form.render("select");
+      })
+    });
+
+    //監聽班级 匹配班主任
+    form.on('select(classId)', function (data) {
+      var  classId= data.value;
+      if (classId === "" || classId < 1) {
+        return;
+      }
+      $.post("${ctx}/teacher/loadOneTeacherByClassId.action", {classId: classId}, function (data) {
+        if (data.code == 200){
+          $("input[name='teacherName']").val(data.data.teacherName);
+          $("input[name='teacherId']").val(data.data.teacherId)
+        }else{
+          layer.msg("当前班级暂无班主任");
+          $("input[name='teacherName']").val("");
+          $("input[name='teacherId']").val("");
+        }
+      })
     });
 
     //提交

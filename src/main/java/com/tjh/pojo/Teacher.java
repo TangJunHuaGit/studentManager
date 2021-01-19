@@ -9,9 +9,11 @@ public class Teacher {
 
     private String teacherPhone;
 
-    private Date teacherBrithday;
+    private Date teacherBirthday;
 
     private Integer teacherSex;
+
+    private Integer classId;
 
     private Integer state;
 
@@ -20,6 +22,14 @@ public class Teacher {
     private Date createTime;
 
     private Integer createPerson;
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
 
     public Integer getTeacherId() {
         return teacherId;
@@ -45,12 +55,12 @@ public class Teacher {
         this.teacherPhone = teacherPhone == null ? null : teacherPhone.trim();
     }
 
-    public Date getTeacherBrithday() {
-        return teacherBrithday;
+    public Date getTeacherBirthday() {
+        return teacherBirthday;
     }
 
-    public void setTeacherBrithday(Date teacherBrithday) {
-        this.teacherBrithday = teacherBrithday;
+    public void setTeacherBirthday(Date teacherBirthday) {
+        this.teacherBirthday = teacherBirthday;
     }
 
     public Integer getTeacherSex() {

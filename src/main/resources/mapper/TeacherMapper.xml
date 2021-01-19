@@ -5,12 +5,16 @@
     <id column="teacherId" jdbcType="INTEGER" property="teacherId" />
     <result column="teacherName" jdbcType="VARCHAR" property="teacherName" />
     <result column="teacherPhone" jdbcType="VARCHAR" property="teacherPhone" />
-    <result column="teacherBrithday" jdbcType="TIME" property="teacherBrithday" />
+    <result column="teacherBirthday" jdbcType="TIME" property="teacherBirthday" />
     <result column="teacherSex" jdbcType="INTEGER" property="teacherSex" />
+    <result column="classId" jdbcType="INTEGER" property="teacherSex" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
   </resultMap>
-  
+  <select id="loadOneTeacherByClassId" resultType="com.tjh.pojo.Teacher" parameterType="Integer">
+        select teacherId,teacherName from teacher where classId = #{classId}
+  </select>
+
 </mapper>

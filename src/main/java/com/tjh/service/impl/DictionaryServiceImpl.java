@@ -15,7 +15,7 @@ import com.tjh.util.PageBuilder;
 import com.tjh.vo.DictionaryVo;
 @Service
 public class DictionaryServiceImpl implements DictionaryService{
-	
+
 	@Autowired
 	private DictionaryMapper dictionaryMapper;
 
@@ -66,6 +66,11 @@ public class DictionaryServiceImpl implements DictionaryService{
 	public int updateDictionaryStateByReasonIds(Integer[] reasonIds) {
 		// TODO Auto-generated method stub
 		return dictionaryMapper.updateDictionaryStateByReasonIds(reasonIds);
+	}
+
+	@Override
+	public List<Map<String, Object>> loadChildByDictionaryParentId(Integer reasonId) {
+		return dictionaryMapper.loadChildByDictionaryParentId(reasonId);
 	}
 
 }

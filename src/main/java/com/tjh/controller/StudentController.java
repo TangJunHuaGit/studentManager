@@ -22,6 +22,7 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 
+	//加载所有学生
 	@Function(functionName = "loadAllStudent")
 	@RequestMapping("loadAllStudent")
 	@ResponseBody
@@ -30,6 +31,7 @@ public class StudentController {
 		return allStudent;
 	}
 
+	//通过班级加载学生
 	@Function(functionName = "loadStudentByClassId")
 	@RequestMapping("loadStudentByClassId")
 	@ResponseBody
@@ -38,6 +40,7 @@ public class StudentController {
 		return Student;
 	}
 
+	//添加学生
 	@Function(functionName = "addStudent")
 	@RequestMapping("addStudent")
 	@ResponseBody
@@ -55,6 +58,7 @@ public class StudentController {
 		}
 	}
 
+	//加载单个学生信息
 	@Function(functionName = "loadOneStudentByStudentId")
 	@RequestMapping("loadOneStudentByStudentId")
 	@ResponseBody
@@ -62,6 +66,7 @@ public class StudentController {
 		return  this.studentService.loadOneStudentByStudentId(studentId);
 	}
 
+	//修改学生
 	@Function(functionName = "updateStudentByStudentId")
 	@RequestMapping("updateStudentByStudentId")
 	@ResponseBody
@@ -72,5 +77,18 @@ public class StudentController {
 		  }else{
 			  return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
 		  }
+	}
+
+	//提交申请
+	@Function(functionName = "updateStudentStateByStudentId")
+	@RequestMapping("updateStudentStateByStudentId")
+	@ResponseBody
+	public ResultMessage updateStudentStateByStudentId(String studentId,String state){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
+		if(flag){
+			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+		}
 	}
 }

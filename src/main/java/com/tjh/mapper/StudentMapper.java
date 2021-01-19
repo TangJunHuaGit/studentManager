@@ -12,6 +12,7 @@ import com.tjh.vo.StudentVo;
 
 public interface StudentMapper {
 
+	//根据班级加载学生
 	List<Student> loadStudentByClassId(Integer classId);
 
 	//添加学生
@@ -30,8 +31,10 @@ public interface StudentMapper {
 	public boolean updateStudentByStudentId(Student student);
 
 	//更新单个学生状态
-	public boolean updateStudentStateByStudentId(Integer studentId);
+	public boolean updateStudentStateByStudentId(@Param("studentId") Integer studentId,@Param("state")Integer state);
 
 	//批量更新学生状态
-	public boolean updateStudentStateByStudentIds(@Param("ids")Integer[] ids);
+	public boolean deleteStudentByStudentIds(@Param("ids")Integer[] ids);
+
+	public boolean deleteStudentByStudentId(Integer studentId);
 }

@@ -58,20 +58,24 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public boolean updateStudentByStudentId(Student student) {
-		// TODO Auto-generated method stub
 		return  this.studentMapper.updateStudentByStudentId(student);
 	}
 
+
 	@Override
-	public boolean updateStudentStateByStudentId(Integer studentId) {
-		// TODO Auto-generated method stub
-		return this.studentMapper.updateStudentStateByStudentId(studentId);
+	public boolean updateStudentStateByStudentId(Integer studentId, Integer state) {
+		return this.studentMapper.updateStudentStateByStudentId(studentId,state);
 	}
 
 	@Override
-	public boolean updateStudentStateByStudentIds(Integer[] ids) {
-		// TODO Auto-generated method stub
-		return this.studentMapper.updateStudentStateByStudentIds(ids);
+	public boolean deleteStudentByStudentIds(Integer[] ids) {
+		return this.studentMapper.deleteStudentByStudentIds(ids);
 	}
+
+	@Override
+	public boolean deleteStudentByStudentId(Integer studentId) {
+		return  this.studentMapper.deleteStudentByStudentId(studentId);
+	}
+
 
 }

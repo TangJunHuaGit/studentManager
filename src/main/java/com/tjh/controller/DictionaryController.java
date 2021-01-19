@@ -115,4 +115,12 @@ public class DictionaryController {
 			return map;
 		}
 	}
+
+	@Function(functionName = "loadChildByDictionaryParentId")
+	@RequestMapping("loadChildByDictionaryParentId")
+	@ResponseBody
+	public  List<Map<String, Object>> loadChildByDictionaryParentId(Integer reasonId){
+		List<Map<String, Object>> maps = dictionaryService.loadChildByDictionaryParentId(reasonId);
+		return  maps;
+	}
 }

@@ -40,17 +40,40 @@
 </form>
 <table id="studentList" lay-filter="studentList" class="studentList"></table>
 
+
+<script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
 <!--表格工具条-->
 <script type="text/html" id="tableToolBar">
-	<a class="layui-btn layui-btn layui-btn" lay-event="add">添加</a>
+    <a class="layui-btn layui-btn layui-btn" lay-event="add">添加</a>
 	<a class="layui-btn layui-btn layui-btn-danger" lay-event="batchDel">批量删除</a>
 </script>
 <!--操作-->
 <script type="text/html" id="tableToolBarLine">
-  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# if(d.state == 1){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# }  else if(d.state== 2) { }}
+    {{# } else if(d.state== 3) { }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# } else if(d.state== 4) { }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# } }}
 </script>
-<script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
+<script type="text/html" id="table-gender">
+    {{# if(d.state=== 1) { }}
+         <span style="color:red">未提交</span>
+    {{# } else if(d.state== 2) { }}
+         <span style="color:RGB(252,195,48);">审批中</span>
+    {{# }  else if(d.state== 3) { }}
+         <span style="color:green">已审批</span>
+    {{# } else if(d.state== 4) { }}
+         <span style="color:#FFD700;">已审批未通过</span>
+    {{# } }}
+</script>
 </body>
 <script type="text/javascript">
 	var tableIns;
@@ -73,7 +96,7 @@
     	      elem: '#studentList'
     	      ,url: "${ctx}/student/loadAllStudent.action"
     	      ,height: 'full-200'
-    	      ,cellMinWidth: 80
+    	      ,cellMinWidth: 70
     	      ,page: true
     	      ,limit: 10
     	      ,toolbar: '#tableToolBar'
@@ -86,15 +109,15 @@
     	        ,{field:'className', title: '所属班级'}
     	        ,{field:'teacherName', title: '班主任'}
     	        ,{field:'remark', title: '备注', sort: true}
-    	        ,{field:'state', title: 'state', sort: true, align: 'center',hide:true}
+    	        ,{field:'state', title: '状态', sort: true, align: 'center',templet: '#table-gender'}
     	        ,{field:'userName', title: '创建人', sort: true, align: 'center'}
-    	        ,{field:'createTime', title: '创建时间', sort: true, align: 'center'}
-    	        ,{fixed: 'right',title: '操作',width: 165, align:'center', toolbar: '#tableToolBarLine'}
+    	        ,{field:'createTime', title: '创建时间', sort: true, align: 'center',width: 200}
+    	        ,{fixed: 'right',title: '操作',width: 200, align:'center', toolbar: '#tableToolBarLine'}
     	      ]]
     	      ,done: function (res, curr, count) {
     	            if (curr > 1 && res.data.length === 0) {
     	                curr = curr - 1;
-    	                table.reload('studentList', { 
+    	                table.reload('studentList', {
     	                    page: {
     	                        curr: curr
     	                    },
@@ -110,21 +133,23 @@
                    url: '${ctx}/student/loadAllStudent.action?'+params
                });
            });
-           //监听头工具栏事件
-           table.on('toolbar(studentList)', function(obj){
-               switch(obj.event){
-   	            case 'add':
-   	               	toAddStudent();
-                   	break;
-                   case 'batchDel':
-                   	batchDeleteStudent();
-                       break;
-               };
-           });
+
+
+        //监听头工具栏事件
+        table.on('toolbar(studentList)', function(obj){
+            switch(obj.event){
+                case 'add':
+                    toAddStudent();
+                    break;
+                case 'batchDel':
+                    batchDeleteStudent();
+                    break;
+            };
+        });
            table.on('tool(studentList)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
         	    var data = obj.data //获得当前行数据
         	    ,layEvent = obj.event; //获得 lay-event 对应的值
-        	    
+
         	    var studentId = obj.data.studentId; //得到id
         	    if(layEvent === 'del'){
         	      layer.confirm('真的删除行么', function(index){
@@ -146,9 +171,33 @@
         	      });
         	    } else if(layEvent === 'edit'){
         	    	toUpdateStudent(studentId);
-        	    }
+        	    }else if(layEvent === "submit"){
+                    submitAction(studentId);
+                }
         	  });
-           //批量删除
+            function submitAction(studentId) {
+                layer.confirm('确认提交此申请吗?', {icon: 3, title:'提示'}, function(index){
+                    layer.close(index);
+                    $.ajax({
+                        url:"${ctx}/student/updateStudentStateByStudentId.action",
+                        type:'POST',
+                        async:true,    //或false,是否异步
+                        data:{studentId:studentId,state:"2"},
+                        timeout:5000,    //超时时间
+                        dataType:'json',
+                        success:function(data){
+                            if(data.code == 200){
+                                layer.msg(data.describe);
+                                tableIns.reload();
+                            }else{
+                                layer.msg(data.desc);
+                            }
+                        }
+                    });
+                });
+            }
+
+        //批量删除
            function batchDeleteStudent(){
                //得到当前表格里面的checkbox的选中对象集合
                var checkStatus = table.checkStatus('studentList'),//选中状态
@@ -166,7 +215,7 @@
                               //关闭提示框
                               layer.close(index);
     	                    },500)
-                       }) 
+                       })
                    })
                }else{
                    layer.msg("请选择需要删除的学生");
