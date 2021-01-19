@@ -2,28 +2,100 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tjh.mapper.SysFunctionMapper">
   <resultMap id="SysFuntionMap" type="com.tjh.vo.SysFuntionVo">
-    <id column="functionId" jdbcType="INTEGER" property="functionId" />
-    <result column="functionParentId" jdbcType="INTEGER" property="functionParentId" />
-    <result column="functionType" jdbcType="VARCHAR" property="functionType" />
-    <result column="functionIsParent" jdbcType="INTEGER" property="functionIsParent" />
-    <result column="functionCode" jdbcType="VARCHAR" property="functionCode" />
-    <result column="functionName" jdbcType="VARCHAR" property="functionName" />
-    <result column="functionIcon" jdbcType="VARCHAR" property="functionIcon" />
-    <result column="functionHref" jdbcType="VARCHAR" property="functionHref" />
-    <result column="functionTarget" jdbcType="VARCHAR" property="functionTarget" />
-    <result column="functionIsOpen" jdbcType="INTEGER" property="functionIsOpen" />
-    <result column="functionOrderNum" jdbcType="INTEGER" property="functionOrderNum" />
-  	<result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
+    <id column="functionId" jdbcType="INTEGER" property="functionId"/>
+    <result column="functionParentId" jdbcType="INTEGER" property="functionParentId"/>
+    <result column="functionType" jdbcType="VARCHAR" property="functionType"/>
+    <result column="functionIsParent" jdbcType="INTEGER" property="functionIsParent"/>
+    <result column="functionCode" jdbcType="VARCHAR" property="functionCode"/>
+    <result column="functionName" jdbcType="VARCHAR" property="functionName"/>
+    <result column="functionIcon" jdbcType="VARCHAR" property="functionIcon"/>
+    <result column="functionHref" jdbcType="VARCHAR" property="functionHref"/>
+    <result column="functionTarget" jdbcType="VARCHAR" property="functionTarget"/>
+    <result column="functionIsOpen" jdbcType="INTEGER" property="functionIsOpen"/>
+    <result column="functionOrderNum" jdbcType="INTEGER" property="functionOrderNum"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    <result column="state" jdbcType="INTEGER" property="state"/>
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="createPerson" jdbcType="INTEGER" property="createPerson"/>
   </resultMap>
   <select id="loadAllMenu" resultMap="SysFuntionMap" parameterType="com.tjh.vo.SysFuntionVo">
-  	select * from sys_function where functionType = 'menu'  order by  functionOrderNum  limit #{page},#{limit}
+    select *
+    from sys_function
+    where functionType = 'menu'
+    <if test="functionName!=null and functionName!=''">
+      and functionName like CONCAT('%',#{functionName},'%')
+    </if>
+    order by functionOrderNum limit #{page}, #{limit}
+  </select>
+  <select id="loadAllMenuCount" resultType="Integer">
+    select count(1)
+    from sys_function
+    where functionType = 'menu'
+    <if test="functionName!=null and functionName!=''">
+      and functionName like CONCAT('%',#{functionName},'%')
+    </if>
   </select>
 
   <select id="loadAllFunction" resultMap="SysFuntionMap">
-    select * from sys_function where functionType = 'permission' order by  functionOrderNum
+    select *
+    from sys_function
+    where functionType = 'permission'
+    order by functionOrderNum
   </select>
-  
+
+  <insert id="addMenu" parameterType="com.tjh.vo.SysFuntionVo">
+    INSERT INTO `sys_function`
+    (`functionParentId`,
+     `functionType`,
+     `functionIsParent`,
+     `functionName`,
+     `functionIcon`,
+     `functionHref`,
+     `functionIsOpen`,
+     `functionOrderNum`,
+     `state`,
+     `remark`,
+     `createTime`,
+     `createPerson`)
+    VALUES (#{functionParentId},
+            'menu',
+            0,
+            #{functionName},
+            #{functionIcon},
+            #{functionHref},
+            0,
+            #{functionOrderNum},
+            1,
+            #{remark},
+            now(),
+            #{createPerson});
+  </insert>
+
+  <select id="queryOneMenu" parameterType="Integer" resultType="com.tjh.vo.SysFuntionVo">
+    select *
+    from sys_function
+    where functionId = #{functionId}
+  </select>
+
+  <update id="updateMenuByMenuId" parameterType="com.tjh.vo.SysFuntionVo">
+    update sys_function set functionParentId = #{functionParentId}
+    <if test="functionName!=null and functionName！=''">
+      ,functionName = #{functionName}
+    </if>
+    <if test="functionHref!=null and functionHref！=''">
+      ,functionHref = #{functionHref}
+    </if>
+    <if test="functionOrderNum!=null and functionOrderNum！=''">
+      ,functionOrderNum = #{functionOrderNum}
+    </if>
+    <if test="functionIcon!=null and functionIcon！=''">
+      ,functionIcon = #{functionIcon}
+    </if>
+    where functionId = #{functionId}
+  </update>
+
+  <select id="queryAll" resultMap="SysFuntionMap">
+    select * from sys_function
+  </select>
+
 </mapper>

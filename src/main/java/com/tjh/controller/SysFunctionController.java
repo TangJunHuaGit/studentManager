@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.tjh.base.annotation.Function;
 import com.tjh.pojo.SysFunction;
 import com.tjh.pojo.SysUserInfo;
 import com.tjh.util.*;
@@ -41,6 +42,7 @@ public class SysFunctionController {
 		DataGridView data = new DataGridView((long) menus.size(),functionTree);
 		return data;
 	}
+	@Function(functionName = "loadAllMenu")
 	@RequestMapping("loadAllMenu")
 	@ResponseBody
 	public DataGridView loadAllMenu(SysFuntionVo vo) {
@@ -54,17 +56,21 @@ public class SysFunctionController {
 	}
 
 	//	添加
+	@Function(functionName = "addMenu")
 	@RequestMapping("addMenu")
 	@ResponseBody
 	public ResultMessage addMenu(SysFuntionVo vo) {
 		return this.sysFunctionService.addMenu(vo);
 	}
+
+	@Function(functionName = "queryOneMenu")
 	@RequestMapping("queryOneMenu")
 	@ResponseBody
 	public ResultMessage queryOneMenu(Integer functionId) {
 		SysFunction sysFunction = this.sysFunctionService.queryOneMenu(functionId);
 		return ResultMessage.success(sysFunction,"查询成功");
 	}
+	@Function(functionName = "updateMenuByMenuId")
 	@RequestMapping("updateMenuByMenuId")
 	@ResponseBody
 	public ResultMessage updateMenuByMenuId(SysFuntionVo vo) {
@@ -72,6 +78,7 @@ public class SysFunctionController {
 		return ResultMessage.success(i ,"修改成功");
 	}
 
+	@Function(functionName = "loadTreeFunction")
 	@RequestMapping("loadTreeFunction")
 	@ResponseBody
 	public DtreeBuild loadTreeFunction(Integer roleId) {

@@ -54,10 +54,10 @@
 <!--表格工具条-->
 <script type="text/html" id="tableToolBar">
     {{# layui.each(permissionObj, function(index, item){ }}
-        {{# if(item.functionCode == 'menu:create'){ }}
+        {{# if(item.functionCode == 'addMenu'){ }}
             {{# add = true}}
         {{# } }}
-        {{# if(item.functionCode == 'menu:batchdelete'){ }}
+        {{# if(item.functionCode == 'batchDeleteMenu'){ }}
             {{# batchDel = true}}
         {{# } }}
     {{#  }); }}
@@ -71,10 +71,10 @@
 <!--操作-->
 <script type="text/html" id="tableToolBarLine">
     {{# layui.each(permissionObj, function(index, item){ }}
-        {{# if(item.functionCode == 'menu:update'){ }}
+        {{# if(item.functionCode == 'updateMenuByMenuId'){ }}
             {{# edit = true}}
         {{# } }}
-        {{# if(item.functionCode == 'menu:delete'){ }}
+        {{# if(item.functionCode == 'deleteMenu'){ }}
             {{# del = true}}
         {{# } }}
     {{#  }); }}

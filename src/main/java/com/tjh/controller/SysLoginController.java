@@ -30,6 +30,9 @@ public class SysLoginController {
 		long begin = System.currentTimeMillis();
 		//设置session，获取角色、菜单和权限，放到redis中（mysql和redis数据同步）
 		SysUser dbUser = this.sysUserService.queryUserByUserLoginName(user.getUserLogName());
+		if(dbUser == null){
+			return ResultMessage.erreo(ResultMessage.FAILCODE,null,"用户不存在");
+		}
 		SysUserInfo userInfo = sysUserService.getUserInfo(String.valueOf(dbUser.getUserId()));
 		userInfo.setUser(dbUser);
 		if(user.getUserLogPwd().equals(dbUser.getUserLogPwd())) {

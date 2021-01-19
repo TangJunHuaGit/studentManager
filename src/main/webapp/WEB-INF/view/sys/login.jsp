@@ -96,7 +96,7 @@ layui.config({
 			    	if(data.code == 200){
 			    		location.href = '${ctx}/sys/index.action'; //跳转到登入页
 			    	}else{
-			    		layer.msg(data.message);
+			    		layer.msg(data.describe);
 			    	}
 			    }//返回的数据格式：json/xml/html/script/jsonp/text
 			});
