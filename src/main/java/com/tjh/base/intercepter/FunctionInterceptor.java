@@ -12,6 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -41,22 +42,25 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
             List<SysFunction> functions = currentSysUser.getFunctions();
             // 转成HandlerMethod对象
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            // 获取@Function注解对象
-            Function methodAnnotation = handlerMethod.getMethodAnnotation(Function.class);
+            // 反射获取请求的controller类的所有方法
+            Method[] methods = handlerMethod.getBean().getClass().getDeclaredMethods();
             boolean isEmptyFunction = false;
-            for (SysFunction function : functions) {
-                String functionCode = function.getFunctionCode();
-                if(StringUtils.isEmpty(functionCode)){
-                    continue;
+            for (Method method : methods) {
+                if(isEmptyFunction){
+                    break;
                 }
-                String name = methodAnnotation.functionName();
-                if (functionCode.equals(name)) {
+                if (method.isAnnotationPresent(Function.class)) {
+                    for (SysFunction function : functions) {
+                        if(method.getAnnotation(Function.class).functionName().equals(function.getFunctionCode())){
+                            isEmptyFunction = true;
+                            break;
+                        }
+                    }
+                }else{
                     return true;
-                } else {
-                    isEmptyFunction = true;
                 }
             }
-            if(isEmptyFunction){
+            if(!isEmptyFunction){
                 throw new ReturnViewException("501");
             }
         }
