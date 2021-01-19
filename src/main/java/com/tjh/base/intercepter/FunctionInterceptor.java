@@ -42,26 +42,27 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
             List<SysFunction> functions = currentSysUser.getFunctions();
             // 转成HandlerMethod对象
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            // 反射获取请求的controller类的所有方法
-            Method[] methods = handlerMethod.getBean().getClass().getDeclaredMethods();
-            boolean isEmptyFunction = false;
-            for (Method method : methods) {
-                if(isEmptyFunction){
-                    break;
-                }
-                if (method.isAnnotationPresent(Function.class)) {
-                    for (SysFunction function : functions) {
-                        if(method.getAnnotation(Function.class).functionName().equals(function.getFunctionCode())){
-                            isEmptyFunction = true;
-                            break;
-                        }
+            // 获取方法对象
+            Method method = handlerMethod.getMethod();
+            if(method.isAnnotationPresent(Function.class)){
+                // 获取@Function注解对象
+                Function annotation = method.getAnnotation(Function.class);
+                boolean isEmptyFunction = false;
+                for (SysFunction function : functions) {
+                    String functionCode = function.getFunctionCode();
+                    if(StringUtils.isEmpty(functionCode)){
+                        continue;
                     }
-                }else{
-                    return true;
+                    String name = annotation.functionName();
+                    if (functionCode.equals(name)) {
+                        return true;
+                    } else {
+                        isEmptyFunction = true;
+                    }
                 }
-            }
-            if(!isEmptyFunction){
-                throw new ReturnViewException("501");
+                if(isEmptyFunction){
+                    throw new ReturnViewException("501");
+                }
             }
         }
         //url放行 直接返回true
