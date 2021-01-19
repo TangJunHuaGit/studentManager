@@ -80,11 +80,11 @@ public class StudentController {
 	}
 
 	//提交申请
-	@Function(functionName = "updateStudentStateByStudentId")
-	@RequestMapping("updateStudentStateByStudentId")
+	@Function(functionName = "updateStudentStateByStudentIdGoBack")
+	@RequestMapping("updateStudentStateByStudentIdGoBack")
 	@ResponseBody
 	public ResultMessage updateStudentStateByStudentId(String studentId,String state){
-		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
+		boolean flag = this.studentService.updateStudentStateByStudentIdGoBack(Integer.valueOf(studentId),Integer.valueOf(state));
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{

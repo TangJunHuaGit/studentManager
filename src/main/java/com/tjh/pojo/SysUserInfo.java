@@ -36,17 +36,6 @@ public class SysUserInfo{
     }
 
     public void setFunctions(List<SysFunction> functions) {
-//        if(StringUtil.isEmpty(functions.get(0).getFunctionCode())){
-//            functions.get(0).setFunctionCode("loadAllDictionary");
-//            functions.get(0).setFunctionHref("index");
-//            SysFunction sys = new SysFunction();
-//            sys.setFunctionHref("dictionaryManager");
-//            sys.setFunctionCode("loadAllDept");
-//            SysFunction sys2 = new SysFunction();
-//            sys2.setFunctionHref("deskManager");
-//            functions.add(sys);
-//            functions.add(sys2);
-//        }
         this.functions = functions;
     }
 

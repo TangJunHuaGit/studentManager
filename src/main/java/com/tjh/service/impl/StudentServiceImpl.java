@@ -63,8 +63,8 @@ public class StudentServiceImpl implements StudentService{
 
 
 	@Override
-	public boolean updateStudentStateByStudentId(Integer studentId, Integer state) {
-		return this.studentMapper.updateStudentStateByStudentId(studentId,state);
+	public boolean updateStudentStateByStudentIdGoBack(Integer studentId, Integer state) {
+		return this.studentMapper.updateStudentStateByStudentIdGoBack(studentId,state);
 	}
 
 	@Override
