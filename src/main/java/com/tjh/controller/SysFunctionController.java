@@ -1,16 +1,12 @@
 package com.tjh.controller;
 
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.tjh.pojo.SysFunction;
 import com.tjh.pojo.SysUserInfo;
-import com.tjh.util.SessionUtils;
+import com.tjh.util.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,17 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tjh.service.SysFunctionService;
-import com.tjh.util.DataGridView;
-import com.tjh.util.FunctionTreeBuilder;
 import com.tjh.vo.SysFuntionVo;
 
 @Controller
 @RequestMapping("sysFunction")
 public class SysFunctionController {
-	
+
 	@Autowired
 	private SysFunctionService sysFunctionService;
-	
+
 	@RequestMapping("loadAllFunction")
 	@ResponseBody
 	public DataGridView loadAllFunction() {
@@ -52,4 +46,36 @@ public class SysFunctionController {
 	public DataGridView loadAllMenu(SysFuntionVo vo) {
 		return this.sysFunctionService.loadAllMenu(vo);
 	}
+
+	@RequestMapping("loadAllParentMenu")
+	@ResponseBody
+	public DataGridView loadAllParentMenu(SysFuntionVo vo) {
+		return this.sysFunctionService.loadAllParentMenu(vo);
+	}
+
+	//	添加
+	@RequestMapping("addMenu")
+	@ResponseBody
+	public ResultMessage addMenu(SysFuntionVo vo) {
+		return this.sysFunctionService.addMenu(vo);
+	}
+	@RequestMapping("queryOneMenu")
+	@ResponseBody
+	public ResultMessage queryOneMenu(Integer functionId) {
+		SysFunction sysFunction = this.sysFunctionService.queryOneMenu(functionId);
+		return ResultMessage.success(sysFunction,"查询成功");
+	}
+	@RequestMapping("updateMenuByMenuId")
+	@ResponseBody
+	public ResultMessage updateMenuByMenuId(SysFuntionVo vo) {
+		int i = this.sysFunctionService.updateMenuByMenuId(vo);
+		return ResultMessage.success(i ,"修改成功");
+	}
+
+	@RequestMapping("loadTreeFunction")
+	@ResponseBody
+	public DtreeBuild loadTreeFunction(Integer roleId) {
+		return this.sysFunctionService.loadTreeFunction(roleId);
+	}
+
 }
