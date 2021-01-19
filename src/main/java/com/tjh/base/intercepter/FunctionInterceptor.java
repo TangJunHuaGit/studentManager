@@ -2,12 +2,9 @@ package com.tjh.base.intercepter;
 
 import com.tjh.base.UrlRelease;
 import com.tjh.base.annotation.Function;
-import com.tjh.base.filter.ReleaseList;
 import com.tjh.pojo.SysFunction;
 import com.tjh.pojo.SysUserInfo;
-import com.tjh.util.AppUtil;
 import com.tjh.util.ReturnViewException;
-import com.tjh.util.SessionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,7 +12,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -27,9 +23,10 @@ import java.util.List;
 public class FunctionInterceptor extends HandlerInterceptorAdapter {
     /**
      * 进入Controller方法直前的处理
-     * @param request request
+     *
+     * @param request  request
      * @param response response
-     * @param handler handler请求的对象
+     * @param handler  handler请求的对象
      * @return boolean
      * @throws Exception ReturnViewException
      */
@@ -44,49 +41,26 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
             List<SysFunction> functions = currentSysUser.getFunctions();
             // 转成HandlerMethod对象
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            // 反射获取请求的controller类的所有方法
-            Method[] methods = handlerMethod.getBean().getClass().getDeclaredMethods();
-            boolean flag = false;
-            for (Method method : methods) {
-                if(flag){
-                    break;
+            // 获取@Function注解对象
+            Function methodAnnotation = handlerMethod.getMethodAnnotation(Function.class);
+            boolean isEmptyFunction = false;
+            for (SysFunction function : functions) {
+                String functionCode = function.getFunctionCode();
+                if(StringUtils.isEmpty(functionCode)){
+                    continue;
                 }
-                if (method.isAnnotationPresent(Function.class)) {
-                    for (SysFunction function : functions) {
-                        //System.out.println(method.getAnnotation(Function.class).functionName());
-                        if(method.getAnnotation(Function.class).functionName().equals(function.getFunctionCode())){
-                            flag = true;
-                            break;
-                        }
-                    }
-                }else{
+                String name = methodAnnotation.functionName();
+                if (functionCode.equals(name)) {
                     return true;
+                } else {
+                    isEmptyFunction = true;
                 }
             }
-            if(!flag){
+            if(isEmptyFunction){
                 throw new ReturnViewException("501");
             }
-            /*for (Method method : methods) {
-                //判断方法是否有@Function注解
-                if (method.isAnnotationPresent(Function.class)) {
-                    //拿到Function注解对象
-                    Function appleAnnotation = method.getAnnotation(Function.class);
-                    //循环判断权限，没有权限直接抛出501异常，会在异常捕获中捕获，跳转到没有权限界面
-                    for (SysFunction function : functions) {
-                        String functionCode = function.getFunctionCode();
-                        if(StringUtils.isEmpty(functionCode)){
-                            continue;
-                        }
-                        String name = appleAnnotation.functionName();
-                        if (functionCode.equals(name)) {
-                            return true;
-                        } else {
-                            throw new ReturnViewException("501");
-                        }
-                    }
-                }
-            }*/
         }
+        //url放行 直接返回true
         return true;
     }
 
@@ -94,9 +68,10 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
      * 前提：preHandle方法返回true才会执行这个方法
      * post和get请求都会执行这个方法
      * 在controller方法执行完成后，界面渲染之前执行
-     * @param request request
-     * @param response response
-     * @param handler handler
+     *
+     * @param request      request
+     * @param response     response
+     * @param handler      handler
      * @param modelAndView modelAndView
      * @throws Exception Exception
      */
@@ -106,14 +81,16 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
 //        System.out.println(SessionUtils.getCurrentSysUser().getUser().getUserName());
 //        this.preHandle(request, response, handler);
     }
+
     /**
      * 前提：preHandle方法返回true才会执行这个方法
      * post和get请求都会执行这个方法
      * 界面渲染之后执行
-     * @param request request
+     *
+     * @param request  request
      * @param response response
-     * @param handler handler
-     * @param ex ex
+     * @param handler  handler
+     * @param ex       ex
      * @throws Exception Exception
      */
     @Override
