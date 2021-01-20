@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 19/01/2021 22:57:45
+ Date: 20/01/2021 21:46:30
 */
 
 SET NAMES utf8mb4;
@@ -96,13 +96,15 @@ CREATE TABLE `student`  (
   `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
   `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`studentId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
 INSERT INTO `student` VALUES (4, '汤俊华', '12354854247', '2021-01-20', '生病了', 'F:\\studentManager\\target\\SSM\\2021-01-19/20210119114637944_9462.sql', 3, 1, 1, 15, 2, '222', '2021-01-19 11:46:48', 1);
 INSERT INTO `student` VALUES (6, '熊志伟', '18745237231', '2021-01-19', '希望老师同意', 'F:\\studentManager\\target\\SSM\\2021-01-19/20210119145955933_5752.jsp', 3, 1, NULL, 15, 4, '希望老师同意', '2021-01-19 15:00:10', 1);
+INSERT INTO `student` VALUES (7, 'cs', '12354854247', '2021-01-20', 'edd', 'D:\\IDEA_SCOPE\\TJH\\studentManager\\target\\SSM\\upload\\2021-01-20/20210120212900677_6825.docx', 3, 1, NULL, 15, 1, 'dasdasda', '2021-01-20 21:29:09', 1);
+INSERT INTO `student` VALUES (8, 'dasd', '12354854247', '2021-01-20', 'asdasd', 'D:\\IDEA_SCOPE\\TJH\\studentManager\\target\\SSM\\upload\\/2021-01-20/20210120213643544_4569.docx', 3, 1, NULL, 15, 1, 'adda', '2021-01-20 21:37:04', 1);
 
 -- ----------------------------
 -- Table structure for student_course
@@ -162,11 +164,12 @@ CREATE TABLE `sys_function`  (
   `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
   `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`functionId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_function
 -- ----------------------------
+INSERT INTO `sys_function` VALUES (1, 0, 'menu', 1, NULL, '中小学生管理系统', NULL, NULL, NULL, NULL, 1, 1, NULL, '2021-01-20 19:26:49', NULL);
 INSERT INTO `sys_function` VALUES (2, 1, 'menu', 1, NULL, '基础管理', 'layui-icon-util', '', '', 0, 2, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (5, 1, 'menu', 1, NULL, '系统管理', 'layui-icon-set', '', '', 1, 5, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (6, 1, 'menu', 1, NULL, '其它管理', 'layui-icon-next', '', '', 0, 6, 1, NULL, NULL, NULL);
@@ -239,6 +242,8 @@ INSERT INTO `sys_function` VALUES (106, 9999, 'menu', 0, NULL, '跳转菜单修�
 INSERT INTO `sys_function` VALUES (107, 15, 'permission', 0, 'batchDeleteMenu', '批量删除菜单', NULL, NULL, NULL, NULL, 103, 1, NULL, '2021-01-19 22:24:03', NULL);
 INSERT INTO `sys_function` VALUES (108, 15, 'permission', 0, 'deleteMenu', '删除一个菜单', NULL, NULL, NULL, NULL, 103, 1, NULL, '2021-01-19 22:24:03', NULL);
 INSERT INTO `sys_function` VALUES (109, 99999, 'menu', 0, NULL, '跳转角色修改', '', '../roleManager/updateRole.action', NULL, 0, 105, 1, '跳转角色修改', '2021-01-19 22:26:59', 20);
+INSERT INTO `sys_function` VALUES (110, 99999, 'menu', 0, NULL, '跳转角色添加', '', '../roleManager/addRole.action', NULL, 0, 103, 1, '/roleManager/addRole.action', '2021-01-20 20:30:00', 20);
+INSERT INTO `sys_function` VALUES (111, 22, 'permission', 0, 'loadChildByDictionaryParentId', '根据父字典加载子字典', NULL, NULL, NULL, 0, 106, 1, NULL, '2021-01-20 21:28:04', NULL);
 
 -- ----------------------------
 -- Table structure for sys_position
@@ -282,7 +287,7 @@ CREATE TABLE `sys_role_function`  (
   `roleid` int(0) DEFAULT NULL,
   `functionid` int(0) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_function
@@ -299,9 +304,22 @@ INSERT INTO `sys_role_function` VALUES (15, 15, 88);
 INSERT INTO `sys_role_function` VALUES (16, 15, 86);
 INSERT INTO `sys_role_function` VALUES (17, 15, 90);
 INSERT INTO `sys_role_function` VALUES (18, 15, 98);
-INSERT INTO `sys_role_function` VALUES (19, 15, 99);
 INSERT INTO `sys_role_function` VALUES (20, 15, 97);
 INSERT INTO `sys_role_function` VALUES (21, 15, 89);
+INSERT INTO `sys_role_function` VALUES (23, 16, 1);
+INSERT INTO `sys_role_function` VALUES (24, 16, 61);
+INSERT INTO `sys_role_function` VALUES (25, 16, 62);
+INSERT INTO `sys_role_function` VALUES (28, 15, 1);
+INSERT INTO `sys_role_function` VALUES (30, 16, 63);
+INSERT INTO `sys_role_function` VALUES (31, 16, 64);
+INSERT INTO `sys_role_function` VALUES (32, 15, 6);
+INSERT INTO `sys_role_function` VALUES (33, 15, 22);
+INSERT INTO `sys_role_function` VALUES (34, 15, 76);
+INSERT INTO `sys_role_function` VALUES (35, 15, 77);
+INSERT INTO `sys_role_function` VALUES (36, 15, 78);
+INSERT INTO `sys_role_function` VALUES (37, 15, 79);
+INSERT INTO `sys_role_function` VALUES (38, 15, 80);
+INSERT INTO `sys_role_function` VALUES (39, 15, 111);
 
 -- ----------------------------
 -- Table structure for sys_role_user
@@ -319,6 +337,7 @@ INSERT INTO `sys_role_user` VALUES (15, 1);
 INSERT INTO `sys_role_user` VALUES (15, 18);
 INSERT INTO `sys_role_user` VALUES (15, 19);
 INSERT INTO `sys_role_user` VALUES (13, 20);
+INSERT INTO `sys_role_user` VALUES (16, 21);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -354,7 +373,7 @@ CREATE TABLE `sys_user`  (
   `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP COMMENT '用户入职时间',
   `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`userId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
@@ -362,6 +381,7 @@ CREATE TABLE `sys_user`  (
 INSERT INTO `sys_user` VALUES (1, '家长', '15675287477', NULL, '1902907167@qq.com', NULL, 'tjh', '1', 1, NULL, NULL, NULL, NULL, '430321199811204517', '123456', NULL, NULL, NULL, '1', NULL, 1, 1, 1, 1, 1, 'tjh', '2021-01-05 20:23:32', NULL);
 INSERT INTO `sys_user` VALUES (2, '熊志伟', '13873335777', NULL, NULL, NULL, 'xzw', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1);
 INSERT INTO `sys_user` VALUES (20, 'admin', '15675287477', NULL, NULL, NULL, 'admin', '1', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2021-01-19 22:31:54', 1);
+INSERT INTO `sys_user` VALUES (21, '老师', '15675287477', NULL, NULL, NULL, 'ls', '1', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', NULL, 1, 1, 1, 1, 1, '1', '2021-01-20 21:10:40', NULL);
 
 -- ----------------------------
 -- Table structure for teacher
