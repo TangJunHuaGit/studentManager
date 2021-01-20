@@ -22,4 +22,8 @@ public interface SysRoleMapper {
 	public boolean updateRoleStateByRoleIds(@Param("ids")Integer[] ids);
 
 	public  boolean addBaseRole(@Param("roleId") Integer roleId,@Param("userId") Integer userId);
+
+    void insetFunctionByRoleId( @Param("functionId")Integer functionId, @Param("roleId")Integer roleId);
+
+	void deleteFunctionByRoleId(@Param("functionId")Integer functionId,@Param("roleId")Integer roleId);
 }

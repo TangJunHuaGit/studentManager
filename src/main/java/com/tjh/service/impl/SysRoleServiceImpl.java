@@ -69,4 +69,13 @@ public class SysRoleServiceImpl implements SysRoleService{
 		return this.sysRoleMapper.addRole(role);
 	}
 
+	@Override
+	public void insetFunctionByRoleId(int functionId, Integer roleId) {
+		this.sysRoleMapper.insetFunctionByRoleId(functionId,roleId);
+	}
+
+	@Override
+	public void deleteFunctionByRoleId(int functionId, Integer roleId) {
+		this.sysRoleMapper.deleteFunctionByRoleId(functionId,roleId);
+	}
 }

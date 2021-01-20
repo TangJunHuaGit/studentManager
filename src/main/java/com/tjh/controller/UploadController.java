@@ -60,7 +60,7 @@ public class UploadController {
         }
         String  path = session.getServletContext().getRealPath("/");
         Map<String,Object> data=new HashMap<>();
-        data.put("src", path+currentDate+"/"+newName);
+        data.put("src", newRealPath+"/"+newName);
         map.put("data", data);
         return map;
     }

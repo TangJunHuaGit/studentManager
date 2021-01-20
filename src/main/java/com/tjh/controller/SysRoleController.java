@@ -4,9 +4,14 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
+import com.tjh.util.ResultMessage;
+import com.tjh.vo.SysFuntionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tjh.pojo.SysRole;
@@ -96,5 +101,24 @@ public class SysRoleController {
 			map.put("code", "101");
 			return map;
 		}
+	}
+
+	//资源分配
+	@RequestMapping("sourceAllot")
+	@ResponseBody
+	public ResultMessage sourceAllot(@RequestParam("addIds") String addIds, @RequestParam("delIds")String delIds,@RequestParam("roleId")Integer roleId){
+		JSONArray addIdArr = JSONArray.parseArray(addIds);
+		JSONArray delIdArr = JSONArray.parseArray(delIds);
+		for (Object o : addIdArr) {
+			System.out.println(o);
+			int functionId = Integer.parseInt(o.toString());
+			this.sysRoleService.insetFunctionByRoleId(functionId,roleId);
+		}
+		for (Object o : delIdArr) {
+			int functionId = Integer.parseInt(o.toString());
+			this.sysRoleService.deleteFunctionByRoleId(functionId,roleId);
+		}
+
+		return  ResultMessage.success(ResultMessage.SUCCESSCODE,"更新成功");
 	}
 }

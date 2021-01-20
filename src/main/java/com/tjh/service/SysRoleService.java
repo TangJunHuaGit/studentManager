@@ -23,4 +23,7 @@ public interface SysRoleService {
 
 	public  boolean addBaseRole(Integer roleId,Integer userId);
 
+    void insetFunctionByRoleId(int functionId, Integer roleId);
+
+	void deleteFunctionByRoleId(int functionId, Integer roleId);
 }

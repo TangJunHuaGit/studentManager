@@ -147,7 +147,6 @@
         	    } else if(layEvent === 'edit'){
         	    	toUpdateRole(roleId);
         	    }else if(layEvent === 'zyfp'){
-                    layer.msg("资源分配");
                     toSourceAllot(roleId)
                 }
         	  });
@@ -194,7 +193,7 @@
         //打开  资源分配
         function toSourceAllot(roleId){
             var index = layui.layer.open({
-                title : "添加角色",
+                title : "资源分配",
                 type : 2,//ifream层
                 area:["500px","500px"],
                 content : "${ctx }/roleManager/sourceAllot.action?roleId="+roleId,

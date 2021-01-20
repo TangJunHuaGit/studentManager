@@ -1,97 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tjh.mapper.SysRoleMapper">
-  <resultMap id="SysRoleMap" type="com.tjh.pojo.SysRole">
-    <id column="roleId" jdbcType="INTEGER" property="roleId" />
-    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
-  </resultMap>
-  
-  <resultMap id="SysRoleVoMap" type="com.tjh.vo.SysRoleVo">
-    <id column="roleId" jdbcType="INTEGER" property="roleId" />
-    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
-    <result column="userName" jdbcType="VARCHAR" property="userName" />
-  </resultMap>
-  <!-- 插入 -->
-   <insert id="addRole" parameterType="com.tjh.pojo.SysRole">
-    insert into sys_role 
-    (roleName, remark,createPerson)
-    values 
-    (#{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER})
-  </insert>
+    <resultMap id="SysRoleMap" type="com.tjh.pojo.SysRole">
+        <id column="roleId" jdbcType="INTEGER" property="roleId"/>
+        <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="createPerson" jdbcType="INTEGER" property="createPerson"/>
+    </resultMap>
+
+    <resultMap id="SysRoleVoMap" type="com.tjh.vo.SysRoleVo">
+        <id column="roleId" jdbcType="INTEGER" property="roleId"/>
+        <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="createPerson" jdbcType="INTEGER" property="createPerson"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
+    <!-- 插入 -->
+    <insert id="addRole" parameterType="com.tjh.pojo.SysRole">
+        insert into sys_role
+            (roleName, remark, createPerson)
+        values (#{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createPerson,jdbcType=INTEGER})
+    </insert>
     <!--基础角色插入 -->
     <insert id="addBaseRole">
-        insert into sys_role_user (userId,roleId) values  (#{userId},#{roleId})
+        insert into sys_role_user (userId, roleId)
+        values (#{userId}, #{roleId})
     </insert>
     <!-- 修改数据状态 -->
-   <update id="updateRoleStateByRoleId" parameterType="Integer">
-    	update sys_role set  state = 2 where roleId = #{roleId}
-  </update>
-  <!-- 修改值 -->
-  <update id="updateRoleByRoleId" parameterType="com.tjh.pojo.SysRole">
-    update sys_role
-    <set>
-      <if test="roleName != null and roleName != '' ">
-        roleName = #{roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null and remark != '' ">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="createPerson != null and createPerson != ''">
-        createPerson = #{createPerson,jdbcType=INTEGER},
-      </if>
-    </set>
-    where roleId = #{roleId,jdbcType=INTEGER}
-  </update>
-  <!-- 批量修改状态 -->
-  <update id="updateRoleStateByRoleIds" parameterType="Integer[]">
-	<foreach collection="ids" separator=";" item="roleId">
-		update sys_role
-		<set>  
-          state = 2
-        </set>  
-        <where>  
-            roleId = #{roleId,jdbcType=INTEGER}
-        </where> 
-	</foreach>
-</update>
-<!-- 加载单个数据 -->
-  <select id="loadOneRoleByRoleId" resultType="com.tjh.pojo.SysRole" parameterType="Integer">
-  		select roleId, roleName, remark, state, createTime, createPerson from sys_role where  roleId = #{roleId,jdbcType=INTEGER} and state = 1
-  </select>
-  <select id="loadAllRole" resultMap="SysRoleVoMap" parameterType="com.tjh.vo.SysRoleVo">
-  	  select r.roleId,r.roleName,r.remark,r.createTime,u.userName 
-  	  from sys_role r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
-	    <if test="roleName != null and roleName != ''">
-	        and r.roleName like CONCAT('%',#{roleName},'%')
-	    </if>
-	    <if test="startTime != null">
-	    	<![CDATA[ and r.createTime  >=  #{startTime}  ]]>
-	    </if>
-	    <if test="endTime != null">
-	    	<![CDATA[ and r.createTime  <=  #{endTime}  ]]>
-	    </if>
-	    limit #{page},#{limit}
-  </select>
-  <select id="loadTotalRole" resultType="Integer" parameterType="com.tjh.vo.SysRoleVo">
-  	  select count(*) as total from (select r.roleId,r.roleName,r.remark,r.createTime,u.userName 
-  	  from sys_role r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
-	    <if test="roleName != null and roleName != ''">
-	        and r.roleName like CONCAT('%',#{roleName},'%')
-	    </if>
-	    <if test="startTime != null">
-	    	<![CDATA[ and r.createTime  >=  #{startTime}  ]]>
-	    </if>
-	    <if test="endTime != null">
-	    	<![CDATA[ and r.createTime  <=  #{endTime}  ]]>
-	    </if>
-	    ) as a
-  </select>
+    <update id="updateRoleStateByRoleId" parameterType="Integer">
+        update sys_role
+        set state = 2
+        where roleId = #{roleId}
+    </update>
+    <!-- 修改值 -->
+    <update id="updateRoleByRoleId" parameterType="com.tjh.pojo.SysRole">
+        update sys_role
+        <set>
+            <if test="roleName != null and roleName != '' ">
+                roleName = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null and remark != '' ">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createPerson != null and createPerson != ''">
+                createPerson = #{createPerson,jdbcType=INTEGER},
+            </if>
+        </set>
+        where roleId = #{roleId,jdbcType=INTEGER}
+    </update>
+    <!-- 批量修改状态 -->
+    <update id="updateRoleStateByRoleIds" parameterType="Integer[]">
+        <foreach collection="ids" separator=";" item="roleId">
+            update sys_role
+            <set>
+                state = 2
+            </set>
+            <where>
+                roleId = #{roleId,jdbcType=INTEGER}
+            </where>
+        </foreach>
+    </update>
+    <!-- 加载单个数据 -->
+    <select id="loadOneRoleByRoleId" resultType="com.tjh.pojo.SysRole" parameterType="Integer">
+        select roleId, roleName, remark, state, createTime, createPerson
+        from sys_role
+        where roleId = #{roleId,jdbcType=INTEGER}
+          and state = 1
+    </select>
+    <select id="loadAllRole" resultMap="SysRoleVoMap" parameterType="com.tjh.vo.SysRoleVo">
+        select r.roleId,r.roleName,r.remark,r.createTime,u.userName
+        from sys_role r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
+        <if test="roleName != null and roleName != ''">
+            and r.roleName like CONCAT('%',#{roleName},'%')
+        </if>
+        <if test="startTime != null">
+            <![CDATA[ and r.createTime  >=  #{startTime}  ]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[ and r.createTime  <=  #{endTime}  ]]>
+        </if>
+        limit #{page},#{limit}
+    </select>
+    <select id="loadTotalRole" resultType="Integer" parameterType="com.tjh.vo.SysRoleVo">
+        select count(*) as total from (select r.roleId,r.roleName,r.remark,r.createTime,u.userName
+        from sys_role r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
+        <if test="roleName != null and roleName != ''">
+            and r.roleName like CONCAT('%',#{roleName},'%')
+        </if>
+        <if test="startTime != null">
+            <![CDATA[ and r.createTime  >=  #{startTime}  ]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[ and r.createTime  <=  #{endTime}  ]]>
+        </if>
+        ) as a
+    </select>
+    <insert id="insetFunctionByRoleId" parameterType="Integer">
+        INSERT INTO sys_role_function (roleid, functionid) VALUES (#{roleId}, #{functionId})
+    </insert>
+    <delete id="deleteFunctionByRoleId" parameterType="Integer">
+        DELETE FROM ssm.sys_role_function WHERE roleid = #{roleId} and functionid = #{functionId}
+    </delete>
 </mapper>
