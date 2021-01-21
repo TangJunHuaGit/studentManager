@@ -123,4 +123,13 @@ public class DictionaryController {
 		List<Map<String, Object>> maps = dictionaryService.loadChildByDictionaryParentId(reasonId);
 		return  maps;
 	}
+
+	@Function(functionName = "loadChildDictionary")
+	@RequestMapping("loadChildDictionary")
+	@ResponseBody
+	public  List<Map<String, Object>> loadChildDictionary(){
+		List<Map<String, Object>> maps = dictionaryService.loadChildDictionary();
+		return  maps;
+	}
+
 }

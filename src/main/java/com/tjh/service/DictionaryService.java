@@ -28,4 +28,7 @@ public interface DictionaryService {
 	//根居上級字典獲取字典
 	public List<Map<String, Object>> loadChildByDictionaryParentId(Integer reasonId);
 
+	//加载所有子字典
+	public List<Map<String, Object>> loadChildDictionary();
+
 }

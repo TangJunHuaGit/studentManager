@@ -247,7 +247,7 @@
             var index = layui.layer.open({
                 title : "添加学生",
                 type : 2,//ifream层
-                area:["600px","600px"],
+                area:["100%","100%"],
                 content : "${ctx }/studentManager/addStudent.action",
                 success : function(layero, index){
                     setTimeout(function(){
@@ -255,7 +255,7 @@
                             tips: 3
                         });
                     },500);
-                    layer.full(index);
+                    //layer.full(index);
                 }
             });
         }
@@ -263,17 +263,17 @@
             var index = layui.layer.open({
                 title : "修改学生",
                 type : 2,//ifream层
-                area:["600px","500px"],
-                zIndex: layer.zIndex, //重点1
+                area:["100%","100%"],
+                //zIndex: layer.zIndex, //重点1
                 content : "${ctx}/studentManager/updateStudent.action?studentId="+studentId,
                 success : function(layero, index){
-                    layer.setTop(layero); //重点2
+                    //layer.setTop(layero); //重点2
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回学生列表', '.layui-layer-setwin .layui-layer-close', {
                             tips: 3
                         });
                     },500);
-
+                    //layer.full(index);
                 }
             });
         }

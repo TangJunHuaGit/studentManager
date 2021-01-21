@@ -89,8 +89,9 @@
         select studentId,studentName from student where classId = #{classId}
     </select>
     <select id="loadOneStudentByStudentId" parameterType="Integer"  resultMap="studentTable">
-        select s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.studentSource,c.className,t.teacherName,c.classId,t.teacherId,s.userId,s.state,s.remark,s.createTime,s.createPerson
-        from student s
+        select s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.studentSource,c.className,t.teacherName,c.classId,
+        t.teacherId,s.userId,s.state,s.remark,s.createTime,s.createPerson,
+        s.dictionaryId from student s
         inner join teacher t on s.teacherId = t.teacherId
         inner join class c on  c.classId = s.classId
         where studentId = #{studentId}

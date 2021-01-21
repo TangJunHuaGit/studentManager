@@ -110,6 +110,9 @@
     <select id="loadChildByDictionaryParentId" resultMap="dictionaryList" parameterType="integer">
         select reasonId,reasonText from dictionary where reasonPid = #{reasonId} and dictionary.state = 1
     </select>
+    <select id="loadChildDictionary" resultType="java.util.Map">
+        select reasonId,reasonText  from dictionary where reasonPid = 0
+    </select>
     <update id="updateDictionaryStateByReasonIds" parameterType="Integer[]">
 	<foreach collection="reasonIds" separator=";" item="reasonId">
 		update dictionary

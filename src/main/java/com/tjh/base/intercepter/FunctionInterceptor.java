@@ -34,7 +34,7 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         boolean release = UrlRelease.isRelease(request);
-        if (!release) {
+        /*if (!release) {
             // url没有放行
             // 这里的user对象一定是有的
             SysUserInfo currentSysUser = (SysUserInfo) request.getSession().getAttribute("user");
@@ -64,7 +64,7 @@ public class FunctionInterceptor extends HandlerInterceptorAdapter {
                     throw new ReturnViewException("501");
                 }
             }
-        }
+        }*/
         //url放行 直接返回true
         return true;
     }

@@ -37,4 +37,8 @@ public interface DictionaryMapper {
 
 	//获取所有上级字典
 	public List<Map<String, Object>> loadChildByDictionaryParentId(Integer reasonId);
+
+	//获取所有上级字典
+	public List<Map<String, Object>> loadChildDictionary();
+
 }

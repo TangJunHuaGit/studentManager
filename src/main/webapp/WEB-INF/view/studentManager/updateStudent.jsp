@@ -27,10 +27,32 @@
        		<option value="">请选择班级</option>
   		 </select>
  	 </div>
-
   </div>
   <div class="layui-form-item">
-    <label class="layui-form-label">学生名称</label>
+    <label class="layui-form-label">班主任</label>
+    <div class="layui-input-block">
+      <input type="text" name="teacherName" id="teacherName"  placeholder="选择班级后显示" readonly="readonly" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <input type="text" name="teacherId" style="display: none;" id="teacherId" readonly="readonly" autocomplete="off" class="layui-input">
+  <div class="layui-form-item">
+    <label class="layui-form-label">请假类型</label>
+    <div class="layui-input-block">
+      <select name="dictionaryParentName"  id="dictionaryPid" lay-filter="dictionaryPid">
+        <option value="">请选择</option>
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">请假小类</label>
+    <div class="layui-input-block">
+      <select name="dictionaryId"  id="dictionaryId">
+        <option value="">请选择</option>
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">手机号</label>
     <div class="layui-input-block">
       <input type="text" name="studentPhone" lay-verify="required"  placeholder="请输入手机号" class="layui-input">
     </div>
@@ -42,13 +64,26 @@
     </div>
   </div>
   <div class="layui-form-item">
+    <label class="layui-form-label">文件名</label>
+    <div class="layui-input-block">
+      <input type="text" name="studentSource" id="studentSource"  placeholder="" readonly="readonly" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <%--用于保存文件名--%>
+  <div class="layui-form-item">
     <label class="layui-form-label">下载文件</label>
-    <button type="button" class="layui-btn" id="downLoadFile" onclick="downLoad()"><i class="layui-icon"></i>下载文件</button>
+    <button type="button" class="layui-btn" id="downLoadFile" onclick="downLoad()">下载文件</button>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">上传文件</label>
     <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
     <input type="text" name="studentSource" style="display: none;" class="layui-input">
+  </div>
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">描述</label>
+    <div class="layui-input-block">
+      <textarea placeholder="请输入描述" class="layui-textarea" name="studentReason"></textarea>
+    </div>
   </div>
   <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">备注</label>
@@ -97,23 +132,53 @@ layui.config({
         });
         //重新渲染下拉框
         form.render('select');
+        updateForm(studentId);
       }
     });
-
+    //加载父字典
+    $.ajax({
+      url:'${ctx}/dictionary/loadParentDictionary.action',
+      success:function(res){
+        $.each(res	, function (index, item) {
+          // 追加option节点
+          //item.name是option里的文本值
+          //item.id是option的value值
+          $("#dictionaryPid").append(new Option(item.reasonText, item.reasonId));
+        });
+        //重新渲染下拉框
+        form.render('select');
+      }
+    });
+    //加载所有子字典
+    $.ajax({
+      url:'${ctx}/dictionary/loadChildDictionary.action',
+      success:function(res){
+        $.each(res	, function (index, item) {
+          // 追加option节点
+          //item.name是option里的文本值
+          //item.id是option的value值
+          $("#dictionaryId").append(new Option(item.reasonText, item.reasonId));
+        });
+        //重新渲染下拉框
+        form.render('select');
+      }
+    });
     /* 查询表单 */
-     $.ajax({
-	    url:'${ctx}/student/loadOneStudentByStudentId.action',
-	    type:'POST',
-	    async:true,    //或false,是否异步
-	    timeout:5000,    //超时时间
-        data:{studentId:studentId},
-	    dataType:'json',
-	    success:function(data){
-	    	//给表单赋值
-	    	form.val("studentForm",data);
-            $("#className").find("option[value="+data.classId+"]").prop("selected",true);
-	    }
-	});
+    function updateForm(studentId){
+       $.ajax({
+          url:'${ctx}/student/loadOneStudentByStudentId.action',
+          type:'POST',
+          async:true,    //或false,是否异步
+          timeout:5000,    //超时时间
+          data:{studentId:studentId},
+          dataType:'json',
+          success:function(data){
+              //给表单赋值
+              form.val("studentForm",data);
+              $("#className").find("option[value="+data.classId+"]").prop("selected",true);
+          }
+      });
+    }
     //提交
    	form.on('submit(update-submit)', function(obj){
    	       var data = obj.field;
