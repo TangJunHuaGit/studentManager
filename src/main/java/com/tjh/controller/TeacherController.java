@@ -3,11 +3,14 @@ package com.tjh.controller;
 import com.tjh.base.annotation.Function;
 import com.tjh.pojo.Teacher;
 import com.tjh.service.TeacherService;
+import com.tjh.util.DataGridView;
 import com.tjh.util.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @RequestMapping("teacher")
 @Controller
@@ -25,5 +28,11 @@ public class TeacherController {
         }else{
             return new ResultMessage(ResultMessage.FAILCODE,"",ResultMessage.FAIL);
         }
+    }
+    @Function(functionName = "loadAllTeacher")
+    @RequestMapping("loadAllTeacher")
+    @ResponseBody
+    public DataGridView loadAllTeacher(Integer page, Integer limit){
+        return this.teacherService.loadAllTeacher(page, limit);
     }
 }

@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 public interface TeacherMapper {
     public Teacher loadOneTeacherByClassId(Integer classId);
+
+    List<Teacher> loadAllTeacher();
 }

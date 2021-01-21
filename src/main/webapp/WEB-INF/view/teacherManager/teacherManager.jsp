@@ -41,7 +41,7 @@
         <button type="reset" class="layui-btn layui-btn-warm">清空</button>
     </div>
 </form>
-<table id="TeacherList" lay-filter="teacherList" class="teacherList"></table>
+<table id="teacherList" lay-filter="teacherList" class="teacherList"></table>
 
 <!--表格工具条-->
 <script type="text/html" id="tableToolBar">

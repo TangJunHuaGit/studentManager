@@ -9,4 +9,8 @@
 		<!-- 配置日志的输出形式 -->
 		<setting name="logImpl" value="STDOUT_LOGGING" />
 	</settings>
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+		</plugin>
+	</plugins>
 </configuration>

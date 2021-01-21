@@ -17,4 +17,8 @@
         select teacherId,teacherName from teacher where classId = #{classId}
   </select>
 
+  <select id="loadAllTeacher" resultType="com.tjh.pojo.Teacher">
+    select * from teacher
+  </select>
+
 </mapper>
