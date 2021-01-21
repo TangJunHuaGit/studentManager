@@ -10,4 +10,6 @@ public interface TeacherService {
     public Teacher loadOneTeacherByClassId(Integer classId);
 
     DataGridView loadAllTeacher(Integer page, Integer limit);
+
+    Teacher loadOneTeacherByTeacherId(Integer classId);
 }

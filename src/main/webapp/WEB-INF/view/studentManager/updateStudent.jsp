@@ -66,7 +66,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">文件名</label>
     <div class="layui-input-block">
-      <input type="text" name="studentFileName" id="studentFileName"  placeholder="" readonly="readonly" autocomplete="off" class="layui-input">
+      <input type="text" name="studentFileName" id="studentFileName" value="" placeholder="" readonly="readonly" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
@@ -78,7 +78,7 @@
     <button type="button" class="layui-btn" id="uploadFile" ><i class="layui-icon"></i>上传文件</button>
   </div>
   <%--用于保存文件名 display: none;--%>
-  <input type="text" name="studentSource" style="" id="studentSource" class="layui-input">
+  <input type="text" name="studentSource" value="" style="" id="studentSource" class="layui-input">
   <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">描述</label>
     <div class="layui-input-block">
@@ -251,12 +251,12 @@
         var files = obj.pushFile();
         //上传前设置文件名
         obj.preview(function (index, file, result) {
-          $("#studentFileName").attr("value",files[index].name);
+          $("#studentFileName").val(files[index].name);
         });
       }
       ,done: function(res){
         layer.close(indexLoad);
-        $("#studentSource").attr("value",res.data.src);
+        $("#studentSource").val(res.data.src);
       }
 
     });

@@ -28,4 +28,9 @@ public class TeacherServiceImpl implements TeacherService {
         PageInfo<Teacher> pageInfo = new PageInfo<>(teachers);
         return new DataGridView(pageInfo.getTotal(), pageInfo.getList());
     }
+
+    @Override
+    public Teacher loadOneTeacherByTeacherId(Integer teacherId) {
+        return teacherMapper.loadOneTeacherByTeacherId(teacherId);
+    }
 }

@@ -8,6 +8,7 @@ import com.tjh.util.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -29,6 +30,20 @@ public class TeacherController {
             return new ResultMessage(ResultMessage.FAILCODE,"",ResultMessage.FAIL);
         }
     }
+
+    @Function(functionName = "loadOneTeacherByTeacherId")
+    @RequestMapping("loadOneTeacherByTeacherId")
+    @ResponseBody
+    public ResultMessage loadOneTeacherByTeacherId(@RequestParam("teacherId") Integer teacherId){
+        Teacher teacher = this.teacherService.loadOneTeacherByTeacherId(teacherId);
+        if(teacher != null){
+            return  ResultMessage.success(teacher);
+        }else{
+            return  ResultMessage.erreo("查询错误");
+        }
+    }
+
+
     @Function(functionName = "loadAllTeacher")
     @RequestMapping("loadAllTeacher")
     @ResponseBody

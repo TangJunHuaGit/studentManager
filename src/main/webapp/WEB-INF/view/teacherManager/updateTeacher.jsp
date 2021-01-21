@@ -47,7 +47,6 @@ layui.config({
     ,router = layui.router()
     ,search = router.search;
     form.render();
-    
     var teacherId = getQueryVariable("teacherId");//获取界面穿的id
     
     /* 查询表单 */
@@ -60,7 +59,7 @@ layui.config({
 	    dataType:'json',
 	    success:function(data){
 	    	//给表单赋值
-	    	form.val("teacherForm",data);
+	    	form.val("teacherForm",data.data);
 	    }
 	});
     //提交 loadOneTeacher

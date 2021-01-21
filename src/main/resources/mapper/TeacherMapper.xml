@@ -16,6 +16,9 @@
   <select id="loadOneTeacherByClassId" resultType="com.tjh.pojo.Teacher" parameterType="Integer">
         select teacherId,teacherName from teacher where classId = #{classId}
   </select>
+  <select id="loadOneTeacherByTeacherId" resultType="com.tjh.pojo.Teacher" parameterType="Integer">
+        select * from teacher where teacherId = #{teacherId}
+  </select>
 
   <select id="loadAllTeacher" resultType="com.tjh.pojo.Teacher">
     select * from teacher

@@ -40,6 +40,13 @@ public class ResultMessage {
         return new ResultMessage(code,data,desc);
     }
 
+    public static ResultMessage success(Object data){
+        return new ResultMessage(data,"");
+    }
+    public static ResultMessage erreo(String desc){
+        return new ResultMessage(ResultMessage.FAILCODE,null,desc);
+    }
+
     public String getState() {
         return state;
     }

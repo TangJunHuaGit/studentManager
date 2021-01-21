@@ -124,7 +124,7 @@
         	    var data = obj.data //获得当前行数据
         	    ,layEvent = obj.event; //获得 lay-event 对应的值
         	    
-        	    var TeacherId = obj.data.TeacherId; //得到id
+        	    var teacherId = obj.data.teacherId; //得到id
         	    if(layEvent === 'del'){
         	      layer.confirm('真的删除行么', function(index){
         	        obj.del(); //删除对应行（tr）的DOM结构
@@ -144,7 +144,7 @@
         	           });
         	      });
         	    } else if(layEvent === 'edit'){
-        	    	toUpdateTeacher(TeacherId);
+        	    	toUpdateTeacher(teacherId);
         	    }
         	  });
            //批量删除
@@ -174,7 +174,7 @@
            //打开  添加角色
            function toAddTeacher(){
                var index = layui.layer.open({
-                   title : "添加角色",
+                   title : "添加老师",
                    type : 2,//ifream层
                    area:["500px","400px"],
                    content : "${ctx}/teacherManager/addTeacher.action",
@@ -189,7 +189,7 @@
            }
            function toUpdateTeacher(teacherId){
                var index = layui.layer.open({
-                   title : "修改角色",
+                   title : "修改老师",
                    type : 2,//ifream层
                    area:["500px","400px"],
                    content : "${ctx}/teacherManager/updateTeacher.action?teacherId="+teacherId,

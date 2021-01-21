@@ -129,7 +129,10 @@
                 teacherId=#{teacherId},
             </if>
             <if test="remark != null and remark != ''">
-                remark=#{remark}
+                remark=#{remark},
+            </if>
+            <if test="studentFileName != null and studentFileName != ''">
+                studentFileName=#{studentFileName},
             </if>
         </set>
         where studentId = #{studentId,jdbcType=INTEGER}

@@ -9,4 +9,6 @@ public interface TeacherMapper {
     public Teacher loadOneTeacherByClassId(Integer classId);
 
     List<Teacher> loadAllTeacher();
+
+    Teacher loadOneTeacherByTeacherId(Integer teacherId);
 }
