@@ -1,23 +1,24 @@
 package com.tjh.controller;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
-        import java.io.*;
-        import java.util.HashMap;
-        import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletResponse;
-        import javax.servlet.http.HttpSession;
+import com.tjh.pojo.Student;
+import com.tjh.service.StudentService;
+import com.tjh.util.ResultMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-        import com.tjh.pojo.Student;
-        import com.tjh.service.StudentService;
-        import com.tjh.util.ResultMessage;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.ResponseBody;
-        import org.springframework.web.multipart.MultipartFile;
-
-        import com.tjh.util.RandomStrUtils;
+import com.tjh.util.RandomStrUtils;
 
 @Controller
 @RequestMapping("upload")
@@ -28,7 +29,7 @@ public class UploadController {
 
     @RequestMapping("uploadFile")
     @ResponseBody
-    public Map<String,Object> uploadFile(MultipartFile mf,HttpSession session){
+    public Map<String,Object> uploadFile(MultipartFile mf,HttpSession session,String studentId){
         Map<String,Object> map=new HashMap<>();
         map.put("code", 0);
         map.put("msg", "");
@@ -62,6 +63,11 @@ public class UploadController {
         Map<String,Object> data=new HashMap<>();
         data.put("src", newRealPath+"/"+newName);
         map.put("data", data);
+
+        Student student = new Student();
+        student.setStudentId(Integer.valueOf(studentId));
+        student.setStudentSource(newRealPath+"/"+newName);
+        this.studentService.updateStudentByStudentId(student);
         return map;
     }
 
@@ -76,14 +82,11 @@ public class UploadController {
         Student student = studentService.loadOneStudentByStudentId(studentId);
         //获取存入的文件路径
         String studentSource = student.getStudentSource();
-        String suffix = studentSource.substring(studentSource.lastIndexOf(".") + 1);
-
         response.setHeader("Content-Disposition", "attachment;fileName="
-                +java.net.URLEncoder.encode("病假情况."+suffix,"UTF-8"));
+                +java.net.URLEncoder.encode(student.getStudentFileName(),"UTF-8"));
 
 
         //得到项目路径
-        //String  path = request.getSession().getServletContext().getRealPath("/");
         File tempFile = new File(studentSource);
         try {
             InputStream inputStream = new FileInputStream(tempFile);
@@ -101,6 +104,37 @@ public class UploadController {
             return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
         }
 
+        return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
+    }
+
+
+    @RequestMapping("downLoadModel")
+    @ResponseBody
+    public ResultMessage downLoadModel(HttpServletRequest request, HttpServletResponse response, Model model) throws UnsupportedEncodingException {
+        //判断空 建立文件模板
+        //= this.getClass().getResource("resources/model").getPath();
+        response.setContentType("application/force-download");
+        response.setCharacterEncoding("utf-8");
+        String fileName = "report.xls";
+
+        String modelPath = request.getServletContext().getRealPath("/")+"resources/model/"+fileName;
+        response.setHeader("Content-Disposition", "attachment;fileName=" +java.net.URLEncoder.encode(fileName,"UTF-8"));
+        File File = new File(modelPath);
+        try {
+            InputStream inputStream = new FileInputStream(File);
+            OutputStream os = response.getOutputStream();
+            byte[] b = new byte[2048];
+            int length;
+            while ((length = inputStream.read(b)) > 0) {
+                os.write(b, 0, length);
+            }
+            os.flush();
+            os.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+        }
         return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
     }
 }

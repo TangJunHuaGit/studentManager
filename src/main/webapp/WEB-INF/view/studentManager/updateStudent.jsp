@@ -70,15 +70,11 @@
     </div>
   </div>
   <div class="layui-form-item">
-    <label class="layui-form-label">下载文件</label>
-    <button type="button" class="layui-btn" id="downLoadFile" onclick="downLoad()">下载文件</button>
-  </div>
-  <div class="layui-form-item">
     <label class="layui-form-label">上传文件</label>
     <button type="button" class="layui-btn" id="uploadFile" ><i class="layui-icon"></i>上传文件</button>
   </div>
-  <%--用于保存文件名 display: none;--%>
-  <input type="text" name="studentSource" value="" style="" id="studentSource" class="layui-input">
+  <%--用于保存文件名 --%>
+  <input type="text" name="studentSource" value="" style="display: none;" id="studentSource" class="layui-input">
   <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">描述</label>
     <div class="layui-input-block">
@@ -94,6 +90,7 @@
   <div class="layui-form-item">
     <div class="layui-input-block">
       <button type="submit" class="layui-btn" lay-submit="" lay-filter="update-submit">确认修改</button>
+      <button type="button" class="layui-btn" id="downLoadFile" onclick="downLoad()">下载上次文件</button>
     </div>
   </div>
 </form>
@@ -243,7 +240,7 @@
     //指定允许上传的文件类型
     upload.render({
       elem: '#uploadFile'
-      ,url: '${ctx}/upload/uploadFile.action'
+      ,url: '${ctx}/upload/uploadFile.action?studentId='+studentId
       ,accept: 'file' //普通文件	field:'mf',
       ,field:'mf'
       ,choose: function(obj){ //
@@ -272,11 +269,6 @@
     return(false);
   }
   function downLoad() {
-    var curWwwPath = window.document.location.href;
-    var pathName = window.document.location.pathname;
-    var pos = curWwwPath.indexOf(pathName);
-    var localhostPath = curWwwPath.substring(0, pos);
-    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
     var url = "${ctx}/upload/downLoadFile.action?studentId="+studentId;
     window.open(url);
   }

@@ -64,15 +64,13 @@
     </div>
   </div>
   <div class="layui-form-item">
-    <label class="layui-form-label">上传文件</label>
-    <button type="button" class="layui-btn" id="uploadFile"><i class="layui-icon"></i>上传文件</button>
+    <label class="layui-form-label">下载模板</label>
+    <button type="button" class="layui-btn" onclick="downLoad()" id="uploadFile">下载模板</button>
   </div>
-  <%--用于保存文件名--%>
-  <input type="text" name="studentSource" style="display: none;" id="studentSource" class="layui-input">
-  <div class="layui-form-item">
+  <div class="layui-form-item" style="display: none">
     <label class="layui-form-label">文件名</label>
     <div class="layui-input-block">
-      <input type="text" name="studentFileName" id="studentFileName"  placeholder="上传后显示文件名" readonly="readonly" autocomplete="off" class="layui-input">
+      <input type="text" name="studentFileName" id="studentFileName"  value="" placeholder="下载后显示文件名" readonly="readonly" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item layui-form-text">
@@ -95,6 +93,8 @@
 </form>
 </body>
 <script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
+<script type="text/javascript" src="${ctx}/resources/common/jquery-min.js"></script>
+<script type="text/javascript" src="${ctx}/resources/common/ajaxfileupload.js"></script>
 <script type="text/javascript">
   layui.config({
     base: '${ctx}/resources/layuiadmin/' //静态资源所在路径
@@ -201,29 +201,26 @@
       });
       return false;
     });
-    var indexLoad;
-    //普通图片上传
-    //指定允许上传的文件类型
-    upload.render({
-       elem: '#uploadFile'
-      ,url: '${ctx}/upload/uploadFile.action'
-      ,accept: 'file' //普通文件	field:'mf',
-      ,field:'mf'
-      ,choose: function(obj){ //
-        indexLoad = layer.load();
-        var files = obj.pushFile();
-        //上传前设置文件名
-        obj.preview(function (index, file, result) {
-         $("#studentFileName").attr("value",files[index].name);
-        });
-      }
-      ,done: function(res){
-        layer.close(indexLoad);
-        $("#studentSource").attr("value",res.data.src);
-      }
-    });
-
   });
-
+  function downLoad() {
+    let url = "${ctx}/upload/downLoadModel.action";
+    let xhh = new XMLHttpRequest();
+    xhh.open("post", url);
+    xhh.responseType = 'blob';
+    xhh.onreadystatechange = function (data) {
+      if (xhh.readyState === 4 && xhh.status === 200) {
+        let name = xhh.getResponseHeader("Content-disposition");
+        let filename = name.substring(20,name.length);
+        $("#studentFileName").val(filename);
+        let blob = new Blob([xhh.response], {type: 'text/xls'});
+        let csvUrl = URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.href = csvUrl;
+        link.download = filename;
+        link.click();
+      }
+    };
+    xhh.send();
+  }
 </script>
 </html>
