@@ -38,7 +38,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">请假类型</label>
     <div class="layui-input-block">
-      <select name="dictionaryParentName"  id="dictionaryPid" lay-filter="dictionaryPid">
+      <select name="dictionaryPid"  id="dictionaryPid" lay-filter="dictionaryPid">
         <option value="">请选择</option>
       </select>
     </div>
@@ -67,14 +67,14 @@
     <label class="layui-form-label">上传文件</label>
     <button type="button" class="layui-btn" id="uploadFile"><i class="layui-icon"></i>上传文件</button>
   </div>
+  <%--用于保存文件名--%>
+  <input type="text" name="studentSource" style="display: none;" id="studentSource" class="layui-input">
   <div class="layui-form-item">
     <label class="layui-form-label">文件名</label>
     <div class="layui-input-block">
-      <input type="text" name="studentSourceName" id="studentSourceName"  placeholder="上传后显示文件名" readonly="readonly" autocomplete="off" class="layui-input">
+      <input type="text" name="studentFileName" id="studentFileName"  placeholder="上传后显示文件名" readonly="readonly" autocomplete="off" class="layui-input">
     </div>
   </div>
-  <%--用于保存文件名--%>
-  <input type="text" name="studentSource" style="display: none;" id="studentSource" class="layui-input">
   <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">描述</label>
     <div class="layui-input-block">
@@ -201,23 +201,24 @@
       });
       return false;
     });
-    var index;
+    var indexLoad;
     //普通图片上传
     //指定允许上传的文件类型
     upload.render({
-      elem: '#uploadFile'
+       elem: '#uploadFile'
       ,url: '${ctx}/upload/uploadFile.action'
       ,accept: 'file' //普通文件	field:'mf',
       ,field:'mf'
       ,before: function(obj){ //
-        index = layer.load();
+        indexLoad = layer.load();
         var files = obj.pushFile();
+        //上传前设置文件名
         obj.preview(function (index, file, result) {
-         $("#studentSourceName").attr("value",files[index].name);
+         $("#studentFileName").attr("value",files[index].name);
         });
       }
       ,done: function(res){
-        layer.close(index);
+        layer.close(indexLoad);
         $("#studentSource").attr("value",res.data.src);
       }
     });

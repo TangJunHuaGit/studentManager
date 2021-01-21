@@ -12,7 +12,6 @@ public class Student {
 
     private String studentName;
 
-
     private String studentPhone;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -23,9 +22,13 @@ public class Student {
 
 	private String studentSource;
 
+	private String studentFileName;
+
 	private Integer dictionaryId;//请假类型
 
-    private Integer classId;//班级
+	private Integer dictionaryPid;
+
+	private Integer classId;//班级
 
     private Integer teacherId;//老师
 
@@ -153,4 +156,19 @@ public class Student {
 		this.createPerson = createPerson;
 	}
 
+	public Integer getDictionaryPid() {
+		return dictionaryPid;
+	}
+
+	public void setDictionaryPid(Integer dictionaryPid) {
+		this.dictionaryPid = dictionaryPid;
+	}
+
+	public String getStudentFileName() {
+		return studentFileName;
+	}
+
+	public void setStudentFileName(String studentFileName) {
+		this.studentFileName = studentFileName;
+	}
 }

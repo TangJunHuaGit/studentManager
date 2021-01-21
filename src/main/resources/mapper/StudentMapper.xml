@@ -9,7 +9,9 @@
         <result column="studentReason" jdbcType="VARCHAR" property="studentReason" />
         <result column="userId" jdbcType="INTEGER" property="userId" />
         <result column="studentSource" jdbcType="VARCHAR" property="studentSource" />
+        <result column="studentFileName" jdbcType="VARCHAR" property="studentFileName" />
         <result column="dictionaryId" jdbcType="INTEGER" property="dictionaryId" />
+        <result column="dictionaryPid" jdbcType="INTEGER" property="dictionaryPid" />
         <result column="classId" jdbcType="INTEGER" property="classId" />
         <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -90,8 +92,8 @@
     </select>
     <select id="loadOneStudentByStudentId" parameterType="Integer"  resultMap="studentTable">
         select s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.studentSource,c.className,t.teacherName,c.classId,
-        t.teacherId,s.userId,s.state,s.remark,s.createTime,s.createPerson,
-        s.dictionaryId from student s
+        t.teacherId,s.userId,s.state,s.remark,s.createTime,s.createPerson,s.dictionaryPid,s.studentFileName,s.dictionaryId
+        from student s
         inner join teacher t on s.teacherId = t.teacherId
         inner join class c on  c.classId = s.classId
         where studentId = #{studentId}
@@ -99,8 +101,17 @@
     <update id="updateStudentByStudentId" parameterType="com.tjh.pojo.Student">
         update student
         <set>
+            <if test="dictionaryId != null and dictionaryId != ''">
+                dictionaryId=#{dictionaryId},
+            </if>
+            <if test="dictionaryPid != null and dictionaryPid != ''">
+                dictionaryPid=#{dictionaryPid},
+            </if>
+            <if test="studentSource != null and studentSource != ''">
+                studentSource=#{studentSource},
+            </if>
             <if test="studentName != null and studentName != ''">
-                 studentName=#{studentName},
+                studentName=#{studentName},
             </if>
             <if test="studentPhone != null and studentPhone != ''">
                 studentPhone=#{studentPhone},
@@ -134,10 +145,10 @@
     <!-- 插入 -->
     <insert id="addStudent" parameterType="com.tjh.pojo.Student">
         insert into student
-        (studentName,studentPhone,studentBirthday,studentReason,studentSource,classId,teacherId,userId,remark,createPerson,dictionaryId)
+        (studentName,studentPhone,studentBirthday,studentReason,studentSource,classId,teacherId,userId,remark,createPerson,dictionaryId,dictionaryPid,studentFileName)
         values
         (#{studentName,jdbcType=VARCHAR}, #{studentPhone,jdbcType=VARCHAR},#{studentBirthday,jdbcType=TIMESTAMP},#{studentReason,jdbcType=VARCHAR},#{studentSource,jdbcType=VARCHAR},
-         #{classId,jdbcType=INTEGER},#{teacherId,jdbcType=INTEGER},#{userId,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER},#{dictionaryId,jdbcType=INTEGER})
+         #{classId,jdbcType=INTEGER},#{teacherId,jdbcType=INTEGER},#{userId,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER},#{dictionaryId,jdbcType=INTEGER},#{dictionaryPid,jdbcType=INTEGER},#{studentFileName,jdbcType=VARCHAR})
     </insert>
 
 </mapper>
