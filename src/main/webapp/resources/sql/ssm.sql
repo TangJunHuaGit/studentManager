@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 20/01/2021 21:46:30
+ Date: 21/01/2021 22:20:02
 */
 
 SET NAMES utf8mb4;
@@ -87,6 +87,8 @@ CREATE TABLE `student`  (
   `studentBirthday` date DEFAULT NULL,
   `studentReason` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
   `studentSource` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `studentFileName` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
+  `dictionaryPid` int(0) DEFAULT NULL,
   `classId` int(0) DEFAULT NULL,
   `teacherId` int(0) DEFAULT NULL,
   `userId` int(0) DEFAULT NULL,
@@ -101,10 +103,10 @@ CREATE TABLE `student`  (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES (4, '汤俊华', '12354854247', '2021-01-20', '生病了', 'F:\\studentManager\\target\\SSM\\2021-01-19/20210119114637944_9462.sql', 3, 1, 1, 15, 2, '222', '2021-01-19 11:46:48', 1);
-INSERT INTO `student` VALUES (6, '熊志伟', '18745237231', '2021-01-19', '希望老师同意', 'F:\\studentManager\\target\\SSM\\2021-01-19/20210119145955933_5752.jsp', 3, 1, NULL, 15, 4, '希望老师同意', '2021-01-19 15:00:10', 1);
-INSERT INTO `student` VALUES (7, 'cs', '12354854247', '2021-01-20', 'edd', 'D:\\IDEA_SCOPE\\TJH\\studentManager\\target\\SSM\\upload\\2021-01-20/20210120212900677_6825.docx', 3, 1, NULL, 15, 1, 'dasdasda', '2021-01-20 21:29:09', 1);
-INSERT INTO `student` VALUES (8, 'dasd', '12354854247', '2021-01-20', 'asdasd', 'D:\\IDEA_SCOPE\\TJH\\studentManager\\target\\SSM\\upload\\/2021-01-20/20210120213643544_4569.docx', 3, 1, NULL, 15, 1, 'adda', '2021-01-20 21:37:04', 1);
+INSERT INTO `student` VALUES (4, '汤俊华', '12354854247', '2021-01-20', '生病了', 'F:\\studentManager\\target\\SSM\\2021-01-19/20210119114637944_9462.sql', NULL, 14, 3, 1, 1, 15, 2, '222', '2021-01-19 11:46:48', 1);
+INSERT INTO `student` VALUES (6, '熊志伟', '18745237231', '2021-01-19', '希望老师同意', 'F:\\studentManager\\target\\SSM\\2021-01-19/20210119145955933_5752.jsp', NULL, 14, 3, 1, NULL, 15, 4, '希望老师同意', '2021-01-19 15:00:10', 1);
+INSERT INTO `student` VALUES (7, 'cs', '12354854247', '2021-01-20', 'edd', 'D:\\IDEA_SCOPE\\TJH\\studentManager\\target\\SSM\\upload\\2021-01-20/20210120212900677_6825.docx', NULL, 14, 3, 1, NULL, 15, 1, 'dasdasda', '2021-01-20 21:29:09', 1);
+INSERT INTO `student` VALUES (8, 'dasd', '12354854247', '2021-01-20', 'asdasd', 'D:\\IDEA_SCOPE\\TJH\\studentManager\\target\\SSM\\upload\\/2021-01-21/20210121221227715_4651.png', '2020_logo.png', 14, 3, 1, NULL, 15, 1, 'adda', '2021-01-20 21:37:04', 1);
 
 -- ----------------------------
 -- Table structure for student_course
@@ -175,7 +177,7 @@ INSERT INTO `sys_function` VALUES (5, 1, 'menu', 1, NULL, '系统管理', 'layui
 INSERT INTO `sys_function` VALUES (6, 1, 'menu', 1, NULL, '其它管理', 'layui-icon-next', '', '', 0, 6, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (7, 2, 'menu', 0, NULL, '班级管理', 'layui-icon-user', '../classManager/classManager.action', '', 0, 7, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (8, 2, 'menu', 0, NULL, '学生管理', 'layui-icon-survey', '../studentManager/studentManager.action', '', 0, 8, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (9, 2, 'menu', 0, NULL, '教师管理', 'layui-icon-face-smile', '../teacher/teacherManager.action', '', 0, 9, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (9, 2, 'menu', 0, NULL, '教师管理', 'layui-icon-face-smile', '../teacherManager/teacherManager.action', '', 0, 9, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (15, 5, 'menu', 0, NULL, '菜单管理', 'layui-icon-read', '../menuManager/menuManager.action', '', 0, 15, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (16, 5, 'menu', 0, '', '权限管理', 'layui-icon-note', '../permission/permissionManager.action', '', 0, 16, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (17, 5, 'menu', 0, '', '角色管理', 'layui-icon-username', '../roleManager/roleManager.action', '', 0, 17, 1, NULL, NULL, NULL);
@@ -244,6 +246,10 @@ INSERT INTO `sys_function` VALUES (108, 15, 'permission', 0, 'deleteMenu', '删�
 INSERT INTO `sys_function` VALUES (109, 99999, 'menu', 0, NULL, '跳转角色修改', '', '../roleManager/updateRole.action', NULL, 0, 105, 1, '跳转角色修改', '2021-01-19 22:26:59', 20);
 INSERT INTO `sys_function` VALUES (110, 99999, 'menu', 0, NULL, '跳转角色添加', '', '../roleManager/addRole.action', NULL, 0, 103, 1, '/roleManager/addRole.action', '2021-01-20 20:30:00', 20);
 INSERT INTO `sys_function` VALUES (111, 22, 'permission', 0, 'loadChildByDictionaryParentId', '根据父字典加载子字典', NULL, NULL, NULL, 0, 106, 1, NULL, '2021-01-20 21:28:04', NULL);
+INSERT INTO `sys_function` VALUES (112, 9, 'permission', 0, 'loadAllTeacher', '加载所有老师', NULL, NULL, NULL, NULL, 107, 1, NULL, '2021-01-21 20:56:16', NULL);
+INSERT INTO `sys_function` VALUES (113, 99999, 'menu', 0, NULL, '跳转修改老师', '', '../teacherManager/updateTeacher.action', NULL, 0, 108, 1, '', '2021-01-21 21:26:16', 20);
+INSERT INTO `sys_function` VALUES (115, 9, 'permission', 0, 'loadOneTeacherByTeacherId', 'ID查询老师信息', NULL, NULL, NULL, NULL, 109, 1, NULL, '2021-01-21 21:29:18', NULL);
+INSERT INTO `sys_function` VALUES (116, 22, 'permission', 0, 'loadChildDictionary', '加载子字典', NULL, NULL, NULL, NULL, 110, 1, NULL, '2021-01-21 21:52:25', NULL);
 
 -- ----------------------------
 -- Table structure for sys_position
@@ -404,6 +410,10 @@ CREATE TABLE `teacher`  (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES (1, '袁总', '15672342314', '2021-01-19', 1, 3, 1, '1', '2021-01-19 10:52:14', 1);
+INSERT INTO `teacher` VALUES (1, '袁总1', '15672342314', '2021-01-19', 1, 3, 1, '1', '2021-01-19 10:52:14', 1);
+INSERT INTO `teacher` VALUES (2, '袁总2', '15672342314', '2021-01-19', 1, 4, 1, '1', '2021-01-19 10:52:14', 1);
+INSERT INTO `teacher` VALUES (3, '袁总3', '15672342314', '2021-01-19', 1, 6, 1, '1', '2021-01-19 10:52:14', 1);
+INSERT INTO `teacher` VALUES (4, '袁总4', '15672342314', '2021-01-19', 1, 7, 1, '1', '2021-01-19 10:52:14', 1);
+INSERT INTO `teacher` VALUES (5, '袁总5', '15672342314', '2021-01-19', 1, 8, 1, '1', '2021-01-19 10:52:14', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
