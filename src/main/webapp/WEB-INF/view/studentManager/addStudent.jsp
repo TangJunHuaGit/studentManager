@@ -209,7 +209,7 @@
       ,url: '${ctx}/upload/uploadFile.action'
       ,accept: 'file' //普通文件	field:'mf',
       ,field:'mf'
-      ,before: function(obj){ //
+      ,choose: function(obj){ //
         indexLoad = layer.load();
         var files = obj.pushFile();
         //上传前设置文件名
