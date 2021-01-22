@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.tjh.base.annotation.Function;
+import com.tjh.constant.Constant;
 import com.tjh.pojo.SysFunction;
 import com.tjh.pojo.SysUserInfo;
 import com.tjh.util.*;
@@ -24,13 +25,16 @@ public class SysFunctionController {
 	@Autowired
 	private SysFunctionService sysFunctionService;
 
+	/**
+	 * 加载首页菜单树
+	 * @return DataGridView
+	 */
 	@RequestMapping("loadAllFunction")
 	@ResponseBody
 	public DataGridView loadAllFunction() {
 		SysUserInfo currentSysUser = SessionUtils.getCurrentSysUser();
 		List<SysFunction> functions = currentSysUser.getFunctions();
-		List<SysFunction> menus = functions.stream().filter(item -> item.getFunctionType().equals("menu")).collect(Collectors.toList());
-
+		List<SysFunction> menus = functions.stream().filter(item -> Constant.MENU.equals(item.getFunctionType())).collect(Collectors.toList());
 		List<SysFuntionVo> loadAllFunction = new ArrayList<>();
 		menus.forEach(item -> {
 			SysFuntionVo vo = new SysFuntionVo();
@@ -39,9 +43,14 @@ public class SysFunctionController {
 		});
 
 		List<SysFuntionVo> functionTree = FunctionTreeBuilder.builder(loadAllFunction, 1);
-		DataGridView data = new DataGridView((long) menus.size(),functionTree);
-		return data;
+		return new DataGridView((long) menus.size(),functionTree);
 	}
+
+	/**
+	 * 加载菜单管理里面首页菜单列表
+	 * @param vo vo
+	 * @return DataGridView
+	 */
 	@Function(functionName = "loadAllMenu")
 	@RequestMapping("loadAllMenu")
 	@ResponseBody
@@ -49,13 +58,22 @@ public class SysFunctionController {
 		return this.sysFunctionService.loadAllMenu(vo);
 	}
 
+	/**
+	 * 加所有的父节点
+	 * @param vo vo
+	 * @return DataGridView
+	 */
 	@RequestMapping("loadAllParentMenu")
 	@ResponseBody
 	public DataGridView loadAllParentMenu(SysFuntionVo vo) {
 		return this.sysFunctionService.loadAllParentMenu(vo);
 	}
 
-	//	添加
+	/**
+	 * 添加菜单
+	 * @param vo vo
+	 * @return ResultMessage
+	 */
 	@Function(functionName = "addMenu")
 	@RequestMapping("addMenu")
 	@ResponseBody
@@ -78,6 +96,11 @@ public class SysFunctionController {
 		return ResultMessage.success(i ,"修改成功");
 	}
 
+	/**
+	 * 加在资源分配的树，所有菜单的数据结构
+	 * @param roleId roleId
+	 * @return DtreeBuild
+	 */
 	@Function(functionName = "loadTreeFunction")
 	@RequestMapping("loadTreeFunction")
 	@ResponseBody
