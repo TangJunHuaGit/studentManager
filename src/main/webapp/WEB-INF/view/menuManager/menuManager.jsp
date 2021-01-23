@@ -9,7 +9,7 @@
           media="all"/>
     <link rel="stylesheet" href="${ctx }/resources/layuiadmin/style/admin.css"
           media="all"/>
-    <script type="application/javascript" >
+    <script type="application/javascript">
         var userPermission = '${currentUserPermission}';
         var permissionObj = JSON.parse(userPermission);
         var add = false;
@@ -54,35 +54,35 @@
 <!--表格工具条-->
 <script type="text/html" id="tableToolBar">
     {{# layui.each(permissionObj, function(index, item){ }}
-        {{# if(item.functionCode == 'addMenu'){ }}
-            {{# add = true}}
-        {{# } }}
-        {{# if(item.functionCode == 'batchDeleteMenu'){ }}
-            {{# batchDel = true}}
-        {{# } }}
+    {{# if(item.functionCode == 'addMenu'){ }}
+    {{# add = true}}
+    {{# } }}
+    {{# if(item.functionCode == 'batchDeleteMenu'){ }}
+    {{# batchDel = true}}
+    {{# } }}
     {{#  }); }}
     {{# if(add){ }}
-        <a class="layui-btn layui-btn layui-btn" lay-event="add">添加</a>
+    <a class="layui-btn layui-btn layui-btn" lay-event="add">添加</a>
     {{#} }}
     {{# if(batchDel){ }}
-        <a class="layui-btn layui-btn layui-btn-danger" lay-event="batchDel">批量删除</a>
+    <a class="layui-btn layui-btn layui-btn-danger" lay-event="batchDel">批量删除</a>
     {{#} }}
 </script>
 <!--操作-->
 <script type="text/html" id="tableToolBarLine">
     {{# layui.each(permissionObj, function(index, item){ }}
-        {{# if(item.functionCode == 'updateMenuByMenuId'){ }}
-            {{# edit = true}}
-        {{# } }}
-        {{# if(item.functionCode == 'deleteMenu'){ }}
-            {{# del = true}}
-        {{# } }}
+    {{# if(item.functionCode == 'updateMenuByMenuId'){ }}
+    {{# edit = true}}
+    {{# } }}
+    {{# if(item.functionCode == 'deleteMenu'){ }}
+    {{# del = true}}
+    {{# } }}
     {{#  }); }}
     {{# if(edit){ }}
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     {{# } }}
     {{# if(del){ }}
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } }}
     <%--        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
     <%--    {{#  } }}--%>
@@ -113,7 +113,7 @@
             , height: 'full-200'
             , cellMinWidth: 80
             , page: true
-            , limit: 50
+            , limit: 12
             , toolbar: '#tableToolBar'
             , cols: [[
                 {type: 'checkbox'}
@@ -162,18 +162,18 @@
             var functionId = obj.data.id; //得到id
             if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url: "${ctx}/sysRole/updateRoleStateByRoleId.action",
+                        url: "${ctx}/sysFunction/deleteMenuById.action",
                         type: 'POST',
                         async: true,    //或false,是否异步
                         data: {functionId: functionId},
                         timeout: 5000,    //超时时间
                         dataType: 'json',
                         success: function (data) {
-                            layer.msg(data.msg);
+                            layer.msg(data.describe);
+                            obj.del(); //删除对应行（tr）的DOM结构
                             tableIns.reload();
                         }
                     });
@@ -188,14 +188,14 @@
             //得到当前表格里面的checkbox的选中对象集合
             var checkStatus = table.checkStatus('menuList'),//选中状态
                 data = checkStatus.data;//选中的对象集
-            var ids = new Array();
+            var ids = [];
             if (data.length > 0) {
-                for (var i in data) {
-                    ids.push(data[i].roleId);
+                for (var i = 0; i < data.length; i++) {
+                    ids.push(data[i].id);
                 }
-                layer.confirm('确定删除选中的角色？', {icon: 3, title: '提示信息'}, function (index) {
-                    $.post("${ctx}/sysRole/updateRoleStateByRoleIds.action?ids=" + ids, function (data) {
-                        layer.msg(data.msg);
+                layer.confirm('确定删除选中的菜单？', {icon: 3, title: '提示信息'}, function (index) {
+                    $.post("${ctx}/sysFunction/deleteMenuByIds.action", {ids: JSON.stringify(ids)}, function (data) {
+                        layer.msg(data.describe);
                         setTimeout(function () {
                             tableIns.reload();
                             //关闭提示框

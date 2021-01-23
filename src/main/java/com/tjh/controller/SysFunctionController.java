@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tjh.base.annotation.Function;
 import com.tjh.constant.Constant;
 import com.tjh.pojo.SysFunction;
@@ -13,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tjh.service.SysFunctionService;
@@ -108,4 +110,26 @@ public class SysFunctionController {
 		return this.sysFunctionService.loadTreeFunction(roleId);
 	}
 
+	@RequestMapping("deleteMenuById")
+	@ResponseBody
+	public ResultMessage deleteMenuById(Integer functionId) {
+		int i =  this.sysFunctionService.deleteMenuById(functionId);
+		return i > 0 ? ResultMessage.successDesc("删除成功") : ResultMessage.erreo("删除失败");
+	}
+	@RequestMapping("deleteMenuByIds")
+	@ResponseBody
+	public ResultMessage deleteMenuByIds(@RequestParam("ids") String ids) {
+		JSONArray functionIds = JSONArray.parseArray(ids);
+		int count = 0;
+		for(Object id : functionIds){
+			this.sysFunctionService.deleteMenuById(Integer.parseInt(id.toString()));
+			count++;
+		}
+		if(count == functionIds.size()){
+            return ResultMessage.successDesc("删除成功");
+        }else{
+            String data = "成功删除"+count+"个，失败"+(functionIds.size() - count)+"个";
+            return ResultMessage.success(data,data);
+        }
+	}
 }

@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tjh.dao.SysUserDao;
 import com.tjh.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +39,10 @@ public class SysFunctionServiceImpl implements SysFunctionService {
 
 	@Override
 	public DataGridView loadAllMenu(SysFuntionVo vo) {
-		vo.setLimit(PageBuilder.builderLimit(vo.getPage(), vo.getLimit()));
-		vo.setPage(PageBuilder.builderPage(vo.getPage(), vo.getLimit()));
-		List<SysFuntionVo> list = this.sysFunctionMapper.loadAllMenu(vo);
-		DataGridView view = new DataGridView();
-		view.setCount((long) this.sysFunctionMapper.loadAllMenuCount());
-		view.setData(list);
-		return view;
+		PageHelper.startPage(vo.getPage(), vo.getLimit());
+		List<SysFuntionVo> teachers = sysFunctionMapper.loadAllMenu(vo);
+		PageInfo<SysFuntionVo> pageInfo = new PageInfo<>(teachers);
+		return new DataGridView(pageInfo.getTotal(), pageInfo.getList());
 	}
 
 	@Override
@@ -89,6 +88,11 @@ public class SysFunctionServiceImpl implements SysFunctionService {
 		long end = System.currentTimeMillis();
 		System.out.println("加载树结构时间：" + (end - begin) + "ms");
 		return dtreeBuild;
+	}
+
+	@Override
+	public int deleteMenuById(Integer functionId) {
+		return this.sysFunctionMapper.deleteMenuById(functionId);
 	}
 
 	protected List<JSONObject> specialDispose(List<SysFunction> list, Integer roleId) {

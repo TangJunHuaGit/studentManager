@@ -24,4 +24,6 @@ public interface SysFunctionService {
 	int updateMenuByMenuId(SysFuntionVo vo);
 
 	DtreeBuild loadTreeFunction(Integer userId);
+
+	int deleteMenuById(Integer functionId);
 }

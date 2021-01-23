@@ -20,4 +20,5 @@ public interface SysFunctionMapper {
 
 	List<SysFunction> queryAll();
 
+	int deleteMenuById(Integer functionId);
 }
