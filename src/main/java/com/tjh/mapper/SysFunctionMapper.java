@@ -8,7 +8,7 @@ import com.tjh.vo.SysFuntionVo;
 public interface SysFunctionMapper {
 	List<SysFuntionVo> loadAllMenu(SysFuntionVo vo);
 
-	Integer loadAllMenuCount();
+//	Integer loadAllMenuCount();
 
 	List<SysFuntionVo> loadAllFunction();
 

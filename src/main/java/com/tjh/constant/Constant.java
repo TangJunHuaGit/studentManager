@@ -9,4 +9,5 @@ public interface Constant {
     String ADMIN_NAME = "超级管理员";
     String PERMISSION = "permission";
     String MENU = "menu";
+    String JUMP = "jump";
 }

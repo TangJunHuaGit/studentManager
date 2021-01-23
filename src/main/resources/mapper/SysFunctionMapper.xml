@@ -21,20 +21,21 @@
   <select id="loadAllMenu" resultMap="SysFuntionMap" parameterType="com.tjh.vo.SysFuntionVo">
     select *
     from sys_function
-    where functionType = 'menu'
-    <if test="functionName!=null and functionName!=''">
-      and functionName like CONCAT('%',#{functionName},'%')
-    </if>
+    <where>
+        <if test="functionName!=null and functionName!=''">
+          and functionName like CONCAT('%',#{functionName},'%')
+        </if>
+    </where>
     order by functionOrderNum
   </select>
-  <select id="loadAllMenuCount" resultType="Integer">
-    select count(1)
-    from sys_function
-    where functionType = 'menu'
-    <if test="functionName!=null and functionName!=''">
-      and functionName like CONCAT('%',#{functionName},'%')
-    </if>
-  </select>
+<!--  <select id="loadAllMenuCount" resultType="Integer">-->
+<!--    select count(1)-->
+<!--    from sys_function-->
+<!--    where functionType = 'menu'-->
+<!--    <if test="functionName!=null and functionName!=''">-->
+<!--      and functionName like CONCAT('%',#{functionName},'%')-->
+<!--    </if>-->
+<!--  </select>-->
 
   <select id="loadAllFunction" resultMap="SysFuntionMap">
     select *
@@ -81,6 +82,9 @@
     update sys_function set functionParentId = #{functionParentId}
     <if test="functionName!=null and functionName!=''">
       ,functionName = #{functionName}
+    </if>
+    <if test="functionType!=null and functionType!=''">
+      ,functionType = #{functionType}
     </if>
     <if test="functionHref!=null and functionHref!=''">
       ,functionHref = #{functionHref}

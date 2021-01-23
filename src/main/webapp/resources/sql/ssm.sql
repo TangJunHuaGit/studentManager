@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : mysql
  Source Server Type    : MySQL
  Source Server Version : 80022
- Source Host           : localhost:3306
+ Source Host           : 127.0.0.1:3306
  Source Schema         : ssm
 
  Target Server Type    : MySQL
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 21/01/2021 22:20:02
+ Date: 23/01/2021 15:29:41
 */
 
 SET NAMES utf8mb4;
@@ -75,6 +75,22 @@ INSERT INTO `dictionary` VALUES (15, '病假', 14, '病假', 1, '2021-01-10 18:5
 INSERT INTO `dictionary` VALUES (16, '婚假', 14, '结婚', 1, '2021-01-10 22:06:53', NULL);
 INSERT INTO `dictionary` VALUES (17, '事假', 18, '有事情', 1, '2021-01-10 22:07:12', NULL);
 INSERT INTO `dictionary` VALUES (18, '测试类', 0, '测试类', 1, '2021-01-10 22:17:16', NULL);
+
+-- ----------------------------
+-- Table structure for sequence
+-- ----------------------------
+DROP TABLE IF EXISTS `sequence`;
+CREATE TABLE `sequence`  (
+  `seq_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL,
+  `current_val` int(0) NOT NULL DEFAULT 0,
+  `increment_val` int(0) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`seq_name`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sequence
+-- ----------------------------
+INSERT INTO `sequence` VALUES ('sys_dept', 0, 1);
 
 -- ----------------------------
 -- Table structure for student
@@ -166,7 +182,7 @@ CREATE TABLE `sys_function`  (
   `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
   `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`functionId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 124 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_function
@@ -221,8 +237,8 @@ INSERT INTO `sys_function` VALUES (78, 22, 'permission', 0, 'updateByDictionaryR
 INSERT INTO `sys_function` VALUES (79, 22, 'permission', 0, 'updateDictionaryStateByReasonId', '字典删除', NULL, '../dictionary/updateDictionaryStateByReasonId.action', NULL, NULL, 71, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (80, 22, 'permission', 0, 'updateDictionaryStateByReasonIds', '字典批量删除', NULL, '../dictionary/updateDictionaryStateByReasonIds.action', NULL, NULL, 72, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (86, 22, 'permission', 0, 'loadParentDictionary', '加载一级字典', NULL, '../dictionary/loadParentDictionary.action', NULL, NULL, 78, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (87, 99999, 'menu', 0, 'toAddStudent', '跳转添加学生页面', NULL, '../studentManager/addStudent.action', NULL, NULL, 79, 1, NULL, '2021-01-17 15:45:51', NULL);
-INSERT INTO `sys_function` VALUES (88, 99999, 'menu', 0, 'toUpdateStudent', '跳转修改学生页面', NULL, '../studentManager/updateStudent.action', NULL, NULL, 80, 1, NULL, '2021-01-17 15:47:42', NULL);
+INSERT INTO `sys_function` VALUES (87, 8, 'jump', 0, 'toAddStudent', '跳转添加学生页面', NULL, '../studentManager/addStudent.action', NULL, NULL, 79, 1, NULL, '2021-01-17 15:45:51', NULL);
+INSERT INTO `sys_function` VALUES (88, 8, 'jump', 0, 'toUpdateStudent', '跳转修改学生页面', NULL, '../studentManager/updateStudent.action', NULL, NULL, 80, 1, NULL, '2021-01-17 15:47:42', NULL);
 INSERT INTO `sys_function` VALUES (89, 7, 'permission', 0, 'loadAllClassComboBox', '加载班级下拉框', NULL, '../class/loadAllClassComboBox.action', NULL, NULL, 81, 1, NULL, '2021-01-18 15:56:55', NULL);
 INSERT INTO `sys_function` VALUES (90, 7, 'permission', 0, 'loadAllClass', '加载所有班级', NULL, '../class/loadAllClass.action', NULL, NULL, 82, 1, NULL, '2021-01-18 15:58:02', NULL);
 INSERT INTO `sys_function` VALUES (91, 7, 'permission', 0, 'updateClassByClassId', '更新班级', NULL, '../class/updateClassByClassId.action', NULL, NULL, 83, 1, NULL, '2021-01-18 15:58:48', NULL);
@@ -235,21 +251,24 @@ INSERT INTO `sys_function` VALUES (97, 8, 'permission', 0, 'loadOneStudentByStud
 INSERT INTO `sys_function` VALUES (98, 9, 'permission', 0, 'loadOneTeacherByClassId', '根据班级查询教师', NULL, '../teacher/loadOneTeacherByClassId.action', NULL, NULL, 90, 1, NULL, '2021-01-19 11:19:26', NULL);
 INSERT INTO `sys_function` VALUES (99, 8, 'permission', 0, 'updateStudentStateByStudentId', '审批权限', NULL, '../student/updateStudentStateByStudentId.action', NULL, NULL, 91, 1, NULL, '2021-01-19 14:54:34', NULL);
 INSERT INTO `sys_function` VALUES (100, 99999, 'menu', 0, NULL, '添加菜单', 'layui-icon-read', '../menuManager/addMenu.action', '', 0, 15, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (101, 99999, 'menu', 0, '', '跳转资源分配', 'layui-icon-username', '../roleManager/sourceAllot.action', '', 0, 17, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (101, 17, 'jump', 0, '', '跳转资源分配', 'layui-icon-username', '../roleManager/sourceAllot.action', '', 0, 17, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (102, 15, 'permission', 0, 'loadAllMenu', '加载所有菜单', NULL, NULL, NULL, 0, 100, 1, NULL, '2021-01-19 22:08:21', NULL);
 INSERT INTO `sys_function` VALUES (103, 15, 'permission', 0, 'queryOneMenu', '查询一个菜单', NULL, NULL, NULL, 0, 101, 1, NULL, '2021-01-19 22:10:20', NULL);
 INSERT INTO `sys_function` VALUES (104, 15, 'permission', 0, 'loadTreeFunction', '加载菜单树结构', NULL, NULL, NULL, 0, 102, 1, NULL, '2021-01-19 22:13:00', NULL);
-INSERT INTO `sys_function` VALUES (105, 99999, 'menu', 0, NULL, '跳转菜单修改', NULL, '../menuManager/updateMenu.action', NULL, NULL, 105, 1, NULL, '2021-01-19 22:14:35', NULL);
-INSERT INTO `sys_function` VALUES (106, 9999, 'menu', 0, NULL, '跳转菜单修改', '', '../menuManager/updateMenu.action', NULL, 0, 102, 1, '跳转菜单修改', '2021-01-19 22:15:29', 20);
+INSERT INTO `sys_function` VALUES (105, 15, 'jump', 0, NULL, '跳转菜单修改', NULL, '../menuManager/updateMenu.action', NULL, NULL, 105, 1, NULL, '2021-01-19 22:14:35', NULL);
+INSERT INTO `sys_function` VALUES (106, 15, 'jump', 0, NULL, '跳转菜单修改', '', '../menuManager/updateMenu.action', NULL, 0, 102, 1, '跳转菜单修改', '2021-01-19 22:15:29', 20);
 INSERT INTO `sys_function` VALUES (107, 15, 'permission', 0, 'batchDeleteMenu', '批量删除菜单', NULL, NULL, NULL, NULL, 103, 1, NULL, '2021-01-19 22:24:03', NULL);
 INSERT INTO `sys_function` VALUES (108, 15, 'permission', 0, 'deleteMenu', '删除一个菜单', NULL, NULL, NULL, NULL, 103, 1, NULL, '2021-01-19 22:24:03', NULL);
-INSERT INTO `sys_function` VALUES (109, 99999, 'menu', 0, NULL, '跳转角色修改', '', '../roleManager/updateRole.action', NULL, 0, 105, 1, '跳转角色修改', '2021-01-19 22:26:59', 20);
-INSERT INTO `sys_function` VALUES (110, 99999, 'menu', 0, NULL, '跳转角色添加', '', '../roleManager/addRole.action', NULL, 0, 103, 1, '/roleManager/addRole.action', '2021-01-20 20:30:00', 20);
+INSERT INTO `sys_function` VALUES (109, 17, 'jump', 0, NULL, '跳转角色修改', '', '../roleManager/updateRole.action', NULL, 0, 105, 1, '跳转角色修改', '2021-01-19 22:26:59', 20);
+INSERT INTO `sys_function` VALUES (110, 17, 'jump', 0, NULL, '跳转角色添加', '', '../roleManager/addRole.action', NULL, 0, 103, 1, '/roleManager/addRole.action', '2021-01-20 20:30:00', 20);
 INSERT INTO `sys_function` VALUES (111, 22, 'permission', 0, 'loadChildByDictionaryParentId', '根据父字典加载子字典', NULL, NULL, NULL, 0, 106, 1, NULL, '2021-01-20 21:28:04', NULL);
 INSERT INTO `sys_function` VALUES (112, 9, 'permission', 0, 'loadAllTeacher', '加载所有老师', NULL, NULL, NULL, NULL, 107, 1, NULL, '2021-01-21 20:56:16', NULL);
-INSERT INTO `sys_function` VALUES (113, 99999, 'menu', 0, NULL, '跳转修改老师', '', '../teacherManager/updateTeacher.action', NULL, 0, 108, 1, '', '2021-01-21 21:26:16', 20);
+INSERT INTO `sys_function` VALUES (113, 9, 'jump', 0, NULL, '跳转修改教师', '', '../teacherManager/updateTeacher.action', NULL, 0, 108, 1, '', '2021-01-21 21:26:16', 20);
 INSERT INTO `sys_function` VALUES (115, 9, 'permission', 0, 'loadOneTeacherByTeacherId', 'ID查询老师信息', NULL, NULL, NULL, NULL, 109, 1, NULL, '2021-01-21 21:29:18', NULL);
 INSERT INTO `sys_function` VALUES (116, 22, 'permission', 0, 'loadChildDictionary', '加载子字典', NULL, NULL, NULL, NULL, 110, 1, NULL, '2021-01-21 21:52:25', NULL);
+INSERT INTO `sys_function` VALUES (117, 9, 'jump', 0, NULL, '跳转添加教师', '', '../teacherManager/addTeacher.action', NULL, 0, 109, 1, '跳转添加老师', '2021-01-23 09:03:42', 20);
+INSERT INTO `sys_function` VALUES (122, 22, 'menu', 0, NULL, 'cs1', '', '../teacherManager/addTeacher.action', NULL, 0, 112, 1, 'cs', '2021-01-23 11:13:29', 20);
+INSERT INTO `sys_function` VALUES (123, 122, 'menu', 0, NULL, 'cs2', '', 'cs', NULL, 0, 112, 1, 'cs', '2021-01-23 15:28:28', 20);
 
 -- ----------------------------
 -- Table structure for sys_position
@@ -390,6 +409,28 @@ INSERT INTO `sys_user` VALUES (20, 'admin', '15675287477', NULL, NULL, NULL, 'ad
 INSERT INTO `sys_user` VALUES (21, '老师', '15675287477', NULL, NULL, NULL, 'ls', '1', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', NULL, 1, 1, 1, 1, 1, '1', '2021-01-20 21:10:40', NULL);
 
 -- ----------------------------
+-- Table structure for sys_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role`  (
+  `id` int(0) NOT NULL COMMENT 'id',
+  `user_id` int(0) DEFAULT NULL COMMENT 'userid',
+  `role_id` int(0) DEFAULT NULL COMMENT 'roleid',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `sys_role_user_fk`(`role_id`) USING BTREE,
+  INDEX `sys_user_role_sys_user_userId_fk`(`user_id`) USING BTREE,
+  CONSTRAINT `sys_role_user_fk` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`roleId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sys_user_role_sys_user_userId_fk` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户角色表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_user_role
+-- ----------------------------
+INSERT INTO `sys_user_role` VALUES (1, 14, 1);
+INSERT INTO `sys_user_role` VALUES (2, 15, 2);
+INSERT INTO `sys_user_role` VALUES (3, 14, 2);
+
+-- ----------------------------
 -- Table structure for teacher
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher`;
@@ -405,15 +446,13 @@ CREATE TABLE `teacher`  (
   `createTime` datetime(0) DEFAULT NULL,
   `createPerson` int(0) DEFAULT NULL,
   PRIMARY KEY (`teacherId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
 INSERT INTO `teacher` VALUES (1, '袁总1', '15672342314', '2021-01-19', 1, 3, 1, '1', '2021-01-19 10:52:14', 1);
-INSERT INTO `teacher` VALUES (2, '袁总2', '15672342314', '2021-01-19', 1, 4, 1, '1', '2021-01-19 10:52:14', 1);
 INSERT INTO `teacher` VALUES (3, '袁总3', '15672342314', '2021-01-19', 1, 6, 1, '1', '2021-01-19 10:52:14', 1);
-INSERT INTO `teacher` VALUES (4, '袁总4', '15672342314', '2021-01-19', 1, 7, 1, '1', '2021-01-19 10:52:14', 1);
-INSERT INTO `teacher` VALUES (5, '袁总5', '15672342314', '2021-01-19', 1, 8, 1, '1', '2021-01-19 10:52:14', 1);
+INSERT INTO `teacher` VALUES (6, '汤校长', '12354878454', NULL, 0, 9, NULL, '汤校长', NULL, 20);
 
 SET FOREIGN_KEY_CHECKS = 1;

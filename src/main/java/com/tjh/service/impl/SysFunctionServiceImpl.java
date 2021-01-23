@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.tjh.constant.Constant;
 import com.tjh.dao.SysUserDao;
 import com.tjh.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,21 @@ public class SysFunctionServiceImpl implements SysFunctionService {
 		PageHelper.startPage(vo.getPage(), vo.getLimit());
 		List<SysFuntionVo> teachers = sysFunctionMapper.loadAllMenu(vo);
 		PageInfo<SysFuntionVo> pageInfo = new PageInfo<>(teachers);
-		return new DataGridView(pageInfo.getTotal(), pageInfo.getList());
+		List<SysFuntionVo> list = pageInfo.getList().stream().peek(item -> {
+			switch (item.getFunctionType()) {
+				case Constant.MENU:
+					item.setFunctionType("菜单");
+					break;
+				case Constant.PERMISSION:
+					item.setFunctionType("权限");
+					break;
+				case Constant.JUMP:
+					item.setFunctionType("跳转");
+					break;
+				default:
+			}
+		}).collect(Collectors.toList());
+		return new DataGridView(pageInfo.getTotal(),list);
 	}
 
 	@Override

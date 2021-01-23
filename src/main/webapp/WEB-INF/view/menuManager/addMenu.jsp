@@ -24,14 +24,23 @@
 <form class="layui-form" action="" lay-filter="dictionaryForm" style="padding: 20px 30px 0 0; ">
     <input type="text" name="createPerson" style="display: none;" class="layui-input" value="${user.user.userId}">
     <div class="layui-form-item">
-        <label class="layui-form-label">菜单名称</label>
+        <label class="layui-form-label">功能名称</label>
         <div class="layui-input-block">
-            <input type="text" name="functionName" lay-verify="required" placeholder="请输角色名称" class="layui-input">
+            <input type="text" name="functionName" lay-verify="required" placeholder="请输功能名称" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">父级菜单</label>
         <ul id="parentMenu" class="dtree" data-id="0"></ul>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">功能类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="functionType" value="menu"  lay-filter="functionType" title="菜单" checked="">
+            <input type="radio" name="functionType" value="permission" lay-filter="functionType" title="权限">
+            <input type="radio" name="functionType" value="jump" lay-filter="functionType" title="跳转路径">
+        </div>
     </div>
 
     <div class="layui-form-item">
@@ -41,17 +50,24 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="functionHref">
         <label class="layui-form-label">链接</label>
         <div class="layui-input-block">
-            <input type="text" name="functionHref" placeholder="请输链接" class="layui-input">
+            <input type="text" name="functionHref" placeholder="请输入链接" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="functionCode" style="display: none">
+        <label class="layui-form-label">功能代码</label>
+        <div class="layui-input-block">
+            <input type="text" name="functionCode" placeholder="请输入功能代码" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">排序</label>
         <div class="layui-input-block">
-            <input type="text" name="functionOrderNum" placeholder="请输链接" class="layui-input">
+            <input type="text" name="functionOrderNum" placeholder="请输排序" lay-verify="required" class="layui-input">
         </div>
     </div>
 
@@ -134,7 +150,18 @@
             });
             return false;
         });
-
+        form.on("radio(functionType)", function (data) {
+            var val = data.value;
+            if(val === 'permission'){
+                $("input[name='functionHref']").val('');
+                $("#functionCode").css('display', 'block');
+                $("#functionHref").css('display', 'none');
+            }else {
+                $("input[name='functionCode']").val('');
+                $("#functionCode").css('display', 'none');
+                $("#functionHref").css('display', 'block');
+            }
+        });
     });
 
 </script>

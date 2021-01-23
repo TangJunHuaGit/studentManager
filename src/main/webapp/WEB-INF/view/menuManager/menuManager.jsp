@@ -70,6 +70,9 @@
 </script>
 <!--操作-->
 <script type="text/html" id="tableToolBarLine">
+    {{# if(d.id == 1){}}
+    <button type="button" class="layui-btn  layui-btn-xs layui-btn-disabled">不可编辑</button>
+    {{# } else { }}
     {{# layui.each(permissionObj, function(index, item){ }}
     {{# if(item.functionCode == 'updateMenuByMenuId'){ }}
     {{# edit = true}}
@@ -84,8 +87,7 @@
     {{# if(del){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } }}
-    <%--        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
-    <%--    {{#  } }}--%>
+    {{#} }}
 
 </script>
 <script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
@@ -113,12 +115,13 @@
             , height: 'full-200'
             , cellMinWidth: 80
             , page: true
-            , limit: 12
+            , limit: 10
             , toolbar: '#tableToolBar'
             , cols: [[
                 {type: 'checkbox'}
                 , {field: 'id', title: 'id', sort: true, hide: true}
-                , {field: 'title', title: '菜单或权限名称'}
+                , {field: 'title', title: '名称'}
+                , {field: 'functionType', title: '类型'}
                 , {field: 'remark', title: '备注', sort: true}
                 , {field: 'state', title: 'state', sort: true, align: 'center', hide: true}
                 , {field: 'href', title: '地址', sort: true, align: 'center'}

@@ -35,16 +35,31 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">功能类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="functionType" value="menu"  lay-filter="functionType" title="菜单" checked="">
+            <input type="radio" name="functionType" value="permission" lay-filter="functionType" title="权限">
+            <input type="radio" name="functionType" value="jump" lay-filter="functionType" title="跳转路径">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">图标</label>
         <div class="layui-input-block">
             <input type="text" name="functionIcon" placeholder="请输图标" class="layui-input">
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="functionHref">
         <label class="layui-form-label">链接</label>
         <div class="layui-input-block">
             <input type="text" name="href" placeholder="请输链接" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="functionCode" style="display: none">
+        <label class="layui-form-label">功能代码</label>
+        <div class="layui-input-block">
+            <input type="text" name="functionCode" placeholder="请输入功能代码" class="layui-input">
         </div>
     </div>
 
@@ -98,21 +113,16 @@
                 //给表单赋值
                 form.val("roleForm", data.data);
                 var pId = data.data.pId;
-                <%--$.ajax({--%>
-                <%--    url: "${ctx}/sysFunction/loadAllParentMenu.action?page=1&limit=9999",--%>
-                <%--    success: function (ret) {--%>
-                <%--        var res = ret.data;--%>
-                <%--        for (var i = 0; i < res.length; i++) {--%>
-                <%--            if (res[i].id == pId) {--%>
-                <%--                $("#functionParentIdName").append("<option selected value=\"" + res[i].id + "\">" + res[i].title + "</option>");--%>
-                <%--            } else {--%>
-                <%--                $("#functionParentIdName").append("<option value=\"" + res[i].id + "\">" + res[i].title + "</option>");--%>
-                <%--            }--%>
-                <%--        }--%>
-                <%--        //重新渲染--%>
-                <%--        layui.form.render("select");--%>
-                <%--    }--%>
-                <%--});--%>
+                var functionType =  data.data.functionType;
+                if(functionType === 'permission'){
+                    $("input[name='functionHref']").val();
+                    $("#functionCode").css('display', 'block');
+                    $("#functionHref").css('display', 'none');
+                }else {
+                    $("input[name='functionCode']").val();
+                    $("#functionCode").css('display', 'none');
+                    $("#functionHref").css('display', 'block');
+                }
                 parentMenu = dtree.renderSelect({
                     elem: "#parentMenu",
                     url: "${ctx}/sysFunction/loadTreeFunctionByEdit.action?menuId="+functionId,
@@ -169,6 +179,18 @@
             }
             return (false);
         }
+        form.on("radio(functionType)", function (data) {
+            var val = data.value;
+            if(val === 'permission'){
+                $("input[name='functionHref']").val('');
+                $("#functionCode").css('display', 'block');
+                $("#functionHref").css('display', 'none');
+            }else {
+                $("input[name='functionCode']").val('');
+                $("#functionCode").css('display', 'none');
+                $("#functionHref").css('display', 'block');
+            }
+        });
     });
 
 </script>
