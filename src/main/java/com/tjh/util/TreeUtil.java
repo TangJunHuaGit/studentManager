@@ -103,10 +103,10 @@ public class TreeUtil<T> {
     }
 
     protected void validationAlias(List<Map<String, Object>> list, String idAlias,String parentAlias, String sortAlias) {
-        int idFlag = 0;
-        int parentFlag = 0;
-        int sortFlag = 0;
         for (Map<String, Object> validationObjectMap : list) {
+            int idFlag = 0;
+            int parentFlag = 0;
+            int sortFlag = 0;
             for (Map.Entry<String, Object> entry : validationObjectMap.entrySet()) {
                 String key = entry.getKey();
                 if (parentAlias.equals(key)) {
@@ -119,18 +119,19 @@ public class TreeUtil<T> {
                     idFlag++;
                 }
             }
-        }
-        if (idFlag == 0) {
-            throw new NullPointerException("不存在的ID列名：" + idAlias);
-        }
-        if (parentFlag == 0) {
-            throw new NullPointerException("不存在的父节点列名：" + parentAlias);
-        }
-        if (sortFlag == 0) {
-            if(isSort){
-                throw new NullPointerException("不存在的排序列名：" + sortAlias);
+            if (idFlag == 0) {
+                throw new NullPointerException("不存在的ID列名：" + idAlias);
+            }
+            if (parentFlag == 0) {
+                throw new NullPointerException("不存在的父节点列名：" + parentAlias);
+            }
+            if (sortFlag == 0) {
+                if(isSort){
+                    throw new NullPointerException("不存在的排序列名：" + sortAlias);
+                }
             }
         }
+
     }
 
     protected List<Map<String, Object>> setSubList(List<Map<String, Object>> all, Map<String, Object> root, String idAlias, String parentAlias, String sortAlias, String subAlias) {

@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 23/01/2021 15:29:41
+ Date: 23/01/2021 23:18:52
 */
 
 SET NAMES utf8mb4;
@@ -188,27 +188,21 @@ CREATE TABLE `sys_function`  (
 -- Records of sys_function
 -- ----------------------------
 INSERT INTO `sys_function` VALUES (1, 0, 'menu', 1, NULL, '中小学生管理系统', NULL, NULL, NULL, NULL, 1, 1, NULL, '2021-01-20 19:26:49', NULL);
-INSERT INTO `sys_function` VALUES (2, 1, 'menu', 1, NULL, '基础管理', 'layui-icon-util', '', '', 0, 2, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (2, 1, 'menu', 1, NULL, '基础管理', 'layui-icon-util', '../sys/index.action', '', 0, 2, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (5, 1, 'menu', 1, NULL, '系统管理', 'layui-icon-set', '', '', 1, 5, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (6, 1, 'menu', 1, NULL, '其它管理', 'layui-icon-next', '', '', 0, 6, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (7, 2, 'menu', 0, NULL, '班级管理', 'layui-icon-user', '../classManager/classManager.action', '', 0, 7, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (8, 2, 'menu', 0, NULL, '学生管理', 'layui-icon-survey', '../studentManager/studentManager.action', '', 0, 8, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (9, 2, 'menu', 0, NULL, '教师管理', 'layui-icon-face-smile', '../teacherManager/teacherManager.action', '', 0, 9, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (15, 5, 'menu', 0, NULL, '菜单管理', 'layui-icon-read', '../menuManager/menuManager.action', '', 0, 15, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (16, 5, 'menu', 0, '', '权限管理', 'layui-icon-note', '../permission/permissionManager.action', '', 0, 16, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (17, 5, 'menu', 0, '', '角色管理', 'layui-icon-username', '../roleManager/roleManager.action', '', 0, 17, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (22, 6, 'menu', 0, NULL, '字典管理', 'layui-icon-list', '../dictionaryManager/dictionaryManager.action', NULL, 0, 22, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (34, 15, 'permission', 0, 'addMenu', '添加菜单', '', '', '', 0, 29, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (35, 15, 'permission', 0, 'updateMenuByMenuId', '修改菜单', '', NULL, NULL, 0, 30, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (38, 16, 'permission', 0, 'permission:create', '添加权限', '', NULL, NULL, 0, 33, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (39, 16, 'permission', 0, 'permission:update', '修改权限', '', NULL, NULL, 0, 34, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (40, 16, 'permission', 0, 'permission:delete', '删除权限', '', NULL, NULL, 0, 35, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (41, 16, 'permission', 0, 'permission:batchdelete', '权限批量删除', '', NULL, NULL, 0, 36, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (42, 17, 'permission', 0, 'role:create', '添加角色', '', NULL, NULL, 0, 37, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (43, 17, 'permission', 0, 'role:update', '修改角色', '', NULL, NULL, 0, 38, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (44, 17, 'permission', 0, 'role:delete', '删除角色', '', NULL, NULL, 0, 39, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (45, 17, 'permission', 0, 'role:batchdelete', '角色批量删除', '', NULL, NULL, 0, 40, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (46, 17, 'permission', 0, 'role:selectPermission', '分配权限', '', NULL, NULL, 0, 41, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (47, 18, 'permission', 0, 'user:create', '添加用户', '', NULL, NULL, 0, 42, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (48, 18, 'permission', 0, 'user:update', '修改用户', '', NULL, NULL, 0, 43, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (49, 18, 'permission', 0, 'user:delete', '删除用户', '', NULL, NULL, 0, 44, 1, NULL, NULL, NULL);
@@ -216,28 +210,26 @@ INSERT INTO `sys_function` VALUES (50, 18, 'permission', 0, 'user:batchdelete', 
 INSERT INTO `sys_function` VALUES (51, 18, 'permission', 0, 'user:selectRole', '用户分配角色', '', NULL, NULL, 0, 46, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (52, 18, 'permission', 0, 'user:resetpwd', '重置密码', NULL, NULL, NULL, 0, 47, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (53, 14, 'permission', 0, 'dept:view', '部门查询', NULL, NULL, NULL, 0, 48, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (55, 16, 'permission', 0, 'permission:view', '权限查询', NULL, NULL, NULL, 0, 50, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (56, 17, 'permission', 0, 'role:view', '角色查询', NULL, NULL, NULL, 0, 51, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (57, 18, 'permission', 0, 'user:view', '用户查询', NULL, NULL, NULL, 0, 52, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (61, 1, 'menu', 1, NULL, '审批管理', 'layui-icon-edit', '', '', 0, 56, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (62, 61, 'menu', 0, NULL, '请假单管理', 'layui-icon-date', '../leaveBill/toLeaveBillManager.action', '', 0, 57, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (63, 61, 'menu', 0, NULL, '我的待办任务', 'layui-icon-util', '', '', 0, 58, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (64, 61, 'menu', 0, NULL, '我的审批记录', 'layui-icon-top', '', '', 0, 59, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (68, 8, 'permission', 0, 'loadAllStudent', '学生查询', NULL, '../student/loadAllStudent.action', NULL, NULL, 60, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (69, 8, 'permission', 0, 'addStudent', '学生添加', NULL, '../student/addStudent.action', NULL, NULL, 61, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (70, 8, 'permission', 0, 'updateStudentByStudentId', '学生修改', NULL, '../student/updateStudentByStudentId.action', NULL, NULL, 62, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (71, 8, 'permission', 0, 'student:delete', '学生删除', NULL, '../student/loadAllStudent.action', NULL, NULL, 63, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (72, 8, 'permission', 0, 'student:batchdelete', '学生批量删除', NULL, '../student/loadAllStudent.action', NULL, NULL, 64, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (68, 8, 'permission', 0, 'loadAllStudent', '学生查询', NULL, '', NULL, NULL, 60, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (69, 8, 'permission', 0, 'addStudent', '学生添加', NULL, '', NULL, NULL, 61, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (70, 8, 'permission', 0, 'updateStudentByStudentId', '学生修改', NULL, '', NULL, NULL, 62, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (71, 8, 'permission', 0, 'student:delete', '学生删除', NULL, '', NULL, NULL, 63, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (72, 8, 'permission', 0, 'deleteStudentByStudentIds', '学生批量删除', NULL, '', NULL, NULL, 64, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (73, 21, 'permission', 0, 'info:view', '日志查询', NULL, NULL, NULL, NULL, 65, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (74, 21, 'permission', 0, 'info:delete', '日志删除', NULL, NULL, NULL, NULL, 66, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (75, 21, 'permission', 0, 'info:batchdelete', '日志批量删除', NULL, NULL, NULL, NULL, 67, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (76, 22, 'permission', 0, 'notice:view', '公告查询', NULL, NULL, NULL, NULL, 68, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (77, 22, 'permission', 0, 'addDictionary', '字典添加', NULL, '../dictionary/addDictionary.action', NULL, NULL, 69, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (78, 22, 'permission', 0, 'updateByDictionaryReasonId', '字典修改', NULL, '../dictionary/updateByDictionaryReasonId.action', NULL, NULL, 70, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (79, 22, 'permission', 0, 'updateDictionaryStateByReasonId', '字典删除', NULL, '../dictionary/updateDictionaryStateByReasonId.action', NULL, NULL, 71, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (80, 22, 'permission', 0, 'updateDictionaryStateByReasonIds', '字典批量删除', NULL, '../dictionary/updateDictionaryStateByReasonIds.action', NULL, NULL, 72, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (86, 22, 'permission', 0, 'loadParentDictionary', '加载一级字典', NULL, '../dictionary/loadParentDictionary.action', NULL, NULL, 78, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (87, 8, 'jump', 0, 'toAddStudent', '跳转添加学生页面', NULL, '../studentManager/addStudent.action', NULL, NULL, 79, 1, NULL, '2021-01-17 15:45:51', NULL);
+INSERT INTO `sys_function` VALUES (87, 8, 'jump', 0, '', '跳转添加学生页面', NULL, '../studentManager/addStudent.action', NULL, NULL, 79, 1, NULL, '2021-01-17 15:45:51', NULL);
 INSERT INTO `sys_function` VALUES (88, 8, 'jump', 0, 'toUpdateStudent', '跳转修改学生页面', NULL, '../studentManager/updateStudent.action', NULL, NULL, 80, 1, NULL, '2021-01-17 15:47:42', NULL);
 INSERT INTO `sys_function` VALUES (89, 7, 'permission', 0, 'loadAllClassComboBox', '加载班级下拉框', NULL, '../class/loadAllClassComboBox.action', NULL, NULL, 81, 1, NULL, '2021-01-18 15:56:55', NULL);
 INSERT INTO `sys_function` VALUES (90, 7, 'permission', 0, 'loadAllClass', '加载所有班级', NULL, '../class/loadAllClass.action', NULL, NULL, 82, 1, NULL, '2021-01-18 15:58:02', NULL);
@@ -246,11 +238,11 @@ INSERT INTO `sys_function` VALUES (92, 7, 'permission', 0, 'updateClassStateByCl
 INSERT INTO `sys_function` VALUES (93, 7, 'permission', 0, 'updateClassStateByClassIds', '删除多个班级', NULL, '../class/updateClassStateByClassIds.action', NULL, NULL, 85, 1, NULL, '2021-01-18 16:00:10', NULL);
 INSERT INTO `sys_function` VALUES (94, 7, 'permission', 0, 'loadOneClassByClassId', '查看单个班级', NULL, '../class/loadOneClassByClassId.action', NULL, NULL, 86, 1, NULL, '2021-01-18 16:01:21', NULL);
 INSERT INTO `sys_function` VALUES (95, 7, 'permission', 0, 'addClass', '添加单个班级', NULL, '../class/addClass.action', NULL, NULL, 87, 1, NULL, '2021-01-18 16:01:38', NULL);
-INSERT INTO `sys_function` VALUES (96, 8, 'permission', 0, 'loadStudentByClassId', '根据班级加载学生', NULL, '../student/loadStudentByClassId.action', NULL, NULL, 88, 1, NULL, '2021-01-18 16:04:09', NULL);
-INSERT INTO `sys_function` VALUES (97, 8, 'permission', 0, 'loadOneStudentByStudentId', '查询单个学生', NULL, '../student/loadOneStudentByStudentId.action', NULL, NULL, 89, 1, NULL, '2021-01-18 16:05:12', NULL);
+INSERT INTO `sys_function` VALUES (96, 8, 'permission', 0, 'loadStudentByClassId', '根据班级加载学生', NULL, '', NULL, NULL, 88, 1, NULL, '2021-01-18 16:04:09', NULL);
+INSERT INTO `sys_function` VALUES (97, 8, 'permission', 0, 'loadOneStudentByStudentId', '查询单个学生', NULL, '', NULL, NULL, 89, 1, NULL, '2021-01-18 16:05:12', NULL);
 INSERT INTO `sys_function` VALUES (98, 9, 'permission', 0, 'loadOneTeacherByClassId', '根据班级查询教师', NULL, '../teacher/loadOneTeacherByClassId.action', NULL, NULL, 90, 1, NULL, '2021-01-19 11:19:26', NULL);
-INSERT INTO `sys_function` VALUES (99, 8, 'permission', 0, 'updateStudentStateByStudentId', '审批权限', NULL, '../student/updateStudentStateByStudentId.action', NULL, NULL, 91, 1, NULL, '2021-01-19 14:54:34', NULL);
-INSERT INTO `sys_function` VALUES (100, 99999, 'menu', 0, NULL, '添加菜单', 'layui-icon-read', '../menuManager/addMenu.action', '', 0, 15, 1, NULL, NULL, NULL);
+INSERT INTO `sys_function` VALUES (99, 8, 'permission', 0, 'updateStudentStateByStudentIdGoBack', '家长提交申请', NULL, '', NULL, NULL, 91, 1, NULL, '2021-01-19 14:54:34', NULL);
+INSERT INTO `sys_function` VALUES (100, 15, 'jump', 0, NULL, '跳转添加菜单', 'layui-icon-read', '../menuManager/addMenu.action', '', 0, 15, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (101, 17, 'jump', 0, '', '跳转资源分配', 'layui-icon-username', '../roleManager/sourceAllot.action', '', 0, 17, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (102, 15, 'permission', 0, 'loadAllMenu', '加载所有菜单', NULL, NULL, NULL, 0, 100, 1, NULL, '2021-01-19 22:08:21', NULL);
 INSERT INTO `sys_function` VALUES (103, 15, 'permission', 0, 'queryOneMenu', '查询一个菜单', NULL, NULL, NULL, 0, 101, 1, NULL, '2021-01-19 22:10:20', NULL);
@@ -267,8 +259,10 @@ INSERT INTO `sys_function` VALUES (113, 9, 'jump', 0, NULL, '跳转修改教师'
 INSERT INTO `sys_function` VALUES (115, 9, 'permission', 0, 'loadOneTeacherByTeacherId', 'ID查询老师信息', NULL, NULL, NULL, NULL, 109, 1, NULL, '2021-01-21 21:29:18', NULL);
 INSERT INTO `sys_function` VALUES (116, 22, 'permission', 0, 'loadChildDictionary', '加载子字典', NULL, NULL, NULL, NULL, 110, 1, NULL, '2021-01-21 21:52:25', NULL);
 INSERT INTO `sys_function` VALUES (117, 9, 'jump', 0, NULL, '跳转添加教师', '', '../teacherManager/addTeacher.action', NULL, 0, 109, 1, '跳转添加老师', '2021-01-23 09:03:42', 20);
-INSERT INTO `sys_function` VALUES (122, 22, 'menu', 0, NULL, 'cs1', '', '../teacherManager/addTeacher.action', NULL, 0, 112, 1, 'cs', '2021-01-23 11:13:29', 20);
 INSERT INTO `sys_function` VALUES (123, 122, 'menu', 0, NULL, 'cs2', '', 'cs', NULL, 0, 112, 1, 'cs', '2021-01-23 15:28:28', 20);
+INSERT INTO `sys_function` VALUES (124, 22, 'permission', 0, 'loadAllDictionary', '加载所有字典', '', '', NULL, 0, 120, 1, '加载所有字典', '2021-01-23 15:41:03', 20);
+INSERT INTO `sys_function` VALUES (128, 8, 'permission', 0, 'updateStudentStateByStudentIdAgree', '老师同意', NULL, NULL, NULL, NULL, 95, 1, NULL, '2021-01-23 22:04:12', NULL);
+INSERT INTO `sys_function` VALUES (129, 8, 'permission', 0, 'updateStudentStateByStudentIdNotAgree', '老师不同意', NULL, NULL, NULL, NULL, 110, 1, NULL, '2021-01-23 22:04:45', NULL);
 
 -- ----------------------------
 -- Table structure for sys_position
@@ -331,20 +325,45 @@ INSERT INTO `sys_role_function` VALUES (17, 15, 90);
 INSERT INTO `sys_role_function` VALUES (18, 15, 98);
 INSERT INTO `sys_role_function` VALUES (20, 15, 97);
 INSERT INTO `sys_role_function` VALUES (21, 15, 89);
-INSERT INTO `sys_role_function` VALUES (23, 16, 1);
-INSERT INTO `sys_role_function` VALUES (24, 16, 61);
-INSERT INTO `sys_role_function` VALUES (25, 16, 62);
 INSERT INTO `sys_role_function` VALUES (28, 15, 1);
-INSERT INTO `sys_role_function` VALUES (30, 16, 63);
-INSERT INTO `sys_role_function` VALUES (31, 16, 64);
 INSERT INTO `sys_role_function` VALUES (32, 15, 6);
 INSERT INTO `sys_role_function` VALUES (33, 15, 22);
-INSERT INTO `sys_role_function` VALUES (34, 15, 76);
-INSERT INTO `sys_role_function` VALUES (35, 15, 77);
-INSERT INTO `sys_role_function` VALUES (36, 15, 78);
-INSERT INTO `sys_role_function` VALUES (37, 15, 79);
-INSERT INTO `sys_role_function` VALUES (38, 15, 80);
 INSERT INTO `sys_role_function` VALUES (39, 15, 111);
+INSERT INTO `sys_role_function` VALUES (40, 15, 124);
+INSERT INTO `sys_role_function` VALUES (45, 15, 99);
+INSERT INTO `sys_role_function` VALUES (112, 16, 1);
+INSERT INTO `sys_role_function` VALUES (113, 16, 2);
+INSERT INTO `sys_role_function` VALUES (114, 16, 7);
+INSERT INTO `sys_role_function` VALUES (115, 16, 89);
+INSERT INTO `sys_role_function` VALUES (116, 16, 90);
+INSERT INTO `sys_role_function` VALUES (117, 16, 91);
+INSERT INTO `sys_role_function` VALUES (118, 16, 92);
+INSERT INTO `sys_role_function` VALUES (119, 16, 93);
+INSERT INTO `sys_role_function` VALUES (120, 16, 94);
+INSERT INTO `sys_role_function` VALUES (121, 16, 95);
+INSERT INTO `sys_role_function` VALUES (122, 16, 8);
+INSERT INTO `sys_role_function` VALUES (123, 16, 68);
+INSERT INTO `sys_role_function` VALUES (124, 16, 69);
+INSERT INTO `sys_role_function` VALUES (125, 16, 70);
+INSERT INTO `sys_role_function` VALUES (126, 16, 71);
+INSERT INTO `sys_role_function` VALUES (127, 16, 72);
+INSERT INTO `sys_role_function` VALUES (128, 16, 87);
+INSERT INTO `sys_role_function` VALUES (129, 16, 88);
+INSERT INTO `sys_role_function` VALUES (130, 16, 96);
+INSERT INTO `sys_role_function` VALUES (131, 16, 97);
+INSERT INTO `sys_role_function` VALUES (133, 16, 128);
+INSERT INTO `sys_role_function` VALUES (134, 16, 129);
+INSERT INTO `sys_role_function` VALUES (135, 16, 6);
+INSERT INTO `sys_role_function` VALUES (136, 16, 22);
+INSERT INTO `sys_role_function` VALUES (137, 16, 77);
+INSERT INTO `sys_role_function` VALUES (138, 16, 78);
+INSERT INTO `sys_role_function` VALUES (139, 16, 79);
+INSERT INTO `sys_role_function` VALUES (140, 16, 80);
+INSERT INTO `sys_role_function` VALUES (141, 16, 86);
+INSERT INTO `sys_role_function` VALUES (142, 16, 111);
+INSERT INTO `sys_role_function` VALUES (143, 16, 116);
+INSERT INTO `sys_role_function` VALUES (144, 16, 124);
+INSERT INTO `sys_role_function` VALUES (145, 15, 116);
 
 -- ----------------------------
 -- Table structure for sys_role_user

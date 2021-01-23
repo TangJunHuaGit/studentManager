@@ -14,6 +14,13 @@
         var batchDel = false;
         var edit = false;
         var del = false;
+
+        var tijiao = false;
+        var tongyi = false;
+        var butongyi = false;
+
+        var userId = '${user.user.userId}';
+        console.log(userId);
     </script>
 </head>
 
@@ -70,18 +77,47 @@
 </script>
 <!--操作-->
 <script type="text/html" id="tableToolBarLine">
-    {{# if(d.state == 1){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {{# }  else if(d.state== 2) { }}
-    {{# } else if(d.state== 3) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {{# } else if(d.state== 4) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# if(userId == 20){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# }else{ }}
+        {{# layui.each(permissionObj, function(index, item){ }}
+            {{# if(item.functionCode == 'updateStudentStateByStudentIdGoBack'){ }}
+                {{# tijiao = true}}
+            {{# } }}
+            {{# if(item.functionCode == 'updateStudentStateByStudentIdAgree'){ }}
+                {{# tongyi = true}}
+            {{# } }}
+            {{# if(item.functionCode == 'updateStudentStateByStudentIdNotAgree'){ }}
+                {{# butongyi = true}}
+            {{# } }}
+        {{#  }); }}
+        {{# if(d.state == 1 && tijiao){ }}
+             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+             <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
+             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# }else if(d.state == 2 && tijiao) { }}
+        {{# } else if(d.state== 3 && tijiao) { }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# } else if(d.state== 4  && tijiao) { }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# } else if(d.state== 1 && tongyi && butongyi) { }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# } else if(d.state== 2 && tongyi && butongyi) { }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenpi">审批</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# } else if(d.state== 3 && tongyi && butongyi) { }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# } else if(d.state== 4 && tongyi && butongyi) { }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# } }}
     {{# } }}
 </script>
 <script type="text/html" id="table-gender">

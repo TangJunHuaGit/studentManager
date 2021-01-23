@@ -1,5 +1,6 @@
 package com.tjh.base;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tjh.constant.Constant;
 import com.tjh.pojo.SysFunction;
@@ -53,7 +54,7 @@ public class BaseServlet extends DispatcherServlet {
                         break;
                     }
                 }
-                //将当前登陆用户的权限添加到ModelAndView的上下文参数中
+                //将当前登陆用户的权限添加到ModelAndView的上下文参数中 System.out.println(JSONArray.toJSONString(SessionUtils.getCurrentSysUser().getFunctions()));
                 List<SysFunction> permissionList = SessionUtils.getCurrentSysUser().getFunctions().stream().filter(per -> per.getFunctionType().equals(Constant.PERMISSION)).collect(Collectors.toList());
                 request.setAttribute("currentUserPermission", JSONObject.toJSONString(permissionList));
             }else{

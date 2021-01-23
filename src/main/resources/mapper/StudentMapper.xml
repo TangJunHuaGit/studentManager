@@ -137,7 +137,7 @@
         </set>
         where studentId = #{studentId,jdbcType=INTEGER}
     </update>
-    <update id="updateStudentStateByStudentIdGoBack" parameterType="Integer">
+    <update id="updateStudentStateByStudentId" parameterType="Integer">
         update student set state = #{state}   where studentId = #{studentId,jdbcType=INTEGER}
     </update>
     <update id="deleteStudentByStudentIds" parameterType="Integer[]">

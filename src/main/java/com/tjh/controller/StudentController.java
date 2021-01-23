@@ -84,7 +84,31 @@ public class StudentController {
 	@RequestMapping("updateStudentStateByStudentIdGoBack")
 	@ResponseBody
 	public ResultMessage updateStudentStateByStudentId(String studentId,String state){
-		boolean flag = this.studentService.updateStudentStateByStudentIdGoBack(Integer.valueOf(studentId),Integer.valueOf(state));
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
+		if(flag){
+			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+		}
+	}
+	//提交申请
+	@Function(functionName = "updateStudentStateByStudentIdAgree")
+	@RequestMapping("updateStudentStateByStudentIdAgree")
+	@ResponseBody
+	public ResultMessage updateStudentStateByStudentIdAgree(String studentId,String state){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
+		if(flag){
+			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+		}
+	}
+	//提交申请
+	@Function(functionName = "updateStudentStateByStudentIdNotAgree")
+	@RequestMapping("updateStudentStateByStudentIdNotAgree")
+	@ResponseBody
+	public ResultMessage updateStudentStateByStudentIdNotAgree(String studentId,String state){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{

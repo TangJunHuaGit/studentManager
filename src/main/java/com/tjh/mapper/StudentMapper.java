@@ -31,7 +31,7 @@ public interface StudentMapper {
 	public boolean updateStudentByStudentId(Student student);
 
 	//更新单个学生状态
-	public boolean updateStudentStateByStudentIdGoBack(@Param("studentId") Integer studentId,@Param("state")Integer state);
+	public boolean updateStudentStateByStudentId(@Param("studentId") Integer studentId,@Param("state")Integer state);
 
 	//批量更新学生状态
 	public boolean deleteStudentByStudentIds(@Param("ids")Integer[] ids);
