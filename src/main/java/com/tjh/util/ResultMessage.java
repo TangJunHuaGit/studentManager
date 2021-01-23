@@ -43,6 +43,9 @@ public class ResultMessage {
     public static ResultMessage success(Object data){
         return new ResultMessage(data,"");
     }
+    public static ResultMessage successDesc(String describe){
+        return new ResultMessage(ResultMessage.SUCCESSCODE,describe);
+    }
     public static ResultMessage erreo(String desc){
         return new ResultMessage(ResultMessage.FAILCODE,null,desc);
     }

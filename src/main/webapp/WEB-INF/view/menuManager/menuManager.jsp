@@ -118,7 +118,7 @@
             , cols: [[
                 {type: 'checkbox'}
                 , {field: 'id', title: 'id', sort: true, hide: true}
-                , {field: 'title', title: '角色名称'}
+                , {field: 'title', title: '菜单名称'}
                 , {field: 'remark', title: '备注', sort: true}
                 , {field: 'state', title: 'state', sort: true, align: 'center', hide: true}
                 , {field: 'href', title: '地址', sort: true, align: 'center'}

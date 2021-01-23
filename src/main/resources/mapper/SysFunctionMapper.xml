@@ -79,16 +79,16 @@
 
   <update id="updateMenuByMenuId" parameterType="com.tjh.vo.SysFuntionVo">
     update sys_function set functionParentId = #{functionParentId}
-    <if test="functionName!=null and functionName！=''">
+    <if test="functionName!=null and functionName!=''">
       ,functionName = #{functionName}
     </if>
-    <if test="functionHref!=null and functionHref！=''">
+    <if test="functionHref!=null and functionHref!=''">
       ,functionHref = #{functionHref}
     </if>
-    <if test="functionOrderNum!=null and functionOrderNum！=''">
+    <if test="functionOrderNum!=null and functionOrderNum!=''">
       ,functionOrderNum = #{functionOrderNum}
     </if>
-    <if test="functionIcon!=null and functionIcon！=''">
+    <if test="functionIcon!=null and functionIcon!=''">
       ,functionIcon = #{functionIcon}
     </if>
     where functionId = #{functionId}

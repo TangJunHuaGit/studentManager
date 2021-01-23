@@ -25,6 +25,7 @@
     <div class="layui-input-block">
       <select name="pId" id="functionParentIdName" lay-filter="functionParentId">
         <option value="1">一级菜单</option>
+        <option value="99999">跳转路径</option>
       </select>
     </div>
   </div>
@@ -39,7 +40,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">链接</label>
     <div class="layui-input-block">
-      <input type="text" name="functionHref"  placeholder="请输链接" class="layui-input">
+      <input type="text" name="href"  placeholder="请输链接" class="layui-input">
     </div>
   </div>
 
@@ -78,7 +79,7 @@ layui.config({
     ,search = router.search;
     form.render();
     var functionId = getQueryVariable("functionId");//获取界面穿的id
-    
+
     /* 查询表单 */
      $.ajax({
 	    url:'${ctx}/sysFunction/queryOneMenu.action',
@@ -111,6 +112,9 @@ layui.config({
     //提交 loadOnerole
    	form.on('submit(update-submit)', function(obj){
    	       var data = obj.field;
+            data.functionName = obj.field.title;
+            data.functionId = functionId;
+            data.functionHref = obj.field.href;
 	   	    $.ajax({
 			    url:'${ctx}/sysFunction/updateMenuByMenuId.action',
 			    type:'POST',
@@ -119,9 +123,9 @@ layui.config({
 			    timeout:5000,    //超时时间
 			    dataType:'json',
 			    success:function(data){
-			    	if(data.code == 200){
+			    	if(data.code === 200){
 			    		var index = parent.layer.getFrameIndex(window.name);
-			    		layer.msg(data.msg);
+			    		layer.msg(data.describe);
 			    		setTimeout(function(){
 			    			parent.layer.close(index);
 				    		parent.layui.table.reload('menuList');//重载父页表格，参数为表格ID

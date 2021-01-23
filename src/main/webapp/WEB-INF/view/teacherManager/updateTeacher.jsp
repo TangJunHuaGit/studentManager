@@ -48,7 +48,7 @@ layui.config({
     ,search = router.search;
     form.render();
     var teacherId = getQueryVariable("teacherId");//获取界面穿的id
-    
+
     /* 查询表单 */
      $.ajax({
 	    url:'${ctx}/teacher/loadOneTeacherByTeacherId.action',
@@ -73,9 +73,9 @@ layui.config({
 			    timeout:5000,    //超时时间
 			    dataType:'json',
 			    success:function(data){
-			    	if(data.code == 100){
+			    	if(data.code === 200){
 			    		var index = parent.layer.getFrameIndex(window.name);
-			    		layer.msg(data.msg);
+			    		layer.msg(data.describe);
 			    		setTimeout(function(){
 			    			parent.layer.close(index);
 				    		parent.layui.table.reload('teacherList');//重载父页表格，参数为表格ID

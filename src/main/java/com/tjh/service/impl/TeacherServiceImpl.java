@@ -33,4 +33,19 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher loadOneTeacherByTeacherId(Integer teacherId) {
         return teacherMapper.loadOneTeacherByTeacherId(teacherId);
     }
+
+    @Override
+    public int updateTeacherByTeacherId(Teacher teacher) {
+        return this.teacherMapper.updateTeacherByTeacherId(teacher);
+    }
+
+    @Override
+    public int addTeacher(Teacher teacher) {
+        return this.teacherMapper.addTeacher(teacher);
+    }
+
+    @Override
+    public int deleteTeacherStateByTeacherId(Integer teacherId) {
+        return this.teacherMapper.deleteTeacherStateByTeacherId(teacherId);
+    }
 }

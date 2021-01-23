@@ -24,4 +24,27 @@
     select * from teacher
   </select>
 
+  <update id="updateTeacherByTeacherId" parameterType="com.tjh.pojo.Teacher">
+        update teacher
+        <set>
+          <if test="remark!=null and remark!=''">
+            remark=#{remark},
+          </if>
+          <if test="teacherName!=null and teacherName!=''">
+            teacherName=#{teacherName},
+          </if>
+        </set>
+        <where>
+          teacherId = #{teacherId}
+        </where>
+  </update>
+    <insert id="addTeacher" parameterType="com.tjh.pojo.Teacher">
+        insert into teacher(teacherName,teacherPhone,teacherSex,classId,remark,createPerson,createTime) values (
+        #{teacherName},#{teacherPhone},#{teacherSex},#{classId},#{remark},#{createPerson},now()
+        )
+    </insert>
+    <delete id="deleteTeacherStateByTeacherId" parameterType="integer">
+        delete FROM teacher where teacherid = #{teacherId}
+    </delete>
+
 </mapper>

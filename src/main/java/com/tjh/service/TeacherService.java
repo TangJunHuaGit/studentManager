@@ -12,4 +12,10 @@ public interface TeacherService {
     DataGridView loadAllTeacher(Integer page, Integer limit);
 
     Teacher loadOneTeacherByTeacherId(Integer classId);
+
+    int updateTeacherByTeacherId(Teacher teacherId);
+
+    int addTeacher(Teacher teacher);
+
+    int deleteTeacherStateByTeacherId(Integer teacherId);
 }

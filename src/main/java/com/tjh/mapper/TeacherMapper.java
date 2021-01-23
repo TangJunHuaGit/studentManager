@@ -11,4 +11,10 @@ public interface TeacherMapper {
     List<Teacher> loadAllTeacher();
 
     Teacher loadOneTeacherByTeacherId(Integer teacherId);
+
+    int updateTeacherByTeacherId(Teacher teacher);
+
+    int addTeacher(Teacher teacher);
+
+    int deleteTeacherStateByTeacherId(Integer teacherId);
 }

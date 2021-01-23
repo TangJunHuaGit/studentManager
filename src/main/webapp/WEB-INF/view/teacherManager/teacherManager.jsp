@@ -93,7 +93,7 @@
     	      ,done: function (res, curr, count) {
     	            if (curr > 1 && res.data.length === 0) {
     	                curr = curr - 1;
-    	                table.reload('teacherList', { 
+    	                table.reload('teacherList', {
     	                    page: {
     	                        curr: curr
     	                    },
@@ -123,7 +123,7 @@
            table.on('tool(teacherList)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
         	    var data = obj.data //获得当前行数据
         	    ,layEvent = obj.event; //获得 lay-event 对应的值
-        	    
+
         	    var teacherId = obj.data.teacherId; //得到id
         	    if(layEvent === 'del'){
         	      layer.confirm('真的删除行么', function(index){
@@ -131,14 +131,14 @@
         	        layer.close(index);
         	        //向服务端发送删除指令
         	        $.ajax({
-        	               url:"${ctx}/teacher/updateTeacherStateByTeacherId.action",
+        	               url:"${ctx}/teacher/deleteTeacherStateByTeacherId.action",
         	               type:'POST',
        				       async:true,    //或false,是否异步
        				       data:{teacherId:teacherId},
        				       timeout:5000,    //超时时间
        				       dataType:'json',
         	               success:function(data){
-        	            	   layer.msg(data.msg);
+        	            	   layer.msg(data.describe);
         	            	   tableIns.reload();
         	               }
         	           });
@@ -157,15 +157,15 @@
                    for (var i in data) {
                        ids.push(data[i].teacherId);
                    }
-                   layer.confirm('确定删除选中的角色？', {icon: 3, title: '提示信息'}, function (index) {
-                      	   $.post("${ctx}/teacher/updateTeacherStateByTeacherIds.action?ids="+ids,function(data){
-                      		layer.msg(data.msg);
+                   layer.confirm('确定删除选中的教师？', {icon: 3, title: '提示信息'}, function (index) {
+                      	   $.post("${ctx}/teacher/deleteTeacherStateByTeacherIds.action",{ids:JSON.stringify(ids)},function(data){
+                      		layer.msg(data.describe);
                       		setTimeout(function(){
                       		  tableIns.reload();
                               //关闭提示框
                               layer.close(index);
     	                    },500)
-                       }) 
+                       })
                    })
                }else{
                    layer.msg("请选择需要删除的角色");
