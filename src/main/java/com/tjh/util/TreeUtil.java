@@ -103,20 +103,21 @@ public class TreeUtil<T> {
     }
 
     protected void validationAlias(List<Map<String, Object>> list, String idAlias,String parentAlias, String sortAlias) {
-        Map<String, Object> validationObjectMap = list.get(0);
         int idFlag = 0;
         int parentFlag = 0;
         int sortFlag = 0;
-        for (Map.Entry<String, Object> entry : validationObjectMap.entrySet()) {
-            String key = entry.getKey();
-            if (parentAlias.equals(key)) {
-                parentFlag++;
-            }
-            if (sortAlias.equals(key)) {
-                sortFlag++;
-            }
-            if (idAlias.equals(key)) {
-                idFlag++;
+        for (Map<String, Object> validationObjectMap : list) {
+            for (Map.Entry<String, Object> entry : validationObjectMap.entrySet()) {
+                String key = entry.getKey();
+                if (parentAlias.equals(key)) {
+                    parentFlag++;
+                }
+                if (sortAlias.equals(key)) {
+                    sortFlag++;
+                }
+                if (idAlias.equals(key)) {
+                    idFlag++;
+                }
             }
         }
         if (idFlag == 0) {

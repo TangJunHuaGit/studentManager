@@ -73,10 +73,26 @@ public class SysFunctionServiceImpl implements SysFunctionService {
 	}
 
 	@Override
-	public DtreeBuild loadTreeFunction(Integer userId) {
+	public DtreeBuild loadTreeFunction(Integer roleId) {
 		long begin = System.currentTimeMillis();
-		List<SysFunction> sysFuntionVos = this.sysFunctionMapper.queryAll();
-		List<JSONObject> disposeMaps = specialDispose(sysFuntionVos, userId);
+		List<SysFunction> sysFunctionVos = this.sysFunctionMapper.queryAll();
+		return getDtreeBuild(roleId, begin, sysFunctionVos);
+	}
+
+	@Override
+	public int deleteMenuById(Integer functionId) {
+		return this.sysFunctionMapper.deleteMenuById(functionId);
+	}
+
+	@Override
+	public DtreeBuild loadTreeFunctionByEdit(Integer functionId) {
+		long begin = System.currentTimeMillis();
+		List<SysFunction> sysFunctionVos = this.sysFunctionMapper.queryAll().stream().filter(item ->!item.getFunctionId().equals(functionId)).collect(Collectors.toList());
+		return getDtreeBuild(functionId, begin, sysFunctionVos);
+	}
+
+	protected DtreeBuild getDtreeBuild(Integer functionId, long begin, List<SysFunction> sysFuntionVos) {
+		List<JSONObject> disposeMaps = specialDispose(sysFuntionVos, functionId);
 		TreeUtil<JSONObject> treeUtil = new TreeUtil<>();
 		List<Map<String, Object>> maps = treeUtil.listToTree(disposeMaps, true, "1", "functionId", "functionParentId", "functionOrderNum", "children");
 		DtreeBuild dtreeBuild = new DtreeBuild();
@@ -88,11 +104,6 @@ public class SysFunctionServiceImpl implements SysFunctionService {
 		long end = System.currentTimeMillis();
 		System.out.println("加载树结构时间：" + (end - begin) + "ms");
 		return dtreeBuild;
-	}
-
-	@Override
-	public int deleteMenuById(Integer functionId) {
-		return this.sysFunctionMapper.deleteMenuById(functionId);
 	}
 
 	protected List<JSONObject> specialDispose(List<SysFunction> list, Integer roleId) {

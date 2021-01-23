@@ -25,7 +25,7 @@
 <form class="layui-form" id="searchForm" method="post">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">角色名称:</label>
+            <label class="layui-form-label">菜单或权限名称:</label>
             <div class="layui-input-inline">
                 <input type="text" name="functionName" autocomplete="off" class="layui-input">
             </div>
@@ -118,7 +118,7 @@
             , cols: [[
                 {type: 'checkbox'}
                 , {field: 'id', title: 'id', sort: true, hide: true}
-                , {field: 'title', title: '菜单名称'}
+                , {field: 'title', title: '菜单或权限名称'}
                 , {field: 'remark', title: '备注', sort: true}
                 , {field: 'state', title: 'state', sort: true, align: 'center', hide: true}
                 , {field: 'href', title: '地址', sort: true, align: 'center'}
@@ -213,7 +213,7 @@
             var index = layui.layer.open({
                 title: "添加菜单",
                 type: 2,//ifream层
-                area: ["500px", "500px"],
+                area: ["600px", "600px"],
                 content: "${ctx }/menuManager/addMenu.action",
                 success: function (layero, index) {
                     setTimeout(function () {
@@ -229,7 +229,7 @@
             var index = layui.layer.open({
                 title: "修改角色",
                 type: 2,//ifream层n
-                area: ["500px", "400px"],
+                area: ["600px", "600px"],
                 content: "${ctx}/menuManager/updateMenu.action?functionId=" + functionId,
                 success: function (layero, index) {
                     setTimeout(function () {

@@ -110,6 +110,19 @@ public class SysFunctionController {
 		return this.sysFunctionService.loadTreeFunction(roleId);
 	}
 
+	/**
+	 * 在编辑菜单或者权限时调用
+	 * 排除当前选中的菜单或者权限
+	 * @param menuId menuId
+	 * @return DtreeBuild
+	 */
+	@RequestMapping("loadTreeFunctionByEdit")
+	@ResponseBody
+	public DtreeBuild loadTreeFunctionByEdit(Integer menuId) {
+		return this.sysFunctionService.loadTreeFunctionByEdit(menuId);
+	}
+
+
 	@RequestMapping("deleteMenuById")
 	@ResponseBody
 	public ResultMessage deleteMenuById(Integer functionId) {
