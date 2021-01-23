@@ -86,6 +86,9 @@
     <if test="functionType!=null and functionType!=''">
       ,functionType = #{functionType}
     </if>
+    <if test="functionCode!=null and functionCode!=''">
+      ,functionCode = #{functionCode}
+    </if>
     <if test="functionHref!=null and functionHref!=''">
       ,functionHref = #{functionHref}
     </if>
