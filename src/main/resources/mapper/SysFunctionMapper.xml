@@ -59,7 +59,7 @@
      `createTime`,
      `createPerson`)
     VALUES (#{functionParentId},
-            'menu',
+            #{functionType},
             0,
             #{functionName},
             #{functionIcon},

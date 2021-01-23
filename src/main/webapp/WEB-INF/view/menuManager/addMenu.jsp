@@ -141,7 +141,7 @@
                         layer.msg(data.describe);
                         setTimeout(function () {
                             parent.layer.close(index);
-                            parent.layui.table.reload('roleList');//重载父页表格，参数为表格ID
+                            parent.layui.table.reload('menuList');//重载父页表格，参数为表格ID
                         }, 500)
                     } else {
                         layer.msg(data.describe)
