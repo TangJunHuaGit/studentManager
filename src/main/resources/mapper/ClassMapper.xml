@@ -13,7 +13,7 @@
 		<id column="classId" property="classId" jdbcType="INTEGER" />
 		<result column="className" property="className" jdbcType="VARCHAR" />
   </resultMap>
-  
+
    <resultMap id="classTable" type="com.tjh.vo.ClassVo">
 	  <id column="classId" jdbcType="INTEGER" property="classId" />
 	   <result column="className" jdbcType="VARCHAR" property="className" />
@@ -26,19 +26,17 @@
   <select id="loadAllClassComboBox" resultMap="classList">
   		select classId,className from class
   </select>
-  
-  
   <!-- 插入 -->
    <insert id="addClass" parameterType="com.tjh.pojo.Class">
-    insert into class 
+    insert into class
     (className, remark,createPerson)
-    values 
+    values
     (#{className,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER})
   </insert>
   <!-- 修改数据状态 -->
-   <update id="updateClassStateByClassId" parameterType="Integer">
-    	update class set  state = 2 where classId = #{classId}
-  </update>
+   <delete id="updateClassStateByClassId" parameterType="Integer">
+    	 delete from Class where  classId = #{classId,jdbcType=INTEGER}
+  </delete>
   <!-- 修改值 -->
   <update id="updateClassByClassId" parameterType="com.tjh.pojo.Class">
     update class
@@ -56,24 +54,18 @@
     where classId = #{classId,jdbcType=INTEGER}
   </update>
   <!-- 批量修改状态 -->
-  <update id="updateClassStateByClassIds" parameterType="Integer[]">
+  <delete id="updateClassStateByClassIds" parameterType="Integer[]">
 	<foreach collection="ids" separator=";" item="classId">
-		update Class
-		<set>  
-          state = 2
-        </set>  
-        <where>  
-            classId = #{classId,jdbcType=INTEGER}
-        </where> 
+	    delete from Class where  classId = #{classId,jdbcType=INTEGER}
 	</foreach>
-</update>
+</delete>
 <!-- 加载单个数据 -->
   <select id="loadOneClassByClassId" resultType="com.tjh.pojo.Class" parameterType="Integer">
   		select classId, className, remark, state, createTime, createPerson from class where  ClassId = #{classId,jdbcType=INTEGER} and state = 1
   </select>
   <select id="loadAllClass" resultMap="classTable" parameterType="com.tjh.vo.ClassVo">
-  	  select r.classId,r.className,r.remark,r.createTime,u.userName 
-  	  from class r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
+  	  select r.classId,r.className,r.remark,r.createTime,u.userName
+  	  from class r inner join sys_user u on r.createPerson = u.userid
 	    <if test="className != null and className != ''">
 	        and r.className like CONCAT('%',#{className},'%')
 	    </if>
@@ -86,8 +78,8 @@
 	    limit #{page},#{limit}
   </select>
   <select id="loadTotalClass" resultType="Integer" parameterType="com.tjh.vo.ClassVo">
-  	  select count(*) as total from (select r.classId,r.className,r.remark,r.createTime,u.userName 
-  	  from class r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
+  	  select count(*) as total from (select r.classId,r.className,r.remark,r.createTime,u.userName
+  	  from class r inner join sys_user u on r.createPerson = u.userid
 	    <if test="className != null and className != ''">
 	        and r.className like CONCAT('%',#{className},'%')
 	    </if>
