@@ -73,12 +73,12 @@ public class StudentController {
 	@RequestMapping("updateStudentByStudentId")
 	@ResponseBody
 	public ResultMessage updateStudentByStudentId(Student student){
-		  boolean flag = this.studentService.updateStudentByStudentId(student);
-		  if(flag){
-			  return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
-		  }else{
-			  return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
-		  }
+		boolean flag = this.studentService.updateStudentByStudentId(student);
+		if(flag){
+			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+		}
 	}
 
 	//提交申请

@@ -8,71 +8,27 @@
 <title>登录</title>
 <link rel="stylesheet" href="${ctx}/resources/layuiadmin/layui/css/layui.css"
 	media="all" />
-<link rel="stylesheet" href="${ctx}/resources/layuiadmin/style/login.css"
-	media="all" />
-<link rel="stylesheet" href="${ctx}/resources/layuiadmin/style/admin.css"
-	media="all" />
 </head>
 <body>
+<!-- -->
 
-<form class="layui-form" action="">
+<form class="layui-form" action="" lay-filter="classForm" style="padding: 20px 30px 0 0; ">
+   <input type="text" name="createPerson" style="display: none;" class="layui-input" value="${user.user.userId}">
   <div class="layui-form-item">
-    <label class="layui-form-label">输入框</label>
+    <label class="layui-form-label">班级名称</label>
     <div class="layui-input-block">
-      <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">密码框</label>
-    <div class="layui-input-inline">
-      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-    </div>
-    <div class="layui-form-mid layui-word-aux">辅助文字</div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">选择框</label>
-    <div class="layui-input-block">
-      <select name="city" lay-verify="required">
-        <option value=""></option>
-        <option value="0">北京</option>
-        <option value="1">上海</option>
-        <option value="2">广州</option>
-        <option value="3">深圳</option>
-        <option value="4">杭州</option>
-      </select>
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">复选框</label>
-    <div class="layui-input-block">
-      <input type="checkbox" name="like[write]" title="写作">
-      <input type="checkbox" name="like[read]" title="阅读" checked>
-      <input type="checkbox" name="like[dai]" title="发呆">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">开关</label>
-    <div class="layui-input-block">
-      <input type="checkbox" name="switch" lay-skin="switch">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">单选框</label>
-    <div class="layui-input-block">
-      <input type="radio" name="sex" value="男" title="男">
-      <input type="radio" name="sex" value="女" title="女" checked>
+      <input type="text" name="className" lay-verify="required"  placeholder="请输班级名称" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">文本域</label>
+    <label class="layui-form-label">备注</label>
     <div class="layui-input-block">
-      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+      <textarea placeholder="请输入备注" class="layui-textarea" name="remark"></textarea>
     </div>
   </div>
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="add-submit">立即提交</button>
     </div>
   </div>
 </form>
@@ -90,27 +46,13 @@ layui.config({
     ,form = layui.form
     ,router = layui.router()
     ,search = router.search;
-    
-    //初始化验证码
-    var show_num=[];
-    draw(show_num);
-    //点击canvas生成验证码
-    $("#canvas").click(function(){
-    	 draw(show_num);
-    });
-
     form.render();
     
     //提交
-   	form.on('submit(login-submit)', function(obj){
+   	form.on('submit(add-submit)', function(obj){
    	       var data = obj.field;
-   	       var imgCode = show_num.join("");//图形验证码
-   	       var vercode = obj.field.vercode;//表单填写的验证码
-   	       if(imgCode !== vercode){
-   	           return layer.msg('验证码错误');
-   	        }
 	   	    $.ajax({
-			    url:'${ctx}/login/doLogin.action',
+			    url:'${ctx}/class/addClass.action',
 			    type:'POST',
 			    async:true,    //或false,是否异步
 			    data:data,
@@ -118,10 +60,15 @@ layui.config({
 			    dataType:'json',
 			    success:function(data){
 			    	if(data.code == 100){
-			    		location.href = '${ctx}/sys/index.action'; //跳转到登入页
-			    	}else{
+			    		var index = parent.layer.getFrameIndex(window.name);
 			    		layer.msg(data.msg);
+			    		setTimeout(function(){
+			    			parent.layer.close(index);
+				    		parent.layui.table.reload('classList');//重载父页表格，参数为表格ID
+	                       },500)
+	                    
 			    	}
+			    	
 			    }//返回的数据格式：json/xml/html/script/jsonp/text
 			});
    	        return false;
