@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.tjh.constant.Constant;
 import com.tjh.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,21 +18,21 @@ import com.tjh.service.SysUserService;
 @Controller
 @RequestMapping("user")
 public class SysUserController {
-	
+
 	@Autowired
 	private SysUserService sysUserService;
 
 	@Autowired
 	private SysRoleService sysRoleService;
-	
-	
+
+
 	@RequestMapping("addUser")
 	@ResponseBody
 	public Map<String, String> addUser(SysUser user,HttpServletRequest request){
 		System.out.println(user);
 		boolean flag = this.sysUserService.addUser(user);
 		//注册后 给用户基础角色
-		boolean TF =sysRoleService.addBaseRole(15,user.getUserId());
+		boolean TF =sysRoleService.addBaseRole(Constant.BASE_ROLE_ID,user.getUserId());
 		Map<String, String> msg = new HashMap();
 		if(flag && TF) {
 			request.setAttribute("type", "repass");
@@ -44,6 +45,6 @@ public class SysUserController {
 		}
 		return msg;
 	}
-	
+
 
 }

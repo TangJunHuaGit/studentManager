@@ -154,4 +154,34 @@
          #{classId,jdbcType=INTEGER},#{teacherId,jdbcType=INTEGER},#{userId,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER},#{dictionaryId,jdbcType=INTEGER},#{dictionaryPid,jdbcType=INTEGER},#{studentFileName,jdbcType=VARCHAR})
     </insert>
 
+    <select id="loadStudentByTeacher" resultMap="studentTable" parameterType="map">
+        select stu.* from student stu
+        inner join class c on stu.classId = c.classId
+        inner join teacher t on c.classId = t.classId
+        where t.teacherId = #{teacherId}
+        <if test="studentName != null and studentName != ''">
+            and s.studentName=#{studentName}
+        </if>
+        <if test="startTime != null">
+            <![CDATA[ and d.createTime  >=  #{startTime}  ]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[ and d.createTime  <=  #{endTime}  ]]>
+        </if>
+    </select>
+    <select id="loadStudentByParent" resultMap="studentTable" parameterType="map">
+        select * from student stu
+        inner join sys_user su on stu.createPerson = su.userId
+        where su.userId = #{userId}
+        <if test="studentName != null and studentName != ''">
+            and s.studentName=#{studentName}
+        </if>
+        <if test="startTime != null">
+            <![CDATA[ and d.createTime  >=  #{startTime}  ]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[ and d.createTime  <=  #{endTime}  ]]>
+        </if>
+    </select>
+
 </mapper>

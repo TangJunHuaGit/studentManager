@@ -7,7 +7,10 @@ package com.tjh.constant;
  */
 public interface Constant {
     String ADMIN_NAME = "超级管理员";
+    String ROLE_PARENT = "家长";
+    String ROLE_TEACHER = "老师";
     String PERMISSION = "permission";
     String MENU = "menu";
     String JUMP = "jump";
+    Integer BASE_ROLE_ID = 15;
 }

@@ -1,6 +1,5 @@
 package com.tjh.base;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tjh.constant.Constant;
 import com.tjh.pojo.SysFunction;
@@ -9,12 +8,11 @@ import com.tjh.util.SessionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 创建时间 2021/1/6 9:23
@@ -54,7 +52,7 @@ public class BaseServlet extends DispatcherServlet {
                         break;
                     }
                 }
-                //将当前登陆用户的权限添加到ModelAndView的上下文参数中 System.out.println(JSONArray.toJSONString(SessionUtils.getCurrentSysUser().getFunctions()));
+                //将当前登陆用户的权限添加到ModelAndView的上下文参数中
                 List<SysFunction> permissionList = SessionUtils.getCurrentSysUser().getFunctions().stream().filter(per -> per.getFunctionType().equals(Constant.PERMISSION)).collect(Collectors.toList());
                 request.setAttribute("currentUserPermission", JSONObject.toJSONString(permissionList));
             }else{

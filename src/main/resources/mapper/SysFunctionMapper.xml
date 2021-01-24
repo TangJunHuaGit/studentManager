@@ -108,4 +108,8 @@
     <delete id="deleteMenuById" parameterType="integer">
         delete from sys_function where functionId = #{functionId}
     </delete>
+
+    <delete id="deleteRoleFunction" parameterType="integer">
+        delete from sys_role_function where functionId = #{functionId}
+    </delete>
 </mapper>

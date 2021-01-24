@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.tjh.base.annotation.Function;
+import com.tjh.constant.Constant;
+import com.tjh.pojo.SysRole;
 import com.tjh.util.ResultMessage;
+import com.tjh.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +30,7 @@ public class StudentController {
 	@RequestMapping("loadAllStudent")
 	@ResponseBody
 	public DataGridView loadAllStudent(StudentVo studentVo){
-		DataGridView allStudent = this.studentService.loadAllStudent(studentVo);
-		return allStudent;
+		return this.studentService.loadAllStudent(studentVo);
 	}
 
 	//通过班级加载学生

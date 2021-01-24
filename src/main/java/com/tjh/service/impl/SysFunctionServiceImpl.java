@@ -96,7 +96,11 @@ public class SysFunctionServiceImpl implements SysFunctionService {
 
 	@Override
 	public int deleteMenuById(Integer functionId) {
-		return this.sysFunctionMapper.deleteMenuById(functionId);
+		int i = this.sysFunctionMapper.deleteMenuById(functionId);
+		if(i > 0){
+			this.sysFunctionMapper.deleteRoleFunction(functionId);
+		}
+		return i;
 	}
 
 	@Override

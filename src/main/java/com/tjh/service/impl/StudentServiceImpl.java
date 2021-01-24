@@ -1,9 +1,16 @@
 package com.tjh.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
-
+import com.alibaba.fastjson.JSONArray;
+import com.tjh.constant.Constant;
+import com.tjh.pojo.SysRole;
+import com.tjh.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +44,14 @@ public class StudentServiceImpl implements StudentService{
 		int limit = PageBuilder.builderLimit(studentVo.getPage(), studentVo.getLimit());
 		studentVo.setPage(page);
 		studentVo.setLimit(limit);
-		List<Student> allStudent = this.studentMapper.loadAllStudent(studentVo);
-		int total = this.studentMapper.loadTotalStudent(studentVo);
-		// TODO Auto-generated method stub
-		return new DataGridView((long)total,allStudent);
+		List<SysRole> roles = SessionUtils.getCurrentSysUser().getRoles();
+		List<Student> retList = new ArrayList<>();
+		for (SysRole role : roles) {
+			List<Student> students = loadStudentByRole(role.getRoleName(), studentVo);
+			retList.addAll(students);
+		}
+		List<Student> collect = retList.stream().skip(studentVo.getPage()).limit(studentVo.getLimit()).collect(Collectors.toList());
+		return new DataGridView((long) retList.size(),collect);
 	}
 
 	@Override
@@ -77,5 +88,30 @@ public class StudentServiceImpl implements StudentService{
 		return  this.studentMapper.deleteStudentByStudentId(studentId);
 	}
 
+
+	protected List<Student> loadStudentByRole(String roleAlias,StudentVo vo){
+		List<Student> retLis = new ArrayList<>();
+		List<Student> praentStudents = new ArrayList<>();
+		List<Student> teacherStudents = new ArrayList<>();
+		Map<String,Object> map = new HashMap<>();
+		map.put("studentName",vo.getStudentName());
+		map.put("startTime",vo.getStartTime());
+		map.put("endTime",vo.getEndTime());
+		if(Constant.ROLE_PARENT.equals(roleAlias)){
+			map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
+			praentStudents = this.studentMapper.loadStudentByParent(map);
+		}else if(Constant.ROLE_TEACHER.equals(roleAlias)){
+			map.put("teacherId",SessionUtils.getCurrentSysUser().getUser().getUserId());
+			teacherStudents = this.studentMapper.loadStudentByTeacher(map);
+		}
+		if(praentStudents.size() > 0 ){
+			retLis.addAll(praentStudents);
+		}
+		if(teacherStudents.size() > 0 ){
+			retLis.addAll(teacherStudents);
+		}
+		return retLis;
+
+	}
 
 }

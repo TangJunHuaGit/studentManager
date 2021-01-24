@@ -236,7 +236,7 @@
             layer.confirm('确认提交此申请吗?', {icon: 3, title:'提示'}, function(index){
                 layer.close(index);
                 $.ajax({
-                    url:"${ctx}/student/updateStudentStateByStudentId.action",
+                    url:"${ctx}/student/updateStudentStateByStudentIdGoBack.action",
                     type:'POST',
                     async:true,    //或false,是否异步
                     data:{studentId:studentId,state:"2"},

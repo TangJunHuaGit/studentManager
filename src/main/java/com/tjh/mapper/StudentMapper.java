@@ -3,6 +3,7 @@ package com.tjh.mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -37,4 +38,8 @@ public interface StudentMapper {
 	public boolean deleteStudentByStudentIds(@Param("ids")Integer[] ids);
 
 	public boolean deleteStudentByStudentId(Integer studentId);
+
+	List<Student> loadStudentByTeacher(Map<String,Object> parameter);
+
+	List<Student> loadStudentByParent(Map<String,Object> parameter);
 }
