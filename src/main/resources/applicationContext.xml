@@ -30,6 +30,8 @@
 				<value>forget</value>
 				<value>resetPassword</value>
 				<value>downLoadFile</value>
+				<value>info</value>
+				<value>password</value>
 			</list>
 		</property>
 	</bean>

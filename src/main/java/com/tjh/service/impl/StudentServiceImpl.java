@@ -101,7 +101,7 @@ public class StudentServiceImpl implements StudentService{
 			map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
 			praentStudents = this.studentMapper.loadStudentByParent(map);
 		}else if(Constant.ROLE_TEACHER.equals(roleAlias)){
-			map.put("teacherId",SessionUtils.getCurrentSysUser().getUser().getUserId());
+			map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
 			teacherStudents = this.studentMapper.loadStudentByTeacher(map);
 		}
 		if(praentStudents.size() > 0 ){

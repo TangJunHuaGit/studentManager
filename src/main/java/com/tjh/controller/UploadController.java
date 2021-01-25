@@ -30,6 +30,13 @@ public class UploadController {
     @RequestMapping("uploadFile")
     @ResponseBody
     public Map<String,Object> uploadFile(MultipartFile mf,HttpSession session,String studentId){
+        //得到原来文件名 如果存在 删除文件
+        Student sqlStudent = this.studentService.loadOneStudentByStudentId(Integer.valueOf(studentId));
+        String oldFile= sqlStudent.getStudentSource();
+        File oldFiles = new File(oldFile);
+        if(oldFiles.exists()) {
+            oldFiles.delete();
+        }
         Map<String,Object> map=new HashMap<>();
         map.put("code", 0);
         map.put("msg", "");
@@ -63,7 +70,6 @@ public class UploadController {
         Map<String,Object> data=new HashMap<>();
         data.put("src", newRealPath+"/"+newName);
         map.put("data", data);
-
         Student student = new Student();
         student.setStudentId(Integer.valueOf(studentId));
         student.setStudentSource(newRealPath+"/"+newName);

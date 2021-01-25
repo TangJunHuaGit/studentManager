@@ -109,7 +109,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } else if(d.state== 2 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenpi">审批</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } else if(d.state== 3 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -230,6 +230,63 @@
                 toUpdateStudent(studentId);
             }else if(layEvent === "submit"){
                 submitAction(studentId);
+            }else if(layEvent == 'shenPi'){
+                layer.prompt({
+                    formType: 2,    // 弹出层为文本输入框
+                    title: '请输入审批建议',    // 标题
+                    value:'',    // 可以设置默认文本
+                    area: ['400px', '250px'],     // 设置弹出层大小
+                    btn: ['同意', '不同意','取消'],   // 自定义设置多个按钮，第一个是自带的，第二个为下面编写的
+                    btnAlign: 'c',    // 设置按钮位置
+                    yes: function(index){
+                        var value = $('#layui-layer'+index + " .layui-layer-input").val();
+                        if(value == ""){
+                            layer.msg("请输入审批建议");
+                            return false;
+                        };     // 得到value
+                        $.ajax({
+                            url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
+                            type:'POST',
+                            async:true,    //或false,是否异步
+                            data:{studentId:studentId,state:"3"},
+                            timeout:5000,    //超时时间
+                            dataType:'json',
+                            success:function(data){
+                                if(data.code == 200){
+                                    layer.msg(data.describe);
+                                    tableIns.reload();
+                                }else{
+                                    layer.msg(data.desc);
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    },
+                    btn2: function(index, elem){
+                        // 得到输入的数据，这里采用jquery，当然可以更换成layui内的jquery
+                        var value = $('#layui-layer'+index + " .layui-layer-input").val();
+                        if(value == ""){
+                            layer.msg("请输入审批建议");
+                            return false;
+                        };     // 得到value
+                        $.ajax({
+                            url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
+                            type:'POST',
+                            async:true,    //或false,是否异步
+                            data:{studentId:studentId,state:"4"},
+                            timeout:5000,    //超时时间
+                            dataType:'json',
+                            success:function(data){
+                                if(data.code == 200){
+                                    layer.msg(data.describe);
+                                    tableIns.reload();
+                                }else{
+                                    layer.msg(data.desc);
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    }});
             }
         });
         function submitAction(studentId) {

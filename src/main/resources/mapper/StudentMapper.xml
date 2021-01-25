@@ -70,9 +70,8 @@
         select count(*) as total from(select  s.studentId,s.studentName,s.studentPhone,s.studentBirthday,s.studentReason,s.remark,s.createTime,t.teacherName,c.className,
         u.userName from student s
         inner join sys_user u on u.userId = s.createPerson
-        left join teacher t on t.teacherId = s.teacherId
-        left join class c on c.classId = s.classId
-                                 and t.state = 1 and u.state = 1 and s.state=1
+        inner join teacher t on t.teacherId = s.teacherId
+        inner join class c on c.classId = s.classId
         <if test="studentName != null and studentName != ''">
             and s.studentName=#{studentName}
         </if>
@@ -155,18 +154,20 @@
     </insert>
 
     <select id="loadStudentByTeacher" resultMap="studentTable" parameterType="map">
-        select stu.* from student stu
+        select stu.*,t.teacherName,c.className,u.userName from student stu
         inner join class c on stu.classId = c.classId
         inner join teacher t on c.classId = t.classId
-        where t.teacherId = #{teacherId}
+        inner join teacher_user tu on tu.teacherId = t.teacherId
+        inner join sys_user u on stu.createPerson = u.userId
+        where tu.userId = 21
         <if test="studentName != null and studentName != ''">
             and s.studentName=#{studentName}
         </if>
         <if test="startTime != null">
-            <![CDATA[ and d.createTime  >=  #{startTime}  ]]>
+            <![CDATA[ and stu.createTime  >=  #{startTime}  ]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[ and d.createTime  <=  #{endTime}  ]]>
+            <![CDATA[ and stu.createTime  <=  #{endTime}  ]]>
         </if>
     </select>
     <select id="loadStudentByParent" resultMap="studentTable" parameterType="map">
@@ -177,10 +178,10 @@
             and s.studentName=#{studentName}
         </if>
         <if test="startTime != null">
-            <![CDATA[ and d.createTime  >=  #{startTime}  ]]>
+            <![CDATA[ and stu.createTime  >=  #{startTime}  ]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[ and d.createTime  <=  #{endTime}  ]]>
+            <![CDATA[ and stu.createTime  <=  #{endTime}  ]]>
         </if>
     </select>
 
