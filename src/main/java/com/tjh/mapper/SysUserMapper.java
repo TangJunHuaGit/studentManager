@@ -32,4 +32,10 @@ public interface SysUserMapper {
 	 *修改密码
 	 */
 	public boolean updateUserPassWord(SysUser user);
+
+	public SysUser loadOneUser(Integer userId);
+
+	public boolean updateUser(SysUser user);
+
+	boolean updateUserPassword(SysUser user);
 }

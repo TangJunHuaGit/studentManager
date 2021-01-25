@@ -44,13 +44,46 @@
     <update id="updateUserPassWord"  parameterType="com.tjh.pojo.SysUser">
 		update  sys_user set  userLogPwd = #{userLogPwd} where userId=#{userId}
 	</update>
+	<update id="updateUser" parameterType="com.tjh.pojo.SysUser">
+		update sys_user
+		<set>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userSex != null">
+				userSex = #{userSex,jdbcType=INTEGER},
+			</if>
+			<if test="userImages != null">
+				userImages = #{userImages,jdbcType=VARCHAR},
+			</if>
+			<if test="userMobilePhone != null">
+				userMobilePhone = #{userMobilePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userQQ != null">
+				userQQ = #{userQQ,jdbcType=VARCHAR},
+			</if>
+			<if test="userCard != null">
+				userCard = #{userCard,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				userCard = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where userId = #{userId,jdbcType=INTEGER}
+	</update>
+	<update id="updateUserPassword" parameterType="com.tjh.pojo.SysUser">
+		update sys_user set userLogPwd = #{userLogPwd} where userId = #{userId}
+	</update>
 
-    <select id="queryUserByUserLoginName" parameterType="String" resultType="com.tjh.pojo.SysUser">
+	<select id="queryUserByUserLoginName" parameterType="String" resultType="com.tjh.pojo.SysUser">
 		select * from sys_user  where userlogName = #{userLoginName,jdbcType=VARCHAR}
 	</select>
 
 	<select id="queryUserByUserMobilePhone" parameterType="com.tjh.pojo.SysUser" resultType="com.tjh.pojo.SysUser">
 		select * from sys_user  where userMobilePhone = #{userMobilePhone,jdbcType=VARCHAR} and userLogName = #{userLogName,jdbcType=VARCHAR}
+	</select>
+    <select id="loadOneUser" resultType="com.tjh.pojo.SysUser" parameterType="integer">
+		select * from sys_user where userId = #{userId}
 	</select>
 
 

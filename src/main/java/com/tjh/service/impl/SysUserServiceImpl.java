@@ -47,4 +47,17 @@ public class SysUserServiceImpl implements SysUserService{
 		return sysUserMapper.updateUserPassWord(user);
 	}
 
+	@Override
+	public SysUser loadOneUser(Integer userId) {
+		return this.sysUserMapper.loadOneUser(userId);
+	}
+
+	@Override
+	public boolean updateUser(SysUser user) {
+		return sysUserMapper.updateUser(user);
+	}
+	@Override
+	public boolean updateUserPassword(SysUser user) {
+		return sysUserMapper.updateUserPassword(user);
+	}
 }

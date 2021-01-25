@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.tjh.constant.Constant;
+import com.tjh.pojo.SysUserInfo;
 import com.tjh.service.SysRoleService;
+import com.tjh.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +37,6 @@ public class SysUserController {
 		boolean TF =sysRoleService.addBaseRole(Constant.BASE_ROLE_ID,user.getUserId());
 		Map<String, String> msg = new HashMap();
 		if(flag && TF) {
-			request.setAttribute("type", "repass");
 			msg.put("msg", "成功");
 			msg.put("code", "100");
 		}else {
@@ -47,4 +48,41 @@ public class SysUserController {
 	}
 
 
+	@RequestMapping("loadOneUser")
+	@ResponseBody
+	public SysUser loadOneUser(){
+		SysUserInfo userInfo = SessionUtils.getCurrentSysUser();
+		SysUser user = this.sysUserService.loadOneUser(userInfo.getUser().getUserId());
+		return user;
+	}
+	@RequestMapping("updateUser")
+	@ResponseBody
+	public Map<String,String> updateUser(SysUser user){
+		SysUserInfo userInfo = SessionUtils.getCurrentSysUser();
+		boolean flag = this.sysUserService.updateUser(user);
+		Map<String,String> map = new HashMap<String,String>();
+		if(flag){
+			map.put("msg", "成功");
+			map.put("code", "100");
+		}else{
+			map.put("msg", "失败");
+			map.put("code", "101");
+		}
+		return map;
+	}
+	@RequestMapping("updateUserPassword")
+	@ResponseBody
+	public Map<String,String> updateUserPassword(SysUser user){
+		SysUserInfo userInfo = SessionUtils.getCurrentSysUser();
+		boolean flag = this.sysUserService.updateUserPassword(user);
+		Map<String,String> map = new HashMap<String,String>();
+		if(flag){
+			map.put("msg", "成功");
+			map.put("code", "100");
+		}else{
+			map.put("msg", "失败");
+			map.put("code", "101");
+		}
+		return map;
+	}
 }

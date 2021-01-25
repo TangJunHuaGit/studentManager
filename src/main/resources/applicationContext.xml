@@ -32,6 +32,8 @@
 				<value>downLoadFile</value>
 				<value>info</value>
 				<value>password</value>
+				<value>loadOneUser</value>
+				<value>updateUserPassword</value>
 			</list>
 		</property>
 	</bean>

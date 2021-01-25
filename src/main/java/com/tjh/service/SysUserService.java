@@ -38,4 +38,10 @@ public interface SysUserService {
 	SysUserInfo  getUserInfo(String userId);
 
 	public boolean updateUserPassWord(SysUser user);
+
+	public SysUser loadOneUser(Integer userId);
+
+	public boolean updateUser(SysUser user);
+
+	public boolean updateUserPassword(SysUser user);
 }

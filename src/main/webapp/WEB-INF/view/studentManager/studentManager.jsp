@@ -241,8 +241,7 @@
                     yes: function(index){
                         var value = $('#layui-layer'+index + " .layui-layer-input").val();
                         if(value == ""){
-                            layer.msg("请输入审批建议");
-                            return false;
+                            return layer.msg("请输入审批建议");
                         };     // 得到value
                         $.ajax({
                             url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
@@ -266,8 +265,8 @@
                         // 得到输入的数据，这里采用jquery，当然可以更换成layui内的jquery
                         var value = $('#layui-layer'+index + " .layui-layer-input").val();
                         if(value == ""){
-                            layer.msg("请输入审批建议");
-                            return false;
+
+                            return  layer.msg("请输入审批建议");
                         };     // 得到value
                         $.ajax({
                             url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",

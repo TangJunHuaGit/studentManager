@@ -43,8 +43,7 @@ public class SysLoginController {
 		}else {
 			long end = System.currentTimeMillis();
 			System.out.println("登录耗时："+ (end - begin ) + "ms");
-			model.addAttribute("error", "密码不正确");
-			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+			return ResultMessage.erreo(ResultMessage.FAILCODE,null,"密码不正确");
 		}
 	}
 	@RequestMapping("queryUserByUserMobilePhone")
