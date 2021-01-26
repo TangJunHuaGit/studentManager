@@ -75,7 +75,4 @@ public class SysLoginController {
 		request.getSession().removeAttribute("user");
 		return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 	}
-
-
-
 }

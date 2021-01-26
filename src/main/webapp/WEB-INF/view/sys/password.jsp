@@ -26,7 +26,7 @@
         <div class="layui-card-body" pad15>
 
           <div class="layui-form" lay-filter="">
-            <input type="text" name="userId" style="display:none;" value="${user.user.userId}"  class="layui-input">
+            <input type="text" name="userId" style="" value="${user.user.userId}"  class="layui-input">
             <div class="layui-form-item">
               <label class="layui-form-label">当前密码</label>
               <div class="layui-input-inline">
@@ -89,7 +89,7 @@
 		    dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
 		    success:function(data){
 		    	if(data.code = 100){
-                  logout();
+                  layer.msg(data.msg);
 		    	}else{
 		    		layer.msg(data.msg, {
 			             offset: '15px'
@@ -103,27 +103,13 @@
       $("#oldPassword").blur(function(){
         var value = this.value;
         var node = this;
-        $.post('${ctx}/user/verificationPassword.action',{oldPass:value},function (data) {
+        $.post('${ctx}/user/verificationPassword.action',{oldPassword:value},function (data) {
           if(data.msg=='101'){
-            layer.msg('当前密码不正确',{icon: 5});//!,ok,wrong,question,lock,cry,smile
+            layer.msg('当前密码不正确,请重新输入',{icon: 5});//!,ok,wrong,question,lock,cry,smile
             node.focus();
           }
-
         });
       })
-        function logout(){
-          $.post('${ctx}/login/loginOut.action',(res) => {
-            if(res.code === 200){
-              layer.msg("修改成,请重新登录");
-              window.close();
-              location.href = '${ctx}/sys/login.action'; //跳转到登入页
-              // setTimeout(function(){
-              // },500);
-            }else{
-              layer.msg(res.describe);
-            }
-          });
-        }
     });
   });
   </script>

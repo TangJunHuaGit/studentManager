@@ -1,9 +1,12 @@
 package com.tjh.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.tjh.constant.Constant;
 import com.tjh.pojo.SysUserInfo;
@@ -72,13 +75,16 @@ public class SysUserController {
 	}
 	@RequestMapping("updateUserPassword")
 	@ResponseBody
-	public Map<String,String> updateUserPassword(SysUser user){
+	public Map<String,String> updateUserPassword(SysUser user,HttpServletRequest request,HttpServletResponse response)
+			throws ServletException, IOException {
 		SysUserInfo userInfo = SessionUtils.getCurrentSysUser();
 		boolean flag = this.sysUserService.updateUserPassword(user);
+		request.getSession().removeAttribute("user");
 		Map<String,String> map = new HashMap<String,String>();
 		if(flag){
 			map.put("msg", "成功");
 			map.put("code", "100");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}else{
 			map.put("msg", "失败");
 			map.put("code", "101");
