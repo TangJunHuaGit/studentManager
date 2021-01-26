@@ -80,11 +80,10 @@ public class SysUserController {
 		SysUserInfo userInfo = SessionUtils.getCurrentSysUser();
 		boolean flag = this.sysUserService.updateUserPassword(user);
 		request.getSession().removeAttribute("user");
-		Map<String,String> map = new HashMap<String,String>();
+		Map<String,String> map = new HashMap<>();
 		if(flag){
 			map.put("msg", "成功");
 			map.put("code", "100");
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}else{
 			map.put("msg", "失败");
 			map.put("code", "101");

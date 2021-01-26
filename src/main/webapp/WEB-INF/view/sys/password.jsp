@@ -88,8 +88,11 @@
 		    timeout:5000,    //超时时间
 		    dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
 		    success:function(data){
-		    	if(data.code = 100){
+		    	if(data.code === "100"){
                   layer.msg(data.msg);
+                  setTimeout(() =>{
+                    parent.window.location.href = "${ctx}"
+                  },800);
 		    	}else{
 		    		layer.msg(data.msg, {
 			             offset: '15px'
