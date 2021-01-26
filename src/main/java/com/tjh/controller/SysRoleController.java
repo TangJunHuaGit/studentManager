@@ -2,9 +2,11 @@ package com.tjh.controller;
 
 import java.util.HashMap;
 
+import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
+import com.tjh.pojo.SysUser;
 import com.tjh.util.ResultMessage;
 import com.tjh.vo.SysFuntionVo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -43,6 +43,9 @@
         #{teacherName},#{teacherPhone},#{teacherSex},#{classId},#{remark},#{createPerson},now()
         )
     </insert>
+    <insert id="addTeacherUserInfo" parameterType="map">
+        insert into teacher_user(userId,teacherId) values (#{userId},#{teacherId})
+    </insert>
     <delete id="deleteTeacherStateByTeacherId" parameterType="integer">
         delete FROM teacher where teacherid = #{teacherId}
     </delete>

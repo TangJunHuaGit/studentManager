@@ -22,4 +22,6 @@ public interface SysUserDao {
     List<SysFunction> getUserFunction(Integer userId);
 
     List<SysFunction> getRoleFunction(Integer roleId);
+
+    List<SysUser> getUsersByRoleId(Integer roleId);
 }

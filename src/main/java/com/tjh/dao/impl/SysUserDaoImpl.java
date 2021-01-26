@@ -4,6 +4,7 @@ import com.tjh.constant.Constant;
 import com.tjh.dao.SysUserDao;
 import com.tjh.pojo.SysFunction;
 import com.tjh.pojo.SysRole;
+import com.tjh.pojo.SysUser;
 import com.tjh.pojo.SysUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -43,6 +44,23 @@ public class SysUserDaoImpl implements SysUserDao {
     @Override
     public List<SysFunction> getRoleFunction(Integer roleId) {
         return getFunctionByRoleId(roleId);
+    }
+
+    @Override
+    public List<SysUser> getUsersByRoleId(Integer roleId) {
+        String sql = "select su.*,sr.* from sys_user su left join sys_role_user sru on su.userId = sru.userId " +
+                "left join sys_role sr on sru.roleId = sr.roleId where sr.roleId != ?  and su.userId != '"+ Constant.ADMIN_NAME_ID+"'";
+        RowMapper<SysUser> roleRowMapper = (rs,num)->{
+            SysUser user = new SysUser();
+            user.setState(rs.getInt("state"));
+            user.setUserId(rs.getInt("userId"));
+            user.setUserMobilePhone(rs.getString("userMobilePhone"));
+            user.setUserSex(rs.getInt("userSex"));
+            user.setUserName(rs.getString("userName"));
+            user.setRemark(rs.getString("remark"));
+            return user;
+        };
+        return jdbcTemplate.query(sql, roleRowMapper,roleId);
     }
 
     protected boolean isAdmin(List<SysRole> userRole){

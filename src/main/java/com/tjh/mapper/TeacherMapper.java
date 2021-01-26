@@ -3,6 +3,8 @@ package com.tjh.mapper;
 import com.tjh.pojo.Teacher;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TeacherMapper {
@@ -17,4 +19,6 @@ public interface TeacherMapper {
     int addTeacher(Teacher teacher);
 
     int deleteTeacherStateByTeacherId(Integer teacherId);
+
+    int addTeacherUserInfo(Map<String,Integer> map);
 }

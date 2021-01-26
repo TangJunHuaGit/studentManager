@@ -2,9 +2,12 @@ package com.tjh.service;
 
 
 import com.tjh.pojo.SysRole;
+import com.tjh.pojo.SysUser;
 import com.tjh.util.DataGridView;
 import com.tjh.vo.SysRoleVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysRoleService {
 	public boolean addRole(SysRole role);
@@ -26,4 +29,5 @@ public interface SysRoleService {
     void insetFunctionByRoleId(int functionId, Integer roleId);
 
 	void deleteFunctionByRoleId(int functionId, Integer roleId);
+
 }
