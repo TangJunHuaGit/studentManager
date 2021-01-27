@@ -44,4 +44,6 @@ public interface SysUserMapper {
 	boolean updateUserPassword(SysUser user);
 
     List<SysUser> loadUsersByRoleId(@Param("roleId") Integer roleId);
+
+	Integer verificationPassword(@Param("userId") Integer userId,@Param("userLogPwd") String userLogPwd);
 }
