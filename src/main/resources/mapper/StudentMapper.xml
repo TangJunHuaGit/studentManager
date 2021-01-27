@@ -175,7 +175,7 @@
         inner join sys_user su on stu.createPerson = su.userId
         where su.userId = #{userId}
         <if test="studentName != null and studentName != ''">
-            and s.studentName=#{studentName}
+            and stu.studentName like CONCAT('%',#{studentName},'%')
         </if>
         <if test="startTime != null">
             <![CDATA[ and stu.createTime  >=  #{startTime}  ]]>
