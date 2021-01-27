@@ -25,15 +25,15 @@ import com.tjh.vo.SysRoleVo;
 @RequestMapping("sysRole")
 public class SysRoleController {
 
-	@Autowired 
+	@Autowired
 	private SysRoleService sysRoleService;
-	
+
 	@RequestMapping("loadAllRole")
 	@ResponseBody
 	public DataGridView loadAllRole(SysRoleVo roleVo) {//分页查询所有
 		return this.sysRoleService.loadAllRole(roleVo);
 	}
-	
+
 	@RequestMapping("updateRoleByRoleId")
 	@ResponseBody
 	public Map<String,String> updateRoleByRoleId(SysRole role) {//修改
@@ -87,7 +87,7 @@ public class SysRoleController {
 	public SysRole loadOneRoleByRoleId(Integer roleId) {
 		return this.sysRoleService.loadOneRoleByRoleId(roleId);
 	}
-	
+
 	//	添加
 	@RequestMapping("addRole")
 	@ResponseBody
@@ -122,5 +122,10 @@ public class SysRoleController {
 		}
 
 		return  ResultMessage.success(ResultMessage.SUCCESSCODE,"更新成功");
+	}
+	@RequestMapping("loadUsersByRoleId")
+	@ResponseBody
+	public DataGridView loadUsersByRoleId(Integer roleId,Integer page,Integer limit) {
+		return this.sysRoleService.loadUsersByRoleId(roleId,page,limit);
 	}
 }

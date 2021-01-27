@@ -2,6 +2,11 @@ package com.tjh.service.impl;
 
 import java.util.List;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.tjh.mapper.SysUserMapper;
+import com.tjh.pojo.SysUser;
+import com.tjh.vo.SysFuntionVo;
 import com.tjh.dao.SysUserDao;
 import com.tjh.mapper.TeacherMapper;
 import com.tjh.pojo.SysUser;
@@ -19,6 +24,9 @@ public class SysRoleServiceImpl implements SysRoleService{
 
 	@Autowired
 	private SysRoleMapper sysRoleMapper;
+
+	@Autowired
+	private SysUserMapper userMapper;
 
 	@Override
 	public DataGridView loadAllRole(SysRoleVo roleVo) {
@@ -80,5 +88,13 @@ public class SysRoleServiceImpl implements SysRoleService{
 	@Override
 	public void deleteFunctionByRoleId(int functionId, Integer roleId) {
 		this.sysRoleMapper.deleteFunctionByRoleId(functionId,roleId);
+	}
+
+	@Override
+	public DataGridView loadUsersByRoleId(Integer roleId,Integer page,Integer limit) {
+		PageHelper.startPage(page, limit);
+		List<SysUser> users =userMapper.loadUsersByRoleId(roleId);
+		PageInfo<SysUser> pageInfo = new PageInfo<>(users);
+		return new DataGridView((long)pageInfo.getTotal(),pageInfo.getList());
 	}
 }

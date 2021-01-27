@@ -53,6 +53,7 @@
   <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   <a class="layui-btn layui-btn-xs" lay-event="zyfp">资源分配</a>
+  <a class="layui-btn layui-btn-xs" lay-event="fpyh">分配用户</a>
 </script>
 <script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
 </body>
@@ -87,14 +88,14 @@
     	        ,{field:'roleName', title: '角色名称'}
     	        ,{field:'remark', title: '备注', sort: true}
     	        ,{field:'state', title: 'state', sort: true, align: 'center',hide:true}
-    	        ,{field:'userName', title: '创建人', sort: true, align: 'center'}
-    	        ,{field:'createTime', title: '创建时间', sort: true, align: 'center'}
-    	        ,{fixed: 'right',title: '操作',width: 185, align:'center', toolbar: '#tableToolBarLine'}
+    	        ,{field:'userName', title: '创建人',width:150, sort: true, align: 'center'}
+    	        ,{field:'createTime', title: '创建时间',width:200, sort: true, align: 'center'}
+    	        ,{fixed: 'right',title: '操作',width: 345, align:'center', toolbar: '#tableToolBarLine'}
     	      ]]
     	      ,done: function (res, curr, count) {
     	            if (curr > 1 && res.data.length === 0) {
     	                curr = curr - 1;
-    	                table.reload('roleList', { 
+    	                table.reload('roleList', {
     	                    page: {
     	                        curr: curr
     	                    },
@@ -124,7 +125,7 @@
            table.on('tool(roleList)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
         	    var data = obj.data //获得当前行数据
         	    ,layEvent = obj.event; //获得 lay-event 对应的值
-        	    
+
         	    var roleId = obj.data.roleId; //得到id
         	    if(layEvent === 'del'){
         	      layer.confirm('真的删除行么', function(index){
@@ -148,6 +149,8 @@
         	    	toUpdateRole(roleId);
         	    }else if(layEvent === 'zyfp'){
                     toSourceAllot(roleId)
+                }else if(layEvent === 'fpyh'){
+                    toAllotUser(roleId)
                 }
         	  });
            //批量删除
@@ -168,7 +171,7 @@
                               //关闭提示框
                               layer.close(index);
     	                    },500)
-                       }) 
+                       })
                    })
                }else{
                    layer.msg("请选择需要删除的角色");
@@ -236,12 +239,14 @@
                    }
                });
            }
-           function sourceAllot(roleId){
+           function toAllotUser(roleId){
+               let kd = window.innerWidth*0.7+"px";
+               let gd = window.innerHeight*0.7+"px";
                var index = layui.layer.open({
                    title : "资源分配",
                    type : 2,//ifream层
-                   area:["500px","400px"],
-                   content : "${ctx}/roleManager/updateRole.action?roleId="+roleId,
+                   area:[kd,gd],
+                   content : "${ctx}/roleManager/allotRoel.action?roleId="+roleId,
                    success : function(layero, index){
                        setTimeout(function(){
                            layui.layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {

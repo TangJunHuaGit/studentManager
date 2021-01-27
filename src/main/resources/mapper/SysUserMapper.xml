@@ -85,6 +85,12 @@
     <select id="loadOneUser" resultType="com.tjh.pojo.SysUser" parameterType="integer">
 		select * from sys_user where userId = #{userId}
 	</select>
+	<select id="loadUsersByRoleId" parameterType="integer" resultMap="SysUserMap">
+		select su.* from sys_user su
+            left join sys_role_user sur on su.userId = sur.userid
+           left join sys_role sr on sr.roleId = sur.roleid
+            where sr.roleId = #{roleId}
+	</select>
     <select id="verificationPassword" resultType="java.lang.Integer">
 			select count(*) from sys_user where userId = #{userId} and userLogPwd = #{userLogPwd}
 	</select>
