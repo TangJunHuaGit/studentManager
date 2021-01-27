@@ -1,8 +1,9 @@
 package com.tjh.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysUser {
+public class SysUser implements Serializable {
     private Integer userId;
 
     private String userName;
@@ -34,11 +35,11 @@ public class SysUser {
     private String userSalt;
 
     private Date userBirthday;
-    
+
     private Integer userOrderNum;
 
     private Date userLastLogTime;
-    
+
     private Integer userPosition;
 
     private Integer userProvinceId;
@@ -46,17 +47,17 @@ public class SysUser {
     private Integer userCityId;
 
     private Integer userCountyId;
-    
+
     private Integer deptId;
-    
+
     private Integer state;
 
     private String remark;
-    
+
     private Date createTime;
-    
+
 	private Integer createPerson;
-	
+
 
 	public Integer getCreatePerson() {
 		return createPerson;
@@ -67,7 +68,7 @@ public class SysUser {
 	}
 
 
-    
+
 	public Integer getUserId() {
 		return userId;
 	}
@@ -275,5 +276,5 @@ public class SysUser {
 	public void setUserCountyId(Integer userCountyId) {
 		this.userCountyId = userCountyId;
 	}
-    
+
 }

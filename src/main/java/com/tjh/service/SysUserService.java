@@ -1,5 +1,6 @@
 package com.tjh.service;
 
+import com.tjh.pojo.OperationLog;
 import com.tjh.pojo.SysUser;
 import com.tjh.pojo.SysUserInfo;
 
@@ -44,4 +45,8 @@ public interface SysUserService {
 	public boolean updateUser(SysUser user);
 
 	public boolean updateUserPassword(SysUser user);
+
+	public boolean insertIntoLog(OperationLog log);
+
+	public Integer verificationPassword(Integer userId,String userLogPwd);
 }

@@ -1,5 +1,6 @@
 package com.tjh.dao;
 
+import com.tjh.pojo.OperationLog;
 import com.tjh.pojo.SysFunction;
 import com.tjh.pojo.SysUser;
 import com.tjh.pojo.SysUserInfo;
@@ -24,4 +25,6 @@ public interface SysUserDao {
     List<SysFunction> getRoleFunction(Integer roleId);
 
     List<SysUser> getUsersByRoleId(Integer roleId);
+    //插入日志
+    boolean insertIntoLog(OperationLog log);
 }

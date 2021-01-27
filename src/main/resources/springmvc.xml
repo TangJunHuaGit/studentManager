@@ -4,7 +4,10 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+    	http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -13,6 +16,13 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- 扫描 -->
 	<context:component-scan base-package="com.tjh"/>
+	<!-- 定义操作日志切面 -->
+	<bean id="logAspect" class="com.tjh.base.LogAopAspect"></bean>
+	<!-- 通知Spring使用cglib而不是jdk的来生成代理方法  AOP可以拦截到Controller -->
+	<aop:aspectj-autoproxy proxy-target-class="true">
+		<aop:include name="logAspect" />
+	</aop:aspectj-autoproxy>
+
 	<!-- 合并注解映射器和适配器的配置 对映射器和适配器进行加强 如数据转化，如把对象转成json字符串等等 -->
 	<mvc:annotation-driven/>
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tjh.constant.Constant;
 import com.tjh.pojo.SysUserInfo;
 import com.tjh.service.SysRoleService;
+import com.tjh.util.ResultMessage;
 import com.tjh.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,5 +90,15 @@ public class SysUserController {
 			map.put("code", "101");
 		}
 		return map;
+	}
+
+	@RequestMapping("verificationPassword")
+	@ResponseBody
+	public ResultMessage verificationPassword(Integer userId, String userLogPwd){
+		Integer num = this.sysUserService.verificationPassword(userId, userLogPwd);
+		if(num > 0)
+			return new ResultMessage(num,ResultMessage.SUCCESSFUL);
+		else
+			return new ResultMessage(0,ResultMessage.FAIL);
 	}
 }

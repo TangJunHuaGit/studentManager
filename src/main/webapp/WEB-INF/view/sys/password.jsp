@@ -26,7 +26,7 @@
         <div class="layui-card-body" pad15>
 
           <div class="layui-form" lay-filter="">
-            <input type="text" name="userId" style="" value="${user.user.userId}"  class="layui-input">
+            <input type="text" name="userId" id="userId" style="display: none;" value="${user.user.userId}"  class="layui-input">
             <div class="layui-form-item">
               <label class="layui-form-label">当前密码</label>
               <div class="layui-input-inline">
@@ -89,7 +89,7 @@
 		    dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
 		    success:function(data){
 		    	if(data.code === "100"){
-                  layer.msg(data.msg);
+                  layer.msg("修改"+data.msg,"请重新登录!");
                   setTimeout(() =>{
                     parent.window.location.href = "${ctx}"
                   },800);
@@ -102,18 +102,20 @@
 		    	}
 		    }
 		});
-
-      $("#oldPassword").blur(function(){
-        var value = this.value;
-        var node = this;
-        $.post('${ctx}/user/verificationPassword.action',{oldPassword:value},function (data) {
-          if(data.msg=='101'){
-            layer.msg('当前密码不正确,请重新输入',{icon: 5});//!,ok,wrong,question,lock,cry,smile
-            node.focus();
-          }
-        });
-      })
     });
+    $("#oldPassword").blur(function(){
+      var value = this.value;
+      var userId = $("#userId").val();
+      var node = this;
+      $.post('${ctx}/user/verificationPassword.action',{userLogPwd:value,userId:userId},function (data) {
+        if(data.data <= 0 || data.data === undefined || data.data===""){
+          layer.msg('当前密码不正确,请重新输入',{icon: 5});//!,ok,wrong,question,lock,cry,smile
+          node.focus();
+        }else{
+          layer.msg('旧密码正确',{icon: 1});//!,ok,wrong,question,lock,cry,smile
+        }
+      });
+    })
   });
   </script>
 </html>

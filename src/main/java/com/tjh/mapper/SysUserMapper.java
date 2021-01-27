@@ -1,6 +1,7 @@
 package com.tjh.mapper;
 
 import com.tjh.pojo.SysUser;
+import org.apache.ibatis.annotations.Param;
 
 public interface SysUserMapper {
 	/**
@@ -37,5 +38,7 @@ public interface SysUserMapper {
 
 	public boolean updateUser(SysUser user);
 
-	boolean updateUserPassword(SysUser user);
+	public boolean updateUserPassword(SysUser user);
+
+	public Integer verificationPassword(@Param("userId") Integer userId,@Param("userLogPwd") String userLogPwd);
 }

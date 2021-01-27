@@ -1,11 +1,9 @@
 package com.tjh.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 
+import com.tjh.base.annotation.LogAopPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +14,6 @@ import com.tjh.pojo.SysUser;
 import com.tjh.pojo.SysUserInfo;
 import com.tjh.service.SysUserService;
 import com.tjh.util.ResultMessage;
-import com.tjh.util.SessionUtils;
 @Controller
 @RequestMapping("login")
 public class SysLoginController {
@@ -26,7 +23,8 @@ public class SysLoginController {
 
 	@RequestMapping("doLogin")
 	@ResponseBody
-	public ResultMessage doLogin(SysUser user, Model model, HttpServletRequest request){
+	@LogAopPointcut(logModuleName = "登录模块", logDesc ="用户登录" , logType = LogAopPointcut.log_Type.SELECT)
+	public ResultMessage doLogin(SysUser user,HttpServletRequest request){
 		long begin = System.currentTimeMillis();
 		//设置session，获取角色、菜单和权限，放到redis中（mysql和redis数据同步）
 		SysUser dbUser = this.sysUserService.queryUserByUserLoginName(user.getUserLogName());

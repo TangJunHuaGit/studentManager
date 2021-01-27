@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 25/01/2021 13:41:51
+ Date: 27/01/2021 14:55:10
 */
 
 SET NAMES utf8mb4;
@@ -81,6 +81,29 @@ INSERT INTO `dictionary` VALUES (17, '事假', 18, '有事情', 1, '2021-01-10 2
 INSERT INTO `dictionary` VALUES (18, '测试类', 0, '测试类', 1, '2021-01-10 22:17:16', NULL);
 
 -- ----------------------------
+-- Table structure for operation_log
+-- ----------------------------
+DROP TABLE IF EXISTS `operation_log`;
+CREATE TABLE `operation_log`  (
+  `logId` int(11) NOT NULL AUTO_INCREMENT,
+  `logIpAddress` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `logCreateTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `logModuleName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `logDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `logType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `logMethodName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `logParams` varchar(800) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `LogParamter` varchar(800) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `userId` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`logId`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of operation_log
+-- ----------------------------
+INSERT INTO `operation_log` VALUES (11, NULL, '2021-01-27 14:24:25', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123123\"}]', '{}', NULL);
+
+-- ----------------------------
 -- Table structure for student
 -- ----------------------------
 DROP TABLE IF EXISTS `student`;
@@ -107,7 +130,7 @@ CREATE TABLE `student`  (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES (4, '汤俊华', '12354854247', '2021-01-20', '', '', NULL, 14, 3, 1, 1, 15, 4, '222', '2021-01-19 11:46:48', 1);
+INSERT INTO `student` VALUES (4, '汤俊华', '12354854247', '2021-01-20', '', '', NULL, 14, 3, 1, 1, 15, 2, '222', '2021-01-19 11:46:48', 1);
 INSERT INTO `student` VALUES (6, '熊志伟', '18745237231', '2021-01-19', '', '', NULL, 14, 4, 1, NULL, 15, 2, '希望老师同意', '2021-01-19 15:00:10', 20);
 INSERT INTO `student` VALUES (10, '宋朝阳', '14789537894', '2021-01-12', '我的测试', NULL, 'report.xls', 14, 3, 1, NULL, 15, 1, '', '2021-01-25 09:27:45', 20);
 INSERT INTO `student` VALUES (11, '宋朝阳', '14789537894', '2020-12-28', '222', 'F:\\studentManager\\target\\SSM\\upload\\/2021-01-25/20210125132817854_7669.css', '我的文件.xls', 14, 3, 1, NULL, 15, 1, '2222', '2021-01-25 13:15:32', 1);
@@ -286,7 +309,7 @@ CREATE TABLE `sys_role`  (
   `createTime` datetime(0) NULL DEFAULT NULL,
   `createPerson` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`roleId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -421,7 +444,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, '家长', '15675287477', NULL, '1902907167@qq.com', NULL, 'tjh', '1', 1, NULL, NULL, NULL, NULL, '430321199811204517', '123456', NULL, NULL, NULL, '1', NULL, 1, 1, 1, 1, 1, 'tjh', '2021-01-05 20:23:32', NULL);
+INSERT INTO `sys_user` VALUES (1, '家长', '15675287477', NULL, '1902907167@qq.com', '1902907167', 'tjh', '123123', 1, NULL, NULL, NULL, NULL, 'tjh', '123456', NULL, NULL, NULL, '1', NULL, 1, 1, 1, 1, 1, 'tjh', '2021-01-05 20:23:32', NULL);
 INSERT INTO `sys_user` VALUES (2, '熊志伟', '13873335777', NULL, NULL, NULL, 'xzw', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1);
 INSERT INTO `sys_user` VALUES (20, 'admin', '15675287477', NULL, NULL, NULL, 'admin', '1', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2021-01-19 22:31:54', 1);
 INSERT INTO `sys_user` VALUES (21, '袁老师', '15675287477', NULL, NULL, NULL, 'ls', '1', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', NULL, 1, 1, 1, 1, 1, '1', '2021-01-20 21:10:40', NULL);
@@ -443,7 +466,7 @@ CREATE TABLE `teacher`  (
   `createTime` datetime(0) NULL DEFAULT NULL,
   `createPerson` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`teacherId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_croatian_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of teacher

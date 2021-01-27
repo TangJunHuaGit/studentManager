@@ -1,5 +1,7 @@
 package com.tjh.service.impl;
 
+import com.tjh.pojo.OperationLog;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
@@ -59,5 +61,15 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public boolean updateUserPassword(SysUser user) {
 		return sysUserMapper.updateUserPassword(user);
+	}
+
+	@Override
+	public boolean insertIntoLog(OperationLog log) {
+		return sysUserDao.insertIntoLog(log);
+	}
+
+	@Override
+	public Integer verificationPassword(Integer userId,String userLogPwd) {
+		return sysUserMapper.verificationPassword(userId,userLogPwd);
 	}
 }

@@ -85,6 +85,9 @@
     <select id="loadOneUser" resultType="com.tjh.pojo.SysUser" parameterType="integer">
 		select * from sys_user where userId = #{userId}
 	</select>
+    <select id="verificationPassword" resultType="java.lang.Integer">
+			select count(*) from sys_user where userId = #{userId} and userLogPwd = #{userLogPwd}
+	</select>
 
 
 </mapper>

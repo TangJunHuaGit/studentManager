@@ -2,10 +2,7 @@ package com.tjh.dao.impl;
 
 import com.tjh.constant.Constant;
 import com.tjh.dao.SysUserDao;
-import com.tjh.pojo.SysFunction;
-import com.tjh.pojo.SysRole;
-import com.tjh.pojo.SysUser;
-import com.tjh.pojo.SysUserInfo;
+import com.tjh.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -61,6 +58,20 @@ public class SysUserDaoImpl implements SysUserDao {
             return user;
         };
         return jdbcTemplate.query(sql, roleRowMapper,roleId);
+    }
+
+    @Override
+    public boolean insertIntoLog(OperationLog log) {
+        String sql = "insert into operation_log(logIpAddress,logModuleName,logDesc,logType,logMethodName,logParams,LogParamter,userId) values(?,?,?,?,?,?,?,?) ";
+
+        Object[] args = new Object[]
+        { log.getLogIpAddress(),log.getLogModuleName(),log.getLogDesc(),log.getLogType(),log.getLogMethodName(),log.getLogParams(),
+        log.getLogParamter(),log.getUserId() };
+        int result = jdbcTemplate.update(sql, args);
+        if(result > 0)
+        return true;
+        else
+        return false;
     }
 
     protected boolean isAdmin(List<SysRole> userRole){
