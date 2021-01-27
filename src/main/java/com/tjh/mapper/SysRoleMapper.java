@@ -26,4 +26,6 @@ public interface SysRoleMapper {
     void insetFunctionByRoleId( @Param("functionId")Integer functionId, @Param("roleId")Integer roleId);
 
 	void deleteFunctionByRoleId(@Param("functionId")Integer functionId,@Param("roleId")Integer roleId);
+
+    int addRoleUser(@Param("roleId")Integer roleId, @Param("userId")Integer userId);
 }

@@ -1,8 +1,10 @@
 package com.tjh.base;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tjh.constant.Constant;
 import com.tjh.pojo.SysFunction;
+import com.tjh.pojo.SysRole;
 import com.tjh.pojo.SysUserInfo;
 import com.tjh.util.SessionUtils;
 import org.springframework.util.StringUtils;
@@ -53,7 +55,10 @@ public class BaseServlet extends DispatcherServlet {
                     }
                 }
                 //将当前登陆用户的权限添加到ModelAndView的上下文参数中
+                List<SysRole> roles = SessionUtils.getCurrentSysUser().getRoles();
+                System.out.println(JSONArray.toJSONString(roles));
                 List<SysFunction> permissionList = SessionUtils.getCurrentSysUser().getFunctions().stream().filter(per -> per.getFunctionType().equals(Constant.PERMISSION)).collect(Collectors.toList());
+                System.out.println(JSONArray.toJSONString(permissionList));
                 request.setAttribute("currentUserPermission", JSONObject.toJSONString(permissionList));
             }else{
                 // 在放行的URL中配置了，无需判断权限，放行请求，渲染界面

@@ -240,12 +240,12 @@
                });
            }
            function toAllotUser(roleId){
-               let kd = window.innerWidth*0.7+"px";
-               let gd = window.innerHeight*0.7+"px";
+               // let kd = window.innerWidth*0.7+"px";
+               // let gd = window.innerHeight*0.7+"px";
                var index = layui.layer.open({
-                   title : "资源分配",
+                   title : "分配用户",
                    type : 2,//ifream层
-                   area:[kd,gd],
+                   area:["100%","100%"],
                    content : "${ctx}/roleManager/allotRoel.action?roleId="+roleId,
                    success : function(layero, index){
                        setTimeout(function(){

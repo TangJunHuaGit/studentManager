@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
+import com.tjh.constant.Constant;
 import com.tjh.pojo.SysUser;
 import com.tjh.util.ResultMessage;
 import com.tjh.vo.SysFuntionVo;
@@ -27,6 +28,9 @@ public class SysRoleController {
 
 	@Autowired
 	private SysRoleService sysRoleService;
+
+	@Autowired
+	private TeacherController teacherController;
 
 	@RequestMapping("loadAllRole")
 	@ResponseBody
@@ -112,9 +116,8 @@ public class SysRoleController {
 		JSONArray addIdArr = JSONArray.parseArray(addIds);
 		JSONArray delIdArr = JSONArray.parseArray(delIds);
 		for (Object o : addIdArr) {
-			System.out.println(o);
 			int functionId = Integer.parseInt(o.toString());
-			this.sysRoleService.insetFunctionByRoleId(functionId,roleId);
+			this.sysRoleService.insertFunctionByRoleId(functionId,roleId);
 		}
 		for (Object o : delIdArr) {
 			int functionId = Integer.parseInt(o.toString());
@@ -127,5 +130,18 @@ public class SysRoleController {
 	@ResponseBody
 	public DataGridView loadUsersByRoleId(Integer roleId,Integer page,Integer limit) {
 		return this.sysRoleService.loadUsersByRoleId(roleId,page,limit);
+	}
+	@RequestMapping("getUsersByRoleId")
+	@ResponseBody
+	public DataGridView getUsersByRoleId(Integer roleId,Integer page,Integer limit) {
+		return this.sysRoleService.getUsersByRoleId(roleId,page,limit);
+	}
+	@RequestMapping("addRoleUser")
+	@ResponseBody
+	public ResultMessage addRoleUser(Integer roleId,SysUser user) {
+		if(roleId.equals(Constant.TEACHER_ROLE_ID)){
+			teacherController.addTeacher(user);
+		}
+		return this.sysRoleService.addRoleUser(roleId,user.getUserId());
 	}
 }

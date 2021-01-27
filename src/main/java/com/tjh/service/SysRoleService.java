@@ -4,6 +4,7 @@ package com.tjh.service;
 import com.tjh.pojo.SysRole;
 import com.tjh.pojo.SysUser;
 import com.tjh.util.DataGridView;
+import com.tjh.util.ResultMessage;
 import com.tjh.vo.SysRoleVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,9 +27,13 @@ public interface SysRoleService {
 
 	public  boolean addBaseRole(Integer roleId,Integer userId);
 
-    void insetFunctionByRoleId(int functionId, Integer roleId);
+    void insertFunctionByRoleId(int functionId, Integer roleId);
 
 	void deleteFunctionByRoleId(int functionId, Integer roleId);
 
     DataGridView loadUsersByRoleId(Integer roleId,Integer page,Integer limit);
+
+    DataGridView getUsersByRoleId(Integer roleId,Integer page,Integer limit);
+
+    ResultMessage addRoleUser(Integer roleId,Integer userId);
 }

@@ -80,7 +80,7 @@
     {{# if(userId == 20){ }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {{# }else{ }}
+    {{# }else{ console.log(d.state) }}
     {{# layui.each(permissionObj, function(index, item){ }}
     {{# if(item.functionCode == 'updateStudentStateByStudentIdGoBack'){ }}
     {{# tijiao = true}}
@@ -90,11 +90,16 @@
     {{# } }}
     {{# if(item.functionCode == 'updateStudentStateByStudentIdNotAgree'){ }}
     {{# butongyi = true}}
+    {{# console.log(butongyi,tongyi)}}
     {{# } }}
     {{#  }); }}
     {{# if(d.state == 1 && tijiao){ }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# }else if(d.state == 2 && tijiao && butongyi && tongyi) { }}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# }else if(d.state == 2 && tijiao) { }}
     {{# } else if(d.state== 3 && tijiao) { }}

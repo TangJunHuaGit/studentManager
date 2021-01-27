@@ -141,10 +141,6 @@
                         }
                     });
                 });
-            } else if(layEvent === 'edit'){
-
-            }else if(layEvent === 'zyfp'){
-
             }
         });
         //批量删除
@@ -173,11 +169,13 @@
         }
         //打开  添加人
         function toAddUser(){
+            let kd = window.innerWidth*0.8+"px";
+            let gd = window.innerHeight*0.8+"px";
             var index = layui.layer.open({
                 title : "添加用户",
                 type : 2,//ifream层
-                area:["500px","400px"],
-                content : "${ctx }/roleManager/addRole.action",
+                area:[kd,gd],
+                content : "${ctx }/roleManager/addRoleUser.action?roleId="+roleId,
                 success : function(layero, index){
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {

@@ -1,15 +1,14 @@
 package com.tjh.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tjh.mapper.SysUserMapper;
 import com.tjh.pojo.SysUser;
-import com.tjh.vo.SysFuntionVo;
+import com.tjh.util.ResultMessage;
 import com.tjh.dao.SysUserDao;
-import com.tjh.mapper.TeacherMapper;
-import com.tjh.pojo.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,8 @@ import com.tjh.service.SysRoleService;
 import com.tjh.util.DataGridView;
 import com.tjh.util.PageBuilder;
 import com.tjh.vo.SysRoleVo;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class SysRoleServiceImpl implements SysRoleService{
 
@@ -27,6 +28,9 @@ public class SysRoleServiceImpl implements SysRoleService{
 
 	@Autowired
 	private SysUserMapper userMapper;
+
+	@Autowired
+	private SysUserDao sysUserDao;
 
 	@Override
 	public DataGridView loadAllRole(SysRoleVo roleVo) {
@@ -47,25 +51,21 @@ public class SysRoleServiceImpl implements SysRoleService{
 
 	@Override
 	public boolean updateRoleByRoleId(SysRole role) {
-		// TODO Auto-generated method stub
 		return this.sysRoleMapper.updateRoleByRoleId(role);
 	}
 
 	@Override
 	public boolean updateRoleStateByRoleId(Integer roleId) {
-		// TODO Auto-generated method stub
 		return this.sysRoleMapper.updateRoleStateByRoleId(roleId);
 	}
 
 	@Override
 	public boolean updateRoleStateByRoleIds(Integer[] ids) {
-		// TODO Auto-generated method stub
 		return this.sysRoleMapper.updateRoleStateByRoleIds(ids);
 	}
 
 	@Override
 	public SysRole loadOneRoleByRoleId(Integer roleId) {
-		// TODO Auto-generated method stub
 		return this.sysRoleMapper.loadOneRoleByRoleId(roleId);
 	}
 
@@ -76,12 +76,11 @@ public class SysRoleServiceImpl implements SysRoleService{
 
 	@Override
 	public boolean addRole(SysRole role) {
-		// TODO Auto-generated method stub
 		return this.sysRoleMapper.addRole(role);
 	}
 
 	@Override
-	public void insetFunctionByRoleId(int functionId, Integer roleId) {
+	public void insertFunctionByRoleId(int functionId, Integer roleId) {
 		this.sysRoleMapper.insetFunctionByRoleId(functionId,roleId);
 	}
 
@@ -95,6 +94,21 @@ public class SysRoleServiceImpl implements SysRoleService{
 		PageHelper.startPage(page, limit);
 		List<SysUser> users =userMapper.loadUsersByRoleId(roleId);
 		PageInfo<SysUser> pageInfo = new PageInfo<>(users);
-		return new DataGridView((long)pageInfo.getTotal(),pageInfo.getList());
+		return new DataGridView(pageInfo.getTotal(),pageInfo.getList());
+	}
+
+	@Override
+	public DataGridView getUsersByRoleId(Integer roleId,Integer page,Integer limit) {
+		int curPage = PageBuilder.builderLimit(page, limit);
+		int pageSize = PageBuilder.builderPage(page, limit);
+		List<SysUser> usersByRoleId = sysUserDao.getUsersByRoleId(roleId);
+		List<SysUser> collect = usersByRoleId.stream().skip(pageSize).limit(curPage).collect(Collectors.toList());
+		return new DataGridView((long)usersByRoleId.size(),collect);
+	}
+
+	@Override
+	public ResultMessage addRoleUser(Integer roleId, Integer userId) {
+		int i  = this.sysRoleMapper.addRoleUser(roleId,userId);
+		return i>0?ResultMessage.successDesc("添加成功"):ResultMessage.erreo("失败");
 	}
 }

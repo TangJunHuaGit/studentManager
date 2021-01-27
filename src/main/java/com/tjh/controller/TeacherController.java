@@ -3,6 +3,7 @@ package com.tjh.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tjh.base.annotation.Function;
+import com.tjh.pojo.SysUser;
 import com.tjh.pojo.Teacher;
 import com.tjh.service.TeacherService;
 import com.tjh.util.DataGridView;
@@ -53,7 +54,14 @@ public class TeacherController {
     }
     @RequestMapping("addTeacher")
     @ResponseBody
-    public ResultMessage addTeacher(Teacher teacher) {
+    public ResultMessage addTeacher(SysUser user) {
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId(user.getUserId());
+        teacher.setTeacherName(user.getUserName());
+        teacher.setRemark(user.getRemark());
+        teacher.setTeacherSex(user.getUserSex());
+        teacher.setState(user.getState());
+        teacher.setTeacherPhone(user.getUserMobilePhone());
         int i = this.teacherService.addTeacher(teacher);
         return i > 0 ? ResultMessage.successDesc("添加成功") : ResultMessage.erreo("添加失败");
     }

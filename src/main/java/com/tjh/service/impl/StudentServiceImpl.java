@@ -44,26 +44,23 @@ public class StudentServiceImpl implements StudentService{
 		int limit = PageBuilder.builderLimit(studentVo.getPage(), studentVo.getLimit());
 		studentVo.setPage(page);
 		studentVo.setLimit(limit);
-		List<SysRole> roles = SessionUtils.getCurrentSysUser().getRoles();
-		List<Student> retList = new ArrayList<>();
-		for (SysRole role : roles) {
-			List<Student> students = loadStudentByRole(role.getRoleName(), studentVo);
-			retList.addAll(students);
-		}
-		List<Student> collect = retList.stream().skip(studentVo.getPage()).limit(studentVo.getLimit()).collect(Collectors.toList());
-		return new DataGridView((long) retList.size(),collect);
+		Map<String,Object> map = new HashMap<>();
+		map.put("studentName",studentVo.getStudentName());
+		map.put("startTime",studentVo.getStartTime());
+		map.put("endTime",studentVo.getEndTime());
+		map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
+		List<Student> students = this.studentMapper.loadStudentByTeacher(map);
+		List<Student> collect = students.stream().skip(studentVo.getPage()).limit(studentVo.getLimit()).collect(Collectors.toList());
+		return new DataGridView((long) students.size(),collect);
 	}
 
 	@Override
 	public int loadTotalStudent(StudentVo studentVo) {
-		// TODO Auto-generated method stub
-		int total = this.studentMapper.loadTotalStudent(studentVo);
-		return total;
+		return this.studentMapper.loadTotalStudent(studentVo);
 	}
 
 	@Override
 	public Student loadOneStudentByStudentId(Integer studentId) {
-		// TODO Auto-generated method stub
 		return  this.studentMapper.loadOneStudentByStudentId(studentId);
 	}
 
@@ -89,29 +86,29 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 
-	protected List<Student> loadStudentByRole(String roleAlias,StudentVo vo){
-		List<Student> retLis = new ArrayList<>();
-		List<Student> praentStudents = new ArrayList<>();
-		List<Student> teacherStudents = new ArrayList<>();
-		Map<String,Object> map = new HashMap<>();
-		map.put("studentName",vo.getStudentName());
-		map.put("startTime",vo.getStartTime());
-		map.put("endTime",vo.getEndTime());
-		if(Constant.ROLE_PARENT.equals(roleAlias)){
-			map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
-			praentStudents = this.studentMapper.loadStudentByParent(map);
-		}else if(Constant.ROLE_TEACHER.equals(roleAlias)){
-			map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
-			teacherStudents = this.studentMapper.loadStudentByTeacher(map);
-		}
-		if(praentStudents.size() > 0 ){
-			retLis.addAll(praentStudents);
-		}
-		if(teacherStudents.size() > 0 ){
-			retLis.addAll(teacherStudents);
-		}
-		return retLis;
-
-	}
+//	protected List<Student> loadStudentByRole(String roleAlias,StudentVo vo){
+//		List<Student> retLis = new ArrayList<>();
+//		List<Student> praentStudents = new ArrayList<>();
+//		List<Student> teacherStudents = new ArrayList<>();
+//		Map<String,Object> map = new HashMap<>();
+//		map.put("studentName",vo.getStudentName());
+//		map.put("startTime",vo.getStartTime());
+//		map.put("endTime",vo.getEndTime());
+//		if(Constant.ROLE_PARENT.equals(roleAlias)){
+//			map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
+//			praentStudents = this.studentMapper.loadStudentByParent(map);
+//		}else if(Constant.ROLE_TEACHER.equals(roleAlias)){
+//			map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
+//			teacherStudents = this.studentMapper.loadStudentByTeacher(map);
+//		}
+//		if(praentStudents.size() > 0 ){
+//			retLis.addAll(praentStudents);
+//		}
+//		if(teacherStudents.size() > 0 ){
+//			retLis.addAll(teacherStudents);
+//		}
+//		return retLis;
+//
+//	}
 
 }

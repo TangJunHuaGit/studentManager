@@ -39,13 +39,13 @@
         </where>
   </update>
     <insert id="addTeacher" parameterType="com.tjh.pojo.Teacher">
-        insert into teacher(teacherName,teacherPhone,teacherSex,classId,remark,createPerson,createTime) values (
+        insert into teacher(teacherId,teacherName,teacherPhone,teacherSex,classId,remark,createPerson,createTime) values (#{teacherId},
         #{teacherName},#{teacherPhone},#{teacherSex},#{classId},#{remark},#{createPerson},now()
         )
     </insert>
-    <insert id="addTeacherUserInfo" parameterType="map">
-        insert into teacher_user(userId,teacherId) values (#{userId},#{teacherId})
-    </insert>
+<!--    <insert id="addTeacherUserInfo" parameterType="map">-->
+<!--        insert into teacher_user(userId,teacherId) values (#{userId},#{teacherId})-->
+<!--    </insert>-->
     <delete id="deleteTeacherStateByTeacherId" parameterType="integer">
         delete FROM teacher where teacherid = #{teacherId}
     </delete>

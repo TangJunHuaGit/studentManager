@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -47,7 +48,8 @@ public class SysUserDaoImpl implements SysUserDao {
     public List<SysUser> getUsersByRoleId(Integer roleId) {
         String sql = "select su.*,sr.* from sys_user su left join sys_role_user sru on su.userId = sru.userId " +
                 "left join sys_role sr on sru.roleId = sr.roleId where sr.roleId != ?  and su.userId != '"+ Constant.ADMIN_NAME_ID+"'";
-        RowMapper<SysUser> roleRowMapper = (rs,num)->{
+        System.out.println(sql);
+            RowMapper<SysUser> roleRowMapper = (rs,num)->{
             SysUser user = new SysUser();
             user.setState(rs.getInt("state"));
             user.setUserId(rs.getInt("userId"));
@@ -57,7 +59,19 @@ public class SysUserDaoImpl implements SysUserDao {
             user.setRemark(rs.getString("remark"));
             return user;
         };
-        return jdbcTemplate.query(sql, roleRowMapper,roleId);
+        List<SysUser> userList = jdbcTemplate.query(sql, roleRowMapper, roleId);
+        Iterator<SysUser> it = userList.iterator();
+        while (it.hasNext()){
+            SysUser sysUser = it.next();
+            List<SysRole> roleByUserId = this.getRoleByUserId(sysUser.getUserId());
+            for (SysRole role : roleByUserId) {
+                if(role.getRoleId().equals(roleId)){
+                    it.remove();
+                    break;
+                }
+            }
+        }
+        return userList;
     }
 
     @Override

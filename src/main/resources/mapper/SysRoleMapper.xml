@@ -72,31 +72,35 @@
           and state = 1
     </select>
     <select id="loadAllRole" resultMap="SysRoleVoMap" parameterType="com.tjh.vo.SysRoleVo">
-        select r.roleId,r.roleName,r.remark,r.createTime,u.userName
-        from sys_role r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
-        <if test="roleName != null and roleName != ''">
-            and r.roleName like CONCAT('%',#{roleName},'%')
-        </if>
-        <if test="startTime != null">
-            <![CDATA[ and r.createTime  >=  #{startTime}  ]]>
-        </if>
-        <if test="endTime != null">
-            <![CDATA[ and r.createTime  <=  #{endTime}  ]]>
-        </if>
+        select r.roleId,r.roleName,r.remark,r.createTime
+        from sys_role r
+         <where>
+            <if test="roleName != null and roleName != ''">
+                and r.roleName like CONCAT('%',#{roleName},'%')
+            </if>
+            <if test="startTime != null">
+                <![CDATA[ and r.createTime  >=  #{startTime}  ]]>
+            </if>
+            <if test="endTime != null">
+                <![CDATA[ and r.createTime  <=  #{endTime}  ]]>
+            </if>
+        </where>
         limit #{page},#{limit}
     </select>
     <select id="loadTotalRole" resultType="Integer" parameterType="com.tjh.vo.SysRoleVo">
-        select count(*) as total from (select r.roleId,r.roleName,r.remark,r.createTime,u.userName
-        from sys_role r inner join sys_user u on r.createPerson = u.userid where u.state =1 and r.state = 1
-        <if test="roleName != null and roleName != ''">
-            and r.roleName like CONCAT('%',#{roleName},'%')
-        </if>
-        <if test="startTime != null">
-            <![CDATA[ and r.createTime  >=  #{startTime}  ]]>
-        </if>
-        <if test="endTime != null">
-            <![CDATA[ and r.createTime  <=  #{endTime}  ]]>
-        </if>
+        select count(*) as total from (select r.roleId,r.roleName,r.remark,r.createTime
+        from sys_role r
+        <where>
+            <if test="roleName != null and roleName != ''">
+                and r.roleName like CONCAT('%',#{roleName},'%')
+            </if>
+            <if test="startTime != null">
+                <![CDATA[ and r.createTime  >=  #{startTime}  ]]>
+            </if>
+            <if test="endTime != null">
+                <![CDATA[ and r.createTime  <=  #{endTime}  ]]>
+            </if>
+        </where>
         ) as a
     </select>
     <insert id="insetFunctionByRoleId" parameterType="Integer">
@@ -105,4 +109,8 @@
     <delete id="deleteFunctionByRoleId" parameterType="Integer">
         DELETE FROM ssm.sys_role_function WHERE roleid = #{roleId} and functionid = #{functionId}
     </delete>
+
+    <insert id="addRoleUser" parameterType="Integer">
+        INSERT INTO sys_role_user (roleId, userId) VALUES (#{roleId}, #{userId})
+    </insert>
 </mapper>

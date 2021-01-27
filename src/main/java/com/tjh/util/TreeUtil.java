@@ -120,13 +120,16 @@ public class TreeUtil<T> {
                 }
             }
             if (idFlag == 0) {
+                System.out.println(JSONObject.toJSONString(validationObjectMap));
                 throw new NullPointerException("不存在的ID列名：" + idAlias);
             }
             if (parentFlag == 0) {
+                System.out.println(JSONObject.toJSONString(validationObjectMap));
                 throw new NullPointerException("不存在的父节点列名：" + parentAlias);
             }
             if (sortFlag == 0) {
                 if(isSort){
+                    System.out.println(JSONObject.toJSONString(validationObjectMap));
                     throw new NullPointerException("不存在的排序列名：" + sortAlias);
                 }
             }

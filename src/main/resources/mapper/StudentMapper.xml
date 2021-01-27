@@ -157,9 +157,8 @@
         select stu.*,t.teacherName,c.className,u.userName from student stu
         inner join class c on stu.classId = c.classId
         inner join teacher t on c.classId = t.classId
-        inner join teacher_user tu on tu.teacherId = t.teacherId
-        inner join sys_user u on stu.createPerson = u.userId
-        where tu.userId = 21
+        inner join sys_user u on stu.createPerson = u.userId or t.teacherId = u.userId
+        where u.userId = #{userId}
         <if test="studentName != null and studentName != ''">
             and s.studentName=#{studentName}
         </if>

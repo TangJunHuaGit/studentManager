@@ -9,8 +9,11 @@ import com.tjh.util.DataGridView;
 import com.tjh.util.PageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -41,7 +44,15 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int addTeacher(Teacher teacher) {
-        return this.teacherMapper.addTeacher(teacher);
+        int i = this.teacherMapper.addTeacher(teacher);
+//        int temp = 0;
+//        if(i>0){
+//            Map<String,Integer> map = new HashMap<>();
+//            map.put("userId",userId);
+//            map.put("teacherId",teacher.getTeacherId());
+//            temp = this.teacherMapper.addTeacherUserInfo(map);
+//        }
+        return  i;
     }
 
     @Override

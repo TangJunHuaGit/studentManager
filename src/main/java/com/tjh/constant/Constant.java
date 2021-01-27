@@ -13,5 +13,6 @@ public interface Constant {
     String MENU = "menu";
     String JUMP = "jump";
     Integer BASE_ROLE_ID = 15;
+    Integer TEACHER_ROLE_ID = 16;
     Integer ADMIN_NAME_ID = 20;
 }
