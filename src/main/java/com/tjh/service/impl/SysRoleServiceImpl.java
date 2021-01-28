@@ -111,4 +111,10 @@ public class SysRoleServiceImpl implements SysRoleService{
 		int i  = this.sysRoleMapper.addRoleUser(roleId,userId);
 		return i>0?ResultMessage.successDesc("添加成功"):ResultMessage.erreo("失败");
 	}
+
+	@Override
+	public ResultMessage deleteRoleUser(Integer roleId, Integer userId) {
+		int i = this.sysRoleMapper.deleteRoleUser(roleId,userId);
+		return i>0?ResultMessage.successDesc("成功"):ResultMessage.erreo("失败");
+	}
 }

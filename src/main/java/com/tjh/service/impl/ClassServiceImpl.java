@@ -3,6 +3,7 @@ package com.tjh.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.tjh.service.ClassService;
 import com.tjh.util.DataGridView;
 import com.tjh.util.PageBuilder;
 import com.tjh.vo.ClassVo;
+import org.springframework.util.ObjectUtils;
 
 @Service
 public class ClassServiceImpl implements ClassService{
@@ -65,4 +67,16 @@ public class ClassServiceImpl implements ClassService{
 		return this.classMapper.loadOneClassByClassId(classId);
 	}
 
+	@Override
+	public List<Map<String, Object>> allotClassComboBox(Integer classId) {
+		Class aClass = loadOneClassByClassId(classId);
+		List<Map<String, Object>> maps = this.classMapper.allotClassComboBox();
+		String str = JSONObject.toJSONString(aClass);
+		JSONObject jsonObject = JSONObject.parseObject(str);
+		if(!ObjectUtils.isEmpty(aClass)){
+			maps.add(jsonObject);
+		}
+
+		return maps;
+	}
 }

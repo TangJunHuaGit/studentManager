@@ -8,6 +8,8 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONArray;
 import com.tjh.constant.Constant;
 import com.tjh.pojo.SysUser;
+import com.tjh.pojo.Teacher;
+import com.tjh.service.TeacherService;
 import com.tjh.util.ResultMessage;
 import com.tjh.vo.SysFuntionVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class SysRoleController {
 	private SysRoleService sysRoleService;
 
 	@Autowired
-	private TeacherController teacherController;
+	private TeacherService teacherService;
 
 	@RequestMapping("loadAllRole")
 	@ResponseBody
@@ -140,8 +142,27 @@ public class SysRoleController {
 	@ResponseBody
 	public ResultMessage addRoleUser(Integer roleId,SysUser user) {
 		if(roleId.equals(Constant.TEACHER_ROLE_ID)){
-			teacherController.addTeacher(user);
+			Teacher teacher = new Teacher();
+			teacher.setTeacherId(user.getUserId());
+			teacher.setTeacherName(user.getUserName());
+			teacher.setRemark(user.getRemark());
+			teacher.setTeacherSex(user.getUserSex());
+			teacher.setState(user.getState());
+			teacher.setTeacherPhone(user.getUserMobilePhone());
+			int i = teacherService.addTeacher(teacher);
+			return i>0?ResultMessage.successDesc("成功"):ResultMessage.erreo("失败");
+		}else{
+			return this.sysRoleService.addRoleUser(roleId,user.getUserId());
 		}
-		return this.sysRoleService.addRoleUser(roleId,user.getUserId());
+	}
+	@RequestMapping("deleteRoleUser")
+	@ResponseBody
+	public ResultMessage deleteRoleUser(Integer roleId,Integer userId) {
+		if(roleId.equals(Constant.TEACHER_ROLE_ID)){
+			int i = teacherService.deleteTeacherStateByTeacherId(userId);
+			return i>0?ResultMessage.successDesc("成功"):ResultMessage.erreo("失败");
+		}else{
+			return this.sysRoleService.deleteRoleUser(roleId,userId);
+		}
 	}
 }

@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 27/01/2021 22:40:50
+ Date: 28/01/2021 20:55:08
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `class`;
 CREATE TABLE `class`  (
   `classId` int(0) NOT NULL AUTO_INCREMENT,
   `className` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
-  `state` int(0) DEFAULT NULL COMMENT '1为正常，2为注销',
+  `state` int(0) DEFAULT 1 COMMENT '1为正常，2为注销',
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci DEFAULT NULL,
   `createTime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
   `createPerson` int(0) DEFAULT NULL,
@@ -34,7 +34,8 @@ CREATE TABLE `class`  (
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO `class` VALUES (5, '666', NULL, '666', '2021-01-27 21:51:16', 23);
+INSERT INTO `class` VALUES (5, '666', 1, '666', '2021-01-27 21:51:16', 23);
+INSERT INTO `class` VALUES (6, '12312', 1, '123123', '2021-01-28 20:21:09', 20);
 
 -- ----------------------------
 -- Table structure for course
@@ -92,42 +93,6 @@ CREATE TABLE `operation_log`  (
   `userId` int(0) DEFAULT NULL,
   PRIMARY KEY (`logId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of operation_log
--- ----------------------------
-INSERT INTO `operation_log` VALUES (36, NULL, '2021-01-27 21:38:20', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"admin\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (37, NULL, '2021-01-27 21:40:53', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"admin\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (38, NULL, '2021-01-27 21:41:59', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (39, NULL, '2021-01-27 21:42:43', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (40, NULL, '2021-01-27 21:42:46', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (41, NULL, '2021-01-27 21:44:54', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (42, NULL, '2021-01-27 21:44:57', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (43, NULL, '2021-01-27 21:47:09', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (44, NULL, '2021-01-27 21:47:46', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (45, NULL, '2021-01-27 21:47:49', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (46, NULL, '2021-01-27 21:48:21', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (47, NULL, '2021-01-27 21:48:24', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (48, NULL, '2021-01-27 21:55:17', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"admin\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (49, NULL, '2021-01-27 21:55:33', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (50, NULL, '2021-01-27 22:09:57', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (51, NULL, '2021-01-27 22:10:09', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (52, NULL, '2021-01-27 22:10:55', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"xzw\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (53, NULL, '2021-01-27 22:11:20', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"admin\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (54, NULL, '2021-01-27 22:11:47', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"xzw\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (55, NULL, '2021-01-27 22:12:41', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"xzw\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (56, NULL, '2021-01-27 22:14:17', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"xzw\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (57, NULL, '2021-01-27 22:14:20', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"xzw\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (58, NULL, '2021-01-27 22:14:55', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (59, NULL, '2021-01-27 22:15:14', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"xzw\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (60, NULL, '2021-01-27 22:17:33', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"xzw\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (61, NULL, '2021-01-27 22:17:53', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (62, NULL, '2021-01-27 22:19:12', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (63, NULL, '2021-01-27 22:19:16', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (64, NULL, '2021-01-27 22:21:33', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (65, NULL, '2021-01-27 22:24:33', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (66, NULL, '2021-01-27 22:30:16', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"1\"}]', '{}', NULL);
-INSERT INTO `operation_log` VALUES (67, NULL, '2021-01-27 22:30:19', '登录模块', '用户登录', 'SELECT', 'doLogin', '[{\"userLogName\":\"tjh\",\"userLogPwd\":\"123456\"}]', '{}', NULL);
 
 -- ----------------------------
 -- Table structure for student
@@ -242,10 +207,7 @@ INSERT INTO `sys_function` VALUES (52, 18, 'permission', 0, 'user:resetpwd', '�
 INSERT INTO `sys_function` VALUES (53, 14, 'permission', 0, 'dept:view', '部门查询', NULL, NULL, NULL, 0, 48, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (56, 17, 'permission', 0, 'role:view', '角色查询', NULL, NULL, NULL, 0, 51, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (57, 18, 'permission', 0, 'user:view', '用户查询', NULL, NULL, NULL, 0, 52, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (61, 1, 'menu', 1, NULL, '审批管理', 'layui-icon-edit', '', '', 0, 56, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (62, 61, 'menu', 0, NULL, '请假单管理', 'layui-icon-date', '../leaveBill/toLeaveBillManager.action', '', 0, 57, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (63, 61, 'menu', 0, NULL, '我的待办任务', 'layui-icon-util', '', '', 0, 58, 1, NULL, NULL, NULL);
-INSERT INTO `sys_function` VALUES (64, 61, 'menu', 0, NULL, '我的审批记录', 'layui-icon-top', '', '', 0, 59, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (68, 8, 'permission', 0, 'loadAllStudent', '学生查询', NULL, '', NULL, NULL, 60, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (69, 8, 'permission', 0, 'addStudent', '学生添加', NULL, '', NULL, NULL, 61, 1, NULL, NULL, NULL);
 INSERT INTO `sys_function` VALUES (70, 8, 'permission', 0, 'updateStudentByStudentId', '学生修改', NULL, '', NULL, NULL, 62, 1, NULL, NULL, NULL);
@@ -297,6 +259,7 @@ INSERT INTO `sys_function` VALUES (130, 7, 'jump', 0, NULL, '跳转添加班级'
 INSERT INTO `sys_function` VALUES (131, 7, 'jump', 0, NULL, '跳转修改班级', NULL, '../classManager/updateClass.action', NULL, NULL, 121, 1, NULL, '2021-01-24 21:43:26', NULL);
 INSERT INTO `sys_function` VALUES (132, 17, 'jump', 0, NULL, '分配角色', '', '../roleManager/allotRoel.action', NULL, 0, 102, 1, '', '2021-01-27 19:36:59', 20);
 INSERT INTO `sys_function` VALUES (133, 17, 'jump', 0, NULL, '跳转添加角色用户', '', '../roleManager/addRoleUser.action', NULL, 0, 108, 1, '', '2021-01-27 19:50:05', 20);
+INSERT INTO `sys_function` VALUES (134, 17, 'permission', 0, NULL, '删除角色用户', '', '', NULL, 0, 103, 1, '../sysRole/deleteRoleUser.action', '2021-01-28 19:43:46', 20);
 
 -- ----------------------------
 -- Table structure for sys_position
@@ -420,8 +383,9 @@ CREATE TABLE `sys_role_user`  (
 -- ----------------------------
 INSERT INTO `sys_role_user` VALUES (13, 20);
 INSERT INTO `sys_role_user` VALUES (15, 23);
-INSERT INTO `sys_role_user` VALUES (16, 23);
 INSERT INTO `sys_role_user` VALUES (15, 24);
+INSERT INTO `sys_role_user` VALUES (16, 24);
+INSERT INTO `sys_role_user` VALUES (16, 23);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -487,6 +451,13 @@ CREATE TABLE `teacher`  (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES (23, 'tjh', '', NULL, 0, 5, NULL, '需要加入班级', '2021-01-27 21:42:23', NULL);
+INSERT INTO `teacher` VALUES (23, 'tjh', '', NULL, 0, 6, NULL, '', '2021-01-28 20:42:37', NULL);
+INSERT INTO `teacher` VALUES (24, 'xzw', '', NULL, 0, 5, NULL, 'afaf', '2021-01-28 20:20:11', NULL);
+
+-- ----------------------------
+-- View structure for v_teacher
+-- ----------------------------
+DROP VIEW IF EXISTS `v_teacher`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `v_teacher` AS select `t`.`teacherId` AS `teacherId`,`t`.`teacherName` AS `teacherName`,`t`.`teacherPhone` AS `teacherPhone`,`t`.`teacherBrithday` AS `teacherBrithday`,`t`.`teacherSex` AS `teacherSex`,`t`.`classId` AS `classId`,`t`.`state` AS `state`,`t`.`remark` AS `remark`,`t`.`createTime` AS `createTime`,`t`.`createPerson` AS `createPerson` from ((`sys_user` `su` left join `teacher` `t` on((`su`.`userId` = `t`.`teacherId`))) left join `sys_role_user` `sru` on((`su`.`userId` = `sru`.`userId`))) where (`sru`.`roleId` = 16);
 
 SET FOREIGN_KEY_CHECKS = 1;

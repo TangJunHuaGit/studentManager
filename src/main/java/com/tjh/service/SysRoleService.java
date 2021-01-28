@@ -36,4 +36,6 @@ public interface SysRoleService {
     DataGridView getUsersByRoleId(Integer roleId,Integer page,Integer limit);
 
     ResultMessage addRoleUser(Integer roleId,Integer userId);
+
+    ResultMessage deleteRoleUser(Integer roleId, Integer userId);
 }

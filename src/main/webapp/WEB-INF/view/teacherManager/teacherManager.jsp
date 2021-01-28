@@ -79,7 +79,7 @@
     	      ,cellMinWidth: 80
     	      ,page: true
     	      ,limit: 10
-    	      ,toolbar: '#tableToolBar'
+    	      // ,toolbar: '#tableToolBar'
     	      ,cols: [[
     	        {type:'checkbox'}
     	        ,{field:'teacherId', title: 'TeacherId', sort: true,hide:true}
@@ -125,6 +125,7 @@
         	    ,layEvent = obj.event; //获得 lay-event 对应的值
 
         	    var teacherId = obj.data.teacherId; //得到id
+        	    var classId = !!obj.data.classId?obj.data.classId:-1; //得到id
         	    if(layEvent === 'del'){
         	      layer.confirm('真的删除行么', function(index){
         	        obj.del(); //删除对应行（tr）的DOM结构
@@ -144,7 +145,7 @@
         	           });
         	      });
         	    } else if(layEvent === 'edit'){
-        	    	toUpdateTeacher(teacherId);
+        	    	toUpdateTeacher(teacherId,classId);
         	    }
         	  });
            //批量删除
@@ -187,12 +188,12 @@
                    }
                });
            }
-           function toUpdateTeacher(teacherId){
+           function toUpdateTeacher(teacherId,classId){
                var index = layui.layer.open({
                    title : "修改老师",
                    type : 2,//ifream层
                    area:["500px","400px"],
-                   content : "${ctx}/teacherManager/updateTeacher.action?teacherId="+teacherId,
+                   content : "${ctx}/teacherManager/updateTeacher.action?teacherId="+teacherId+"&classId="+classId,
                    success : function(layero, index){
                        setTimeout(function(){
                            layui.layer.tips('点击此处返回角色列表', '.layui-layer-setwin .layui-layer-close', {
