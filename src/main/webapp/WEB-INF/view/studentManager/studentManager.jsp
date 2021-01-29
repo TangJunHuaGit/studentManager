@@ -211,7 +211,7 @@
         table.on('tool(studentList)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
-
+            var dictionaryPid = obj.data.dictionaryPid;
             var studentId = obj.data.studentId; //得到id
             if(layEvent === 'del'){
                 layer.confirm('真的删除行么', function(index){
@@ -232,7 +232,7 @@
                     });
                 });
             } else if(layEvent === 'edit'){
-                toUpdateStudent(studentId);
+                toUpdateStudent(studentId,dictionaryPid);
             }else if(layEvent === "submit"){
                 submitAction(studentId);
             }else if(layEvent == 'shenPi'){
@@ -356,13 +356,13 @@
                 }
             });
         }
-        function toUpdateStudent(studentId){
+        function toUpdateStudent(studentId,dictionaryPid){
             var index = layui.layer.open({
                 title : "修改学生",
                 type : 2,//ifream层
                 area:["100%","100%"],
                 //zIndex: layer.zIndex, //重点1
-                content : "${ctx}/studentManager/updateStudent.action?studentId="+studentId,
+                content : "${ctx}/studentManager/updateStudent.action?studentId="+studentId+"&dictionaryPid="+dictionaryPid,
                 success : function(layero, index){
                     //layer.setTop(layero); //重点2
                     setTimeout(function(){

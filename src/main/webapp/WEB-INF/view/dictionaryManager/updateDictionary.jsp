@@ -10,10 +10,7 @@
 	media="all" />
 </head>
 <body>
-<!-- -->
-
 <form class="layui-form" action="" id="dictionaryForm" lay-filter="dictionaryForm" style="padding: 20px 30px 0 0; ">
-   <input type="text" name="createPerson" style="display: none;" class="layui-input" value="${user.userId}">
     <input type="text" name="reasonId" style="display: none;" class="layui-input" >
    <div class="layui-form-item">
     <label class="layui-form-label">字典类型</label>
@@ -56,15 +53,15 @@ layui.config({
     ,router = layui.router()
     ,search = router.search;
     form.render();
-    
+
     var reasonId = getQueryVariable("reasonId");//获取界面穿的id
-    
+
     /* 加载下拉框 */
     $.ajax({
         url:"${ctx}/dictionary/loadParentDictionary.action",
         success:function(res){
              $.each(res	, function (index, item) {
-     			// 追加option节点 
+     			// 追加option节点
      			//item.name是option里的文本值
      			//item.id是option的value值
  				$("#reasonPid").append(new Option(item.reasonText, item.reasonId));

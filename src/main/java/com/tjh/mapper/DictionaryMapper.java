@@ -41,4 +41,7 @@ public interface DictionaryMapper {
 	//获取所有上级字典
 	public List<Map<String, Object>> loadChildDictionary();
 
+	//查询pie数据
+	public  List<Map<String, Object>>  loadPie();
+
 }

@@ -30,5 +30,7 @@ public interface DictionaryService {
 
 	//加载所有子字典
 	public List<Map<String, Object>> loadChildDictionary();
+	//加载pie
+	public  List<Map<String, Object>>  loadPie();
 
 }

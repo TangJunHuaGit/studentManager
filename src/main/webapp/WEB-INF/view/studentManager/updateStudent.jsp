@@ -98,6 +98,7 @@
 <script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
 <script type="text/javascript">
   var studentId = getQueryVariable("studentId");//获取界面穿的id
+  var dictionaryPid = getQueryVariable("dictionaryPid");//获取界面穿的id
   layui.config({
     base: '${ctx}/resources/layuiadmin/' //静态资源所在路径
   }).extend({
@@ -148,9 +149,8 @@
         form.render('select');
       }
     });
-    //加载所有子字典
     $.ajax({
-      url:'${ctx}/dictionary/loadChildDictionary.action',
+      url:'${ctx}/dictionary/loadChildByDictionaryParentId.action?reasonId='+dictionaryPid,
       success:function(res){
         $.each(res	, function (index, item) {
           // 追加option节点
@@ -206,6 +206,7 @@
         dataType:'json',
         success:function(data){
           //给表单赋值
+          //加载所有子字典
           form.val("studentForm",data);
         }
       });

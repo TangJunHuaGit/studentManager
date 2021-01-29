@@ -78,4 +78,9 @@ public class DictionaryServiceImpl implements DictionaryService{
 		return dictionaryMapper.loadChildDictionary();
 	}
 
+	@Override
+	public List<Map<String, Object>> loadPie() {
+			return dictionaryMapper.loadPie();
+	}
+
 }

@@ -23,7 +23,6 @@ public class DictionaryController {
 	@Autowired
 	private DictionaryService dictionaryService;
 
-	@Function(functionName = "addDictionary")
 	@RequestMapping("addDictionary")
 	@ResponseBody
 	public Map<String,String> addDictionary(Dictionary dictionary){
@@ -39,7 +38,6 @@ public class DictionaryController {
 			return map;
 		}
 	}
-	@Function(functionName = "loadAllDictionary")
 	@RequestMapping("loadAllDictionary")
 	@ResponseBody
 	public DataGridView loadAllDictionary(DictionaryVo dictionaryVo){
@@ -47,7 +45,6 @@ public class DictionaryController {
 		return loadAllDictionary;
 	}
 
-	@Function(functionName = "updateDictionaryStateByReasonId")
 	@RequestMapping("updateDictionaryStateByReasonId")
 	@ResponseBody
 	public Map<String,String> updateDictionaryStateByReasonId(String reasonId){
@@ -64,7 +61,6 @@ public class DictionaryController {
 		}
 	}
 
-	@Function(functionName = "updateByDictionaryReasonId")
 	@RequestMapping("updateByDictionaryReasonId")
 	@ResponseBody
 	public Map<String,String> updateByDictionaryReasonId(Dictionary dictionary){
@@ -81,7 +77,6 @@ public class DictionaryController {
 		}
 	}
 
-	@Function(functionName = "loadParentDictionary")
 	@RequestMapping("loadParentDictionary")
 	@ResponseBody
 	public List<Map<String, Object>> loadParentDictionary(){
@@ -90,7 +85,6 @@ public class DictionaryController {
 
 	}
 
-	@Function(functionName = "loadOneDictionary")
 	@RequestMapping("loadOneDictionary")
 	@ResponseBody
 	public Dictionary loadOneDictionary(String reasonId){
@@ -98,7 +92,6 @@ public class DictionaryController {
 		return dictionary;
 	}
 
-	@Function(functionName = "updateDictionaryStateByReasonIds")
 	@RequestMapping("updateDictionaryStateByReasonIds")
 	@ResponseBody
 	public  Map<String,String> updateDictionaryStateByReasonIds(DictionaryVo dictionaryVo){
@@ -116,7 +109,6 @@ public class DictionaryController {
 		}
 	}
 
-	@Function(functionName = "loadChildByDictionaryParentId")
 	@RequestMapping("loadChildByDictionaryParentId")
 	@ResponseBody
 	public  List<Map<String, Object>> loadChildByDictionaryParentId(Integer reasonId){
@@ -124,7 +116,6 @@ public class DictionaryController {
 		return  maps;
 	}
 
-	@Function(functionName = "loadChildDictionary")
 	@RequestMapping("loadChildDictionary")
 	@ResponseBody
 	public  List<Map<String, Object>> loadChildDictionary(){
