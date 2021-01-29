@@ -20,8 +20,9 @@
         select * from teacher where teacherId = #{teacherId}
   </select>
 
+    <!--  和老师角色关联起来  -->
   <select id="loadAllTeacher" resultType="com.tjh.pojo.Teacher">
-    select * from teacher
+    select * from v_teacher
   </select>
 
   <update id="updateTeacherByTeacherId" parameterType="com.tjh.pojo.Teacher">
@@ -30,9 +31,12 @@
           <if test="remark!=null and remark!=''">
             remark=#{remark},
           </if>
-          <if test="teacherName!=null and teacherName!=''">
-            teacherName=#{teacherName},
+          <if test="classId!=null and classId!=''">
+              classId=#{classId},
           </if>
+            <if test="teacherName!=null and teacherName!=''">
+                teacherName=#{teacherName},
+            </if>
         </set>
         <where>
           teacherId = #{teacherId}

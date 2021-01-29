@@ -26,6 +26,9 @@
   <select id="loadAllClassComboBox" resultMap="classList">
   		select classId,className from class
   </select>
+  <select id="allotClassComboBox" resultMap="classList">
+      select c.classId,c.className from class c where classId not in (select teacher.classId from teacher where teacher.classId is not null )
+  </select>
   <!-- 插入 -->
    <insert id="addClass" parameterType="com.tjh.pojo.Class">
     insert into class

@@ -52,19 +52,19 @@ public class TeacherController {
         int i = this.teacherService.updateTeacherByTeacherId(teacher);
         return i > 0 ? ResultMessage.successDesc("修改成功") : ResultMessage.erreo("修改失败");
     }
-    @RequestMapping("addTeacher")
-    @ResponseBody
-    public ResultMessage addTeacher(SysUser user) {
-        Teacher teacher = new Teacher();
-        teacher.setTeacherId(user.getUserId());
-        teacher.setTeacherName(user.getUserName());
-        teacher.setRemark(user.getRemark());
-        teacher.setTeacherSex(user.getUserSex());
-        teacher.setState(user.getState());
-        teacher.setTeacherPhone(user.getUserMobilePhone());
-        int i = this.teacherService.addTeacher(teacher);
-        return i > 0 ? ResultMessage.successDesc("添加成功") : ResultMessage.erreo("添加失败");
-    }
+//    @RequestMapping("addTeacher")
+//    @ResponseBody
+//    public ResultMessage addTeacher(SysUser user) {
+//        Teacher teacher = new Teacher();
+//        teacher.setTeacherId(user.getUserId());
+//        teacher.setTeacherName(user.getUserName());
+//        teacher.setRemark(user.getRemark());
+//        teacher.setTeacherSex(user.getUserSex());
+//        teacher.setState(user.getState());
+//        teacher.setTeacherPhone(user.getUserMobilePhone());
+//        int i = this.teacherService.addTeacher(teacher);
+//        return i > 0 ? ResultMessage.successDesc("添加成功") : ResultMessage.erreo("添加失败");
+//    }
     @RequestMapping("deleteTeacherStateByTeacherId")
     @ResponseBody
     public ResultMessage deleteTeacherStateByTeacherId(Integer teacherId) {

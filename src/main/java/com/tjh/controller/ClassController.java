@@ -27,8 +27,12 @@ public class ClassController {
 	@RequestMapping("loadAllClassComboBox")
 	@ResponseBody
 	public  List<Map<String, Object>> loadAllClass(){
-		List<Map<String, Object>> allClass = this.classService.loadAllClassComboBox();
-		return allClass;
+		return this.classService.loadAllClassComboBox();
+	}
+	@RequestMapping("allotClassComboBox")
+	@ResponseBody
+	public  List<Map<String, Object>> allotClassComboBox(Integer classId){
+		return this.classService.allotClassComboBox(classId);
 	}
 
 	@Function(functionName = "loadAllClass")

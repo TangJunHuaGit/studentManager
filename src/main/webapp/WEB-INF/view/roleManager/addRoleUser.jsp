@@ -124,6 +124,7 @@
                         success:function(data){
                             layer.msg(data.describe);
                             tableIns.reload();
+                            parent.layui.table.reload('roleUserList');
                         }
                     });
                 });

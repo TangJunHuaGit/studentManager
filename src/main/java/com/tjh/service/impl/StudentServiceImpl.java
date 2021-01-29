@@ -1,15 +1,11 @@
 package com.tjh.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 
-import com.alibaba.fastjson.JSONArray;
-import com.tjh.constant.Constant;
-import com.tjh.pojo.SysRole;
 import com.tjh.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

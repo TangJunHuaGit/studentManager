@@ -27,4 +27,6 @@ public interface ClassService {
 	public boolean updateClassStateByClassIds(Integer[] ids);
 	
 	public Class loadOneClassByClassId(Integer classId);
+
+    List<Map<String, Object>> allotClassComboBox(Integer classId);
 }

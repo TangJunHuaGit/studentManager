@@ -28,4 +28,6 @@ public interface SysRoleMapper {
 	void deleteFunctionByRoleId(@Param("functionId")Integer functionId,@Param("roleId")Integer roleId);
 
     int addRoleUser(@Param("roleId")Integer roleId, @Param("userId")Integer userId);
+
+    int deleteRoleUser(@Param("roleId")Integer roleId, @Param("userId")Integer userId);
 }

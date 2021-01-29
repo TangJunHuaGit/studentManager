@@ -32,4 +32,6 @@ public interface ClassMapper {
 	
 	//批量更新班级状态
 	public boolean updateClassStateByClassIds(@Param("ids")Integer[] ids);
+
+	List<Map<String, Object>> allotClassComboBox();
 }

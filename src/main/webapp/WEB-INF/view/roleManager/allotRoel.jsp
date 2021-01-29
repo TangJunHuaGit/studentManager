@@ -122,17 +122,17 @@
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
 
-            var roleId = obj.data.roleId; //得到id
+            var userId = obj.data.userId; //得到id
             if(layEvent === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url:"${ctx}/sysRole/updateRoleStateByRoleId.action",
+                        url:"${ctx}/sysRole/deleteRoleUser.action",
                         type:'POST',
                         async:true,    //或false,是否异步
-                        data:{roleId:roleId},
+                        data:{roleId:roleId,userId:userId},
                         timeout:5000,    //超时时间
                         dataType:'json',
                         success:function(data){
