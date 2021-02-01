@@ -136,8 +136,8 @@
         </set>
         where studentId = #{studentId,jdbcType=INTEGER}
     </update>
-    <update id="updateStudentStateByStudentId" parameterType="Integer">
-        update student set state = #{state}   where studentId = #{studentId,jdbcType=INTEGER}
+    <update id="updateStudentStateByStudentId">
+        update student set state = #{state},studentReason=#{studentReason}  where studentId = #{studentId,jdbcType=INTEGER}
     </update>
     <update id="deleteStudentByStudentIds" parameterType="Integer[]">
         <foreach collection="ids" separator=";" item="studentId">

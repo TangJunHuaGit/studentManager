@@ -171,6 +171,7 @@
                 ,{field:'className', title: '所属班级'}
                 ,{field:'teacherName', title: '班主任'}
                 ,{field:'remark', title: '备注', sort: true}
+                ,{field:'studentReason', title: '教师意见', sort: true}
                 ,{field:'state', title: '状态', sort: true, align: 'center',templet: '#table-gender'}
                 ,{field:'userName', title: '创建人', sort: true, align: 'center'}
                 ,{field:'createTime', title: '创建时间', sort: true, align: 'center',width: 200}
@@ -252,7 +253,7 @@
                             url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
                             type:'POST',
                             async:true,    //或false,是否异步
-                            data:{studentId:studentId,state:"3"},
+                            data:{studentId:studentId,state:"3",studentReason:value},
                             timeout:5000,    //超时时间
                             dataType:'json',
                             success:function(data){
@@ -277,7 +278,7 @@
                             url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
                             type:'POST',
                             async:true,    //或false,是否异步
-                            data:{studentId:studentId,state:"4"},
+                            data:{studentId:studentId,state:"4",studentReason:value},
                             timeout:5000,    //超时时间
                             dataType:'json',
                             success:function(data){

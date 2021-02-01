@@ -32,7 +32,7 @@ public interface StudentService {
 	public boolean updateStudentByStudentId(Student student);
 
 	//更新单个学生状态
-	public boolean updateStudentStateByStudentId(Integer studentId,Integer state);
+	public boolean updateStudentStateByStudentId(Integer studentId,Integer state,String studentReason);
 
 	//批量更新学生状态
 	public boolean deleteStudentByStudentIds(@Param("ids")Integer[] ids);

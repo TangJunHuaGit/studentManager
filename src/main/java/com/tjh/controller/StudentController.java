@@ -85,8 +85,8 @@ public class StudentController {
 	@Function(functionName = "updateStudentStateByStudentIdGoBack")
 	@RequestMapping("updateStudentStateByStudentIdGoBack")
 	@ResponseBody
-	public ResultMessage updateStudentStateByStudentId(String studentId,String state){
-		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
+	public ResultMessage updateStudentStateByStudentId(String studentId,String state,String studentReason){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),studentReason);
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{
@@ -97,8 +97,8 @@ public class StudentController {
 	@Function(functionName = "updateStudentStateByStudentIdAgree")
 	@RequestMapping("updateStudentStateByStudentIdAgree")
 	@ResponseBody
-	public ResultMessage updateStudentStateByStudentIdAgree(String studentId,String state){
-		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
+	public ResultMessage updateStudentStateByStudentIdAgree(String studentId,String state,String studentReason){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),studentReason);
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{
@@ -109,8 +109,8 @@ public class StudentController {
 	@Function(functionName = "updateStudentStateByStudentIdNotAgree")
 	@RequestMapping("updateStudentStateByStudentIdNotAgree")
 	@ResponseBody
-	public ResultMessage updateStudentStateByStudentIdNotAgree(String studentId,String state){
-		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state));
+	public ResultMessage updateStudentStateByStudentIdNotAgree(String studentId,String state,String studentReason){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),studentReason);
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{
