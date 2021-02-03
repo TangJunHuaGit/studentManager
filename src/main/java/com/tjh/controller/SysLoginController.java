@@ -66,6 +66,16 @@ public class SysLoginController {
 			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
 		}
 	}
+	@RequestMapping("checkOutUserName")
+	@ResponseBody
+	public ResultMessage checkOutUserName(String  userName){
+		boolean flag = this.sysUserService.checkOutUserName(userName);
+		if(flag){
+			return  ResultMessage.success(ResultMessage.SUCCESSCODE,ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.erreo(500,ResultMessage.FAIL,"此账号已被注册！");
+		}
+	}
 
 	@RequestMapping("loginOut")
 	@ResponseBody

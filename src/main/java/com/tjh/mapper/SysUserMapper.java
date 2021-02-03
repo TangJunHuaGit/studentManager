@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface SysUserMapper {
 	/**
@@ -46,4 +47,7 @@ public interface SysUserMapper {
     List<SysUser> loadUsersByRoleId(@Param("roleId") Integer roleId);
 
 	Integer verificationPassword(@Param("userId") Integer userId,@Param("userLogPwd") String userLogPwd);
+
+	@Select("select * from sys_user where username = #{userName}")
+    List<SysUser> checkOutUserName(String userName);
 }

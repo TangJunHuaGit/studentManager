@@ -11,6 +11,9 @@ import com.tjh.mapper.SysUserMapper;
 import com.tjh.pojo.SysUser;
 import com.tjh.pojo.SysUserInfo;
 import com.tjh.service.SysUserService;
+
+import java.util.List;
+
 @Service
 @ComponentScan("com.tjh.dao")
 public class SysUserServiceImpl implements SysUserService{
@@ -71,5 +74,11 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public Integer verificationPassword(Integer userId,String userLogPwd) {
 		return sysUserMapper.verificationPassword(userId,userLogPwd);
+	}
+
+	@Override
+	public boolean checkOutUserName(String userName) {
+		List<SysUser> userList = this.sysUserMapper.checkOutUserName(userName);
+		return userList.size() == 0;
 	}
 }

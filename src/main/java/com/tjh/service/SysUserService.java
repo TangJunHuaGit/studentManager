@@ -49,4 +49,6 @@ public interface SysUserService {
 	public boolean insertIntoLog(OperationLog log);
 
 	public Integer verificationPassword(Integer userId,String userLogPwd);
+
+    boolean checkOutUserName(String userName);
 }

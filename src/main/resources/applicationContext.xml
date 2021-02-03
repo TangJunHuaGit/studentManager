@@ -35,6 +35,7 @@
 				<value>loadOneUser</value>
 				<value>updateUserPassword</value>
 				<value>verificationPassword</value>
+				<value>checkOutUserName</value>
 			</list>
 		</property>
 	</bean>

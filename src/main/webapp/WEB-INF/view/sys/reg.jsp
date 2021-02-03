@@ -31,7 +31,7 @@
         </div>
         <div class="layui-form-item">
           <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone" for="LAY-user-login-cellphone"></label>
-          <input type="text" name="userLogName" id="LAY-user-login-cellphone" lay-verify="required" placeholder="账号" class="layui-input">
+          <input type="text" name="userLogName" id="userLogName" lay-verify="required" placeholder="账号" class="layui-input">
         </div>
         <!--  <div class="layui-form-item">
           <div class="layui-row">
@@ -80,6 +80,15 @@
     ,router = layui.router();
     form.render();
     //提交
+    $('#userLogName').on('blur',() =>{
+      $.get('${ctx}/login/checkOutUserName.action?userName='+$('#userLogName').val(),(res) =>{
+        if(res.code === 500){
+          $('#userLogName').val('')
+          layer.msg(JSON.stringify(res.describe))
+        }
+      })
+    })
+    // $("#userLogName").blur()
     form.on('submit(LAY-user-reg-submit)', function(obj){
       var data = obj.field;
       //确认密码
