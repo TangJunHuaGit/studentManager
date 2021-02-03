@@ -136,7 +136,7 @@
                         timeout:5000,    //超时时间
                         dataType:'json',
                         success:function(data){
-                            layer.msg(data.msg);
+                            layer.msg(data.describe);
                             tableIns.reload();
                         }
                     });
