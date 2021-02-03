@@ -4,11 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 
+import com.tjh.constant.Constant;
+import com.tjh.pojo.SysRole;
 import com.tjh.pojo.SysUserInfo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tjh.pojo.SysUser;
+
+import java.util.List;
 
 /**
  * 解耦的方式得到web作用域
@@ -44,5 +48,18 @@ public class SessionUtils {
 	public static String getCurrentSysUserName() {
 		SysUser SysUser=(SysUser) getCurrentSession().getAttribute("user");
 		return SysUser.getUserName();
+	}
+
+	public static boolean isAdmin(){
+		boolean isAdmin = false;
+		List<SysRole> userRole = getCurrentSysUser().getRoles();
+		for (SysRole role : userRole) {
+			String roleName = role.getRoleName();
+			if (Constant.ADMIN_NAME.equals(roleName)) {
+				isAdmin = true;
+				break;
+			}
+		}
+		return isAdmin;
 	}
 }

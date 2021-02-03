@@ -72,6 +72,9 @@
 	    <if test="className != null and className != ''">
 	        and r.className like CONCAT('%',#{className},'%')
 	    </if>
+      <if test="createPerson != null and createPerson != 20 and createPerson != ''">
+          and r.createPerson = #{createPerson}
+      </if>
 	    <if test="startTime != null">
 	    	<![CDATA[ and r.createTime  >=  #{startTime}  ]]>
 	    </if>
@@ -86,9 +89,13 @@
 	    <if test="className != null and className != ''">
 	        and r.className like CONCAT('%',#{className},'%')
 	    </if>
+	    <if test="createPerson != null and createPerson != 20 and  createPerson != ''">
+	        and r.createPerson = #{createPerson}
+	    </if>
 	    <if test="startTime != null">
 	    	<![CDATA[ and r.createTime  >=  #{startTime}  ]]>
 	    </if>
+
 	    <if test="endTime != null">
 	    	<![CDATA[ and r.createTime  <=  #{endTime}  ]]>
 	    </if>

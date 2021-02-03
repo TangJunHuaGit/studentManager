@@ -30,19 +30,19 @@
                 <input type="text" name="functionName" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">开始时间:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="startTime" id="startTime" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">结束时间:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="endTime" id="endTime" autocomplete="off" placeholder="yyyy-MM-dd HH:mm:ss"
-                       class="layui-input">
-            </div>
+<%--        <div class="layui-inline">--%>
+<%--            <label class="layui-form-label">开始时间:</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input type="text" name="startTime" id="startTime" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off"--%>
+<%--                       class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="layui-inline">--%>
+<%--            <label class="layui-form-label">结束时间:</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input type="text" name="endTime" id="endTime" autocomplete="off" placeholder="yyyy-MM-dd HH:mm:ss"--%>
+<%--                       class="layui-input">--%>
+<%--            </div>--%>
         </div>
     </div>
     <div class="layui-form-item" style="text-align: center;">

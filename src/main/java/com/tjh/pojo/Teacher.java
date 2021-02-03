@@ -1,5 +1,8 @@
 package com.tjh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Teacher {
@@ -8,7 +11,8 @@ public class Teacher {
     private String teacherName;
 
     private String teacherPhone;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date teacherBirthday;
 
     private Integer teacherSex;
@@ -18,7 +22,8 @@ public class Teacher {
     private Integer state;
 
     private String remark;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     private Integer createPerson;

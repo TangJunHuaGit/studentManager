@@ -19,8 +19,10 @@
         var tongyi = false;
         var butongyi = false;
 
+        var shanchu = false;
+        var plshanchu = false;
+
         var userId = '${user.user.userId}';
-        console.log(userId);
     </script>
 </head>
 
@@ -80,7 +82,7 @@
     {{# if(userId == 20){ }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {{# }else{ console.log(d.state) }}
+    {{# }else{  }}
     {{# layui.each(permissionObj, function(index, item){ }}
     {{# if(item.functionCode == 'updateStudentStateByStudentIdGoBack'){ }}
     {{# tijiao = true}}
@@ -90,38 +92,30 @@
     {{# } }}
     {{# if(item.functionCode == 'updateStudentStateByStudentIdNotAgree'){ }}
     {{# butongyi = true}}
-    {{# console.log(butongyi,tongyi)}}
+    {{# }}
     {{# } }}
     {{#  }); }}
     {{# if(d.state == 1 && tijiao){ }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# }else if(d.state == 2 && tijiao && butongyi && tongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# }else if(d.state == 2 && tijiao) { }}
     {{# } else if(d.state== 3 && tijiao) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } else if(d.state== 4  && tijiao) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } else if(d.state== 1 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } else if(d.state== 2 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } else if(d.state== 3 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } else if(d.state== 4 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } }}
     {{# } }}
 </script>
@@ -145,6 +139,8 @@
             $ = layui.jquery, $ = layui.jquery,
             laydate=layui.laydate,
             table = layui.table;
+
+
         laydate.render({
             elem:"#startTime"
             ,type: 'datetime'
@@ -220,7 +216,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url:"${ctx}/student/updateStudentStateByStudentId.action",
+                        url:"${ctx}/student/deleteStudentByStudentId.action",
                         type:'POST',
                         async:true,    //或false,是否异步
                         data:{studentId:studentId},

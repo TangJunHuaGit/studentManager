@@ -84,7 +84,7 @@
       $.get('${ctx}/login/checkOutUserName.action?userName='+$('#userLogName').val(),(res) =>{
         if(res.code === 500){
           $('#userLogName').val('')
-          layer.msg(JSON.stringify(res.describe))
+          layer.msg(res.describe)
         }
       })
     })

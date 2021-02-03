@@ -9,7 +9,23 @@
 	media="all" />
 <link rel="stylesheet" href="${ctx }/resources/layuiadmin/style/admin.css"
 	media="all" />
+    <script type="application/javascript" >
+        var userPermission = '${currentUserPermission}';
+        var permissionObj = JSON.parse(userPermission);
+        var add = false;
+        var batchDel = false;
+        var edit = false;
+        var del = false;
 
+        var tijiao = false;
+        var tongyi = false;
+        var butongyi = false;
+
+        var shanchu = false;
+        var plshanchu = false;
+
+        var userId = '${user.user.userId}';
+    </script>
 </head>
 <body class="childrenBody">
 <fieldset class="layui-elem-field layui-field-title">
@@ -45,13 +61,32 @@
 
 <!--表格工具条-->
 <script type="text/html" id="tableToolBar">
+    {{# layui.each(permissionObj, function(index, item){ }}
+    {{# if(item.functionCode == 'addClass'){ }}
+    {{# add = true}}
+    {{# } }}
+    {{# if(item.functionCode == 'updateClassStateByClassIds'){ }}
+    {{# batchDel = true}}
+    {{# } }}
+    {{#  }); }}
+    {{# if(add){ }}
 	<a class="layui-btn layui-btn layui-btn" lay-event="add">添加</a>
+    {{#} }}
+    {{# if(batchDel){ }}
 	<a class="layui-btn layui-btn layui-btn-danger" lay-event="batchDel">批量删除</a>
+    {{#} }}
 </script>
 <!--操作-->
 <script type="text/html" id="tableToolBarLine">
-  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    {{# layui.each(permissionObj, function(index, item){ }}
+    {{# if(item.functionCode == 'updateClassStateByClassId'){ }}
+         {{# del = true}}
+    {{# } }}
+    {{# }); }}
+    {{# if(del){ }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# } }}
 </script>
 <script type="text/javascript" src="${ctx}/resources/layuiadmin/layui/layui.js"></script>
 </body>
@@ -74,7 +109,7 @@
     	    tableIns = table.render({
     	      id:"classList",
     	      elem: '#classList'
-    	      ,url: "${ctx}/class/loadAllClass.action"
+    	      ,url: "${ctx}/class/loadAllClass.action?createPerson=${user.user.userId}"
     	      ,height: 'full-200'
     	      ,cellMinWidth: 80
     	      ,page: true
@@ -105,6 +140,7 @@
           //查询
            $(".search_btn").click(function(){
                var params=$("#searchForm").serialize();
+               params+="&createPerson=${user.user.userId}"
                table.reload('classList', {
                    url: '${ctx}/class/loadAllClass.action?'+params
                });

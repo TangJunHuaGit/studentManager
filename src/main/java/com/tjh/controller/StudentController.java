@@ -82,6 +82,19 @@ public class StudentController {
 	}
 
 	//提交申请
+	@Function(functionName = "deleteStudentByStudentId")
+	@RequestMapping("deleteStudentByStudentId")
+	@ResponseBody
+	public ResultMessage deleteStudentByStudentId(String studentId){
+		boolean flag = this.studentService.deleteStudentByStudentId(Integer.valueOf(studentId));
+		if(flag){
+			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+		}
+	}
+
+	//提交申请
 	@Function(functionName = "updateStudentStateByStudentIdGoBack")
 	@RequestMapping("updateStudentStateByStudentIdGoBack")
 	@ResponseBody

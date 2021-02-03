@@ -142,15 +142,16 @@ public class SysRoleController {
 	@ResponseBody
 	public ResultMessage addRoleUser(Integer roleId,SysUser user) {
 		if(roleId.equals(Constant.TEACHER_ROLE_ID)){
-			Teacher teacher = new Teacher();
-			teacher.setTeacherId(user.getUserId());
-			teacher.setTeacherName(user.getUserName());
-			teacher.setRemark(user.getRemark());
-			teacher.setTeacherSex(user.getUserSex());
-			teacher.setState(user.getState());
-			teacher.setTeacherPhone(user.getUserMobilePhone());
-			int i = teacherService.addTeacher(teacher);
-			return i>0?ResultMessage.successDesc("成功"):ResultMessage.erreo("失败");
+				this.sysRoleService.deleteRoleUser(Constant.BASE_ROLE_ID, user.getUserId());
+				Teacher teacher = new Teacher();
+				teacher.setTeacherId(user.getUserId());
+				teacher.setTeacherName(user.getUserName());
+				teacher.setRemark(user.getRemark());
+				teacher.setTeacherSex(user.getUserSex());
+				teacher.setState(user.getState());
+				teacher.setTeacherPhone(user.getUserMobilePhone());
+				int i = teacherService.addTeacher(teacher);
+				return i>0?ResultMessage.successDesc("成功"):ResultMessage.erreo("失败");
 		}else{
 			return this.sysRoleService.addRoleUser(roleId,user.getUserId());
 		}

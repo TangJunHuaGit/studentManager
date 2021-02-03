@@ -18,23 +18,23 @@
 <form class="layui-form" id="searchForm" method="post">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label" >角色名称:</label>
+            <label class="layui-form-label" >教师名称:</label>
             <div class="layui-input-inline">
                 <input type="text" name="teacherName"  autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label" >开始时间:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="startTime" id="startTime"  placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-         <div class="layui-inline">
-            <label class="layui-form-label" >结束时间:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="endTime" id="endTime" autocomplete="off"  placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input">
-            </div>
-        </div>
+<%--        <div class="layui-inline">--%>
+<%--            <label class="layui-form-label" >开始时间:</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input type="text" name="startTime" id="startTime"  placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--         <div class="layui-inline">--%>
+<%--            <label class="layui-form-label" >结束时间:</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input type="text" name="endTime" id="endTime" autocomplete="off"  placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
     </div>
     <div class="layui-form-item" style="text-align: center;">
         <a class="layui-btn search_btn" >查询</a>

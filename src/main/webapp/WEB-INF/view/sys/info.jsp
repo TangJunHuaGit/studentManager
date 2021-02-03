@@ -42,7 +42,7 @@
                 <input type="radio" name="userSex" value="2" title="女">
               </div>
             </div>
-            <div class="layui-form-item">
+            <%--<div class="layui-form-item">
               <label class="layui-form-label">头像</label>
               <div class="layui-input-inline layui-btn-container" style="width: auto;">
                 <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
@@ -50,19 +50,19 @@
                 </button>
                 <button class="layui-btn layui-btn-primary" layadmin-event="avartatPreview">查看图片</button >
               </div>
-            </div>
+            </div>--%>
             <div class="layui-form-item">
               <label class="layui-form-label">手机</label>
               <div class="layui-input-inline">
                 <input type="text" name="userMobilePhone" value="" lay-verify="phone" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-form-item">
+            <%--<div class="layui-form-item">
               <label class="layui-form-label">邮箱</label>
               <div class="layui-input-inline">
                 <input type="text" name="userEmail" value="" lay-verify="email" autocomplete="off" class="layui-input">
               </div>
-            </div>
+            </div>--%>
             <div class="layui-form-item">
               <label class="layui-form-label">QQ</label>
               <div class="layui-input-inline">
@@ -75,12 +75,12 @@
                 <input type="text" name="userCard" value=""  autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-form-item layui-form-text">
+            <%--<div class="layui-form-item layui-form-text">
               <label class="layui-form-label">备注</label>
               <div class="layui-input-block">
                 <textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
-            </div>
+            </div>--%>
             <div class="layui-form-item">
               <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="setmyinfo">确认修改</button>

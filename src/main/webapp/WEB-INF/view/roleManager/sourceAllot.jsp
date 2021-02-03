@@ -67,6 +67,7 @@
                     }
                 });
             });
+            var indexLoad;
             // 2、在用相同元素和arr1判断 取出被删掉的数据
             let delItems = getArrDifference(arr1, eqItems);
             delItems = delItems.map(item => Number(item));
@@ -74,6 +75,7 @@
             addItems = addItems.map(item => Number(item));
             let params = {addIds: JSON.stringify(addItems), delIds: JSON.stringify(delItems), roleId: roleId};
             $.post("${ctx}/sysRole/sourceAllot.action", params, (data) => {
+                indexLoad = layer.load();
                 if (data.code === 200) {
                     var index = parent.layer.getFrameIndex(window.name);
                     layer.msg(data.describe);
@@ -82,6 +84,8 @@
                         parent.layui.table.reload('roleList');
                     }, 500)
                 }
+                layer.close(indexLoad);
+
             });
             return false;
         });

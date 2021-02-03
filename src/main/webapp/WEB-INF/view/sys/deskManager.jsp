@@ -12,7 +12,7 @@
 <body>
 	<div class="layui-fluid">
     <div class="layui-row layui-col-space15">
-      <div class="layui-col-md8">
+      <div class="layui-col-md12">
         <div class="layui-row layui-col-space15">
           <div class="layui-col-md12">
             <div class="layui-card">
@@ -26,8 +26,6 @@
                     <div>
                       <div id="pie" style="width: 984px;height:330px;"></div>
                     </div>
-
-                    <div>333</div>
                   </div>
                 </div>
               </div>
