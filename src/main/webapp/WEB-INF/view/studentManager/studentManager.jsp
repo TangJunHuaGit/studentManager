@@ -66,6 +66,9 @@
     {{# if(item.functionCode == 'addStudent'){ }}
     {{# add = true}}
     {{# } }}
+    {{# if(item.functionCode == 'updateStudentByStudentId'){ }}
+    {{# edit = true}}
+    {{# } }}
     {{# if(item.functionCode == 'deleteStudentByStudentIds'){ }}
     {{# batchDel = true}}
     {{# } }}
@@ -99,7 +102,8 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
     {{# }else if(d.state == 2 && tijiao && butongyi && tongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
+   <%-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
     {{# }else if(d.state == 2 && tijiao) { }}
     {{# } else if(d.state== 3 && tijiao) { }}
@@ -108,14 +112,18 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
     {{# } else if(d.state== 1 && tongyi && butongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
+   <%-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
     {{# } else if(d.state== 2 && tongyi && butongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <%--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
+    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
     {{# } else if(d.state== 3 && tongyi && butongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
+    <%--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
     {{# } else if(d.state== 4 && tongyi && butongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
+  <%--  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
     {{# } }}
     {{# } }}
 </script>
@@ -232,6 +240,8 @@
                 toUpdateStudent(studentId,dictionaryPid);
             }else if(layEvent === "submit"){
                 submitAction(studentId);
+            }else if(layEvent === "down"){
+                downLoad(studentId);
             }else if(layEvent == 'shenPi'){
                 layer.prompt({
                     formType: 2,    // 弹出层为文本输入框
@@ -370,6 +380,10 @@
                     //layer.full(index);
                 }
             });
+        }
+        function downLoad(studentId) {
+            var url = "${ctx}/upload/downLoadFile.action?studentId="+studentId;
+            window.open(url);
         }
     });
 </script>
