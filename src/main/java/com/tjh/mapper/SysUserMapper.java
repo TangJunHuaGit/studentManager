@@ -48,6 +48,6 @@ public interface SysUserMapper {
 
 	Integer verificationPassword(@Param("userId") Integer userId,@Param("userLogPwd") String userLogPwd);
 
-	@Select("select * from sys_user where username = #{userName}")
+	@Select("select * from sys_user where userLogName = #{userLogName}")
     List<SysUser> checkOutUserName(String userName);
 }
