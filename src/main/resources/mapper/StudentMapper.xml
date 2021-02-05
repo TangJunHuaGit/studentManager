@@ -157,16 +157,18 @@
         select stu.*,t.teacherName,c.className,u.userName from student stu
         inner join class c on stu.classId = c.classId
         inner join teacher t on c.classId = t.classId
-        inner join sys_user u on stu.createPerson = u.userId or t.teacherId = u.userId
-        where u.userId = #{userId}
-        <if test="studentName != null and studentName != ''">
-            and stu.studentName=#{studentName}
-        </if>
-        <if test="startTime != null">
-            <![CDATA[ and stu.createTime  >=  #{startTime}  ]]>
-        </if>
-        <if test="endTime != null">
-            <![CDATA[ and stu.createTime  <=  #{endTime}  ]]>
+        inner join sys_user u on stu.createPerson = u.userId
+        <if test="userId != 20">
+            where u.userId = #{userId}
+            <if test="studentName != null and studentName != ''">
+                and stu.studentName=#{studentName}
+            </if>
+            <if test="startTime != null">
+                <![CDATA[ and stu.createTime  >=  #{startTime}  ]]>
+            </if>
+            <if test="endTime != null">
+                <![CDATA[ and stu.createTime  <=  #{endTime}  ]]>
+            </if>
         </if>
     </select>
     <select id="loadStudentByParent" resultMap="studentTable" parameterType="map">
