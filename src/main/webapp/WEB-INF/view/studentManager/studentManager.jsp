@@ -123,7 +123,7 @@
     <%--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
     {{# } else if(d.state== 4 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
-  <%--  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
+  <%--  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>2--%>
     {{# } }}
     {{# } }}
 </script>
