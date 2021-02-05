@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
+import com.tjh.constant.Constant;
+import com.tjh.pojo.SysRole;
 import com.tjh.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,15 @@ public class StudentServiceImpl implements StudentService{
 		map.put("startTime",studentVo.getStartTime());
 		map.put("endTime",studentVo.getEndTime());
 		map.put("userId",SessionUtils.getCurrentSysUser().getUser().getUserId());
-		List<Student> students = this.studentMapper.loadStudentByTeacher(map);
+		List<Student> students;
+
+		List<SysRole> roleList = SessionUtils.getRoleList();
+		if(isParent(roleList)){
+			students = this.studentMapper.loadStudentByParent(map);
+		}else{
+			students = this.studentMapper.loadStudentByTeacher(map);
+		}
+
 		List<Student> collect = students.stream().skip(studentVo.getPage()).limit(studentVo.getLimit()).collect(Collectors.toList());
 		return new DataGridView((long) students.size(),collect);
 	}
@@ -81,6 +91,16 @@ public class StudentServiceImpl implements StudentService{
 		return  this.studentMapper.deleteStudentByStudentId(studentId);
 	}
 
+	protected boolean isParent(List<SysRole> roleList){
+		boolean isParent = false;
+		for (SysRole role : roleList) {
+			if (role.getRoleId().equals(Constant.BASE_ROLE_ID)){
+				isParent = true;
+				break;
+			}
+		}
+		return isParent;
+	}
 
 //	protected List<Student> loadStudentByRole(String roleAlias,StudentVo vo){
 //		List<Student> retLis = new ArrayList<>();

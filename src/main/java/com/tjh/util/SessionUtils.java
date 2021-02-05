@@ -46,8 +46,8 @@ public class SessionUtils {
 	 * 得到sesison里面的用户名
 	 */
 	public static String getCurrentSysUserName() {
-		SysUser SysUser=(SysUser) getCurrentSession().getAttribute("user");
-		return SysUser.getUserName();
+		SysUser sysUser =(SysUser) getCurrentSession().getAttribute("user");
+		return sysUser .getUserName();
 	}
 
 	public static boolean isAdmin(){
@@ -61,5 +61,9 @@ public class SessionUtils {
 			}
 		}
 		return isAdmin;
+	}
+
+	public static List<SysRole> getRoleList() {
+		return getCurrentSysUser().getRoles();
 	}
 }
