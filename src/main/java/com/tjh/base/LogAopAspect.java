@@ -9,6 +9,7 @@ import com.tjh.pojo.OperationLog;
 import com.tjh.service.SysUserService;
 import com.tjh.util.SessionUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -96,9 +97,9 @@ public class LogAopAspect {
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         for (int i = 0; i < paramterNames.length; i++) {
             Object o = args[i];
-            if(o instanceof String || o instanceof String[]) {
+            if (o instanceof String || o instanceof String[]) {
                 paramsMap.put(paramterNames[i], o);
-            }else {
+            } else {
                 continue;
             }
         }
@@ -107,13 +108,38 @@ public class LogAopAspect {
         //--------------------
         //获取用户ip地址
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-       //log.setLogIpAddress(IpAddress.getIpAddress(request));
         //--------------------
 //        //获取用户名
-        if(!methodName.equals("doLogin")){
+        if (!methodName.equals("doLogin")) {
             log.setUserId(SessionUtils.getCurrentSysUser().getUser().getUserId());
         }
+        log.setLogIpAddress(getIp(request));
         //调用service保存log实体类到数据库
         sysUserService.insertIntoLog(log);
+    }
+
+    private String getIp(HttpServletRequest request) {
+        //对应nginx配置查询请求头是否有"X-Real-IP"信息
+        String ipAddr = request.getHeader("X-Real-IP");
+        if (!StringUtils.isBlank(ipAddr) && !"unknown".equalsIgnoreCase(ipAddr)) {
+            return ipAddr;
+        }
+
+        //对应nginx配置查询请求头是否有"X-Forwarded-For"信息
+        ipAddr = request.getHeader("X-Forwarded-For");
+        if (!StringUtils.isBlank(ipAddr) && !"unknown".equalsIgnoreCase(ipAddr)) {
+            // 如果经过了多次反向代理会有多个IP值，第一个为真实IP。
+            int index = ipAddr.indexOf(',');
+            if (index != -1) {
+                return ipAddr.substring(0, index);
+            } else {
+                return ipAddr;
+            }
+        }
+
+        //如果没有经过代理或nginx为配置，则直接通过request获取
+        return request.getRemoteAddr();
+
+
     }
 }
