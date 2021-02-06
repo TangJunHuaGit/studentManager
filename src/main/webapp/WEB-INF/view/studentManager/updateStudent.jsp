@@ -74,19 +74,19 @@
     <button type="button" class="layui-btn" id="uploadFile" ><i class="layui-icon"></i>上传文件</button>
   </div>
   <%--用于保存文件名 --%>
-  <input type="text" name="studentSource" value="" style="display: none;" id="studentSource" class="layui-input">
+  <input type="text" name="studentSource" id="studentSource" value="" style="display: none;" id="studentSource" class="layui-input">
   <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">描述</label>
+    <label class="layui-form-label">情况描述</label>
     <div class="layui-input-block">
-      <textarea placeholder="请输入描述" class="layui-textarea" name="studentReason"></textarea>
+      <textarea placeholder="情况描述" class="layui-textarea" name="studentReason"></textarea>
     </div>
   </div>
-  <div class="layui-form-item layui-form-text">
+ <%-- <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">备注</label>
     <div class="layui-input-block">
       <textarea placeholder="请输入备注" class="layui-textarea" name="remark"></textarea>
     </div>
-  </div>
+  </div>--%>
   <div class="layui-form-item">
     <div class="layui-input-block">
       <button type="submit" class="layui-btn" lay-submit="" lay-filter="update-submit">确认修改</button>
@@ -270,9 +270,14 @@
     return(false);
   }
   function downLoad() {
-    var url = "${ctx}/upload/downLoadFile.action?studentId="+studentId;
-    window.open(url);
-  }
+    let studentSource = document.getElementById("studentSource").value;
+    if(!!studentSource){
+      var url = "${ctx}/upload/downLoadFile.action?studentId="+studentId;
+      window.open(url);
+    }else{
+      alert("当前记录无文件！");
+    }
 
+  }
 </script>
 </html>

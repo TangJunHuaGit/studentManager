@@ -83,10 +83,10 @@
     	      ,cols: [[
     	        {type:'checkbox'}
     	        ,{field:'teacherId', title: 'TeacherId', sort: true,hide:true}
-    	        ,{field:'teacherName', title: '角色名称'}
+    	        ,{field:'teacherName', title: '教师名称'}
+                ,{field:'className', title: '任教班级'}
     	        ,{field:'remark', title: '备注', sort: true}
     	        ,{field:'state', title: 'state', sort: true, align: 'center',hide:true}
-    	        ,{field:'userName', title: '创建人', sort: true, align: 'center'}
     	        ,{field:'createTime', title: '创建时间', sort: true, align: 'center'}
     	        ,{fixed: 'right',title: '操作',width: 165, align:'center', toolbar: '#tableToolBarLine'}
     	      ]]

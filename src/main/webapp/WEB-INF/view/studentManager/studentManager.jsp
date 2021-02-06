@@ -18,6 +18,7 @@
         var tijiao = false;
         var tongyi = false;
         var butongyi = false;
+        var qingjia = false;
 
         var shanchu = false;
         var plshanchu = false;
@@ -66,6 +67,9 @@
     {{# if(item.functionCode == 'addStudent'){ }}
     {{# add = true}}
     {{# } }}
+    {{# if(item.functionCode == 'addStudent'){ }}
+    {{# qingjia = true}}
+    {{# } }}
     {{# if(item.functionCode == 'updateStudentByStudentId'){ }}
     {{# edit = true}}
     {{# } }}
@@ -98,44 +102,51 @@
     {{# }}
     {{# } }}
     {{#  }); }}
-    {{# if(d.state == 1 && tijiao){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
-    {{# }else if(d.state == 2 && tijiao && butongyi && tongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
-   <%-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
-    {{# }else if(d.state == 2 && tijiao) { }}
-    {{# } else if(d.state== 3 && tijiao) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    {{# } else if(d.state== 4  && tijiao) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
-    {{# } else if(d.state== 1 && tongyi && butongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
-   <%-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
+    {{# if(d.state == 1 && tijiao && qingjia){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="qingjia">请假</a>
+    {{# }else if(d.state == 2 && tijiao && qingjia) { }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
+    {{# }else if(d.state == 3 && tijiao && butongyi && tongyi) { }}
+        <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
+       <%-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
+    {{# }else if(d.state == 3 && tijiao) { }}
+
+    {{# } else if(d.state== 4 && tijiao && qingjia) { }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="qingjia">再次请假</a>
+    {{# } else if(d.state== 5  && tijiao && qingjia) { }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="submit">申请返校</a>
     {{# } else if(d.state== 2 && tongyi && butongyi) { }}
-    <%--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
-    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
-    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
+        <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
+   <%-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
     {{# } else if(d.state== 3 && tongyi && butongyi) { }}
-    <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
     <%--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
+        <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shenPi">审批</a>
     {{# } else if(d.state== 4 && tongyi && butongyi) { }}
+    <%--<a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>--%>
+    <%--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
+    {{# } else if(d.state== 5 && tongyi && butongyi) { }}
     <a class="layui-btn layui-btn-xs" lay-event="down">下载文件</a>
   <%--  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>2--%>
     {{# } }}
     {{# } }}
 </script>
 <script type="text/html" id="table-gender">
-    {{# if(d.state=== 1) { }}
-    <span style="color:red">未提交</span>
+    {{# if(d.state == 1) { }}
+    <span style="color:green">正常</span>
     {{# } else if(d.state== 2) { }}
-    <span style="color:RGB(252,195,48);">审批中</span>
+    <span style="color:RGB(252,195,48)">请假中</span>
     {{# }  else if(d.state== 3) { }}
-    <span style="color:green">已审批</span>
+    <span style="color:blue">审批中</span>
     {{# } else if(d.state== 4) { }}
-    <span style="color:#FFD700;">已审批未通过</span>
+    <span style="color:#FFD700">审批通过</span>
+    {{# } else if(d.state== 5) { }}
+    <span style="color:red">审批未通过</span>
     {{# } }}
 </script>
 </body>
@@ -242,7 +253,25 @@
                 submitAction(studentId);
             }else if(layEvent === "down"){
                 downLoad(studentId);
-            }else if(layEvent == 'shenPi'){
+            }else if(layEvent === "qingjia"){
+                $.ajax({
+                    url:"${ctx}/student/updateStudentStateByStudentIdLeave.action",
+                    type:'POST',
+                    async:true,    //或false,是否异步
+                    data:{studentId:studentId,state:"2"},
+                    timeout:5000,    //超时时间
+                    dataType:'json',
+                    success:function(data){
+                        if(data.code == 200){
+                            layer.msg(data.describe);
+                            tableIns.reload();
+                        }else{
+                            layer.msg(data.desc);
+                        }
+                    }
+                });
+            }
+            else if(layEvent == 'shenPi'){
                 layer.prompt({
                     formType: 2,    // 弹出层为文本输入框
                     title: '请输入审批建议',    // 标题
@@ -259,7 +288,7 @@
                             url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
                             type:'POST',
                             async:true,    //或false,是否异步
-                            data:{studentId:studentId,state:"3",studentReason:value},
+                            data:{studentId:studentId,state:"4",studentReason:value},
                             timeout:5000,    //超时时间
                             dataType:'json',
                             success:function(data){
@@ -284,7 +313,7 @@
                             url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
                             type:'POST',
                             async:true,    //或false,是否异步
-                            data:{studentId:studentId,state:"4",studentReason:value},
+                            data:{studentId:studentId,state:"5",studentReason:value},
                             timeout:5000,    //超时时间
                             dataType:'json',
                             success:function(data){
@@ -307,7 +336,7 @@
                     url:"${ctx}/student/updateStudentStateByStudentIdGoBack.action",
                     type:'POST',
                     async:true,    //或false,是否异步
-                    data:{studentId:studentId,state:"2"},
+                    data:{studentId:studentId,state:"3"},
                     timeout:5000,    //超时时间
                     dataType:'json',
                     success:function(data){

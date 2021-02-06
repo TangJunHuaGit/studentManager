@@ -119,9 +119,8 @@
     	        {type:'checkbox'}
     	        ,{field:'classId', title: 'ClassId', sort: true,hide:true}
     	        ,{field:'className', title: '班级名称'}
-    	        ,{field:'remark', title: '备注', sort: true}
+    	        ,{field:'classNum', title: '班级人数'}
     	        ,{field:'state', title: 'state', sort: true, align: 'center',hide:true}
-    	        ,{field:'userName', title: '创建人', sort: true, align: 'center'}
     	        ,{field:'createTime', title: '创建时间', sort: true, align: 'center'}
     	        ,{fixed: 'right',title: '操作',width: 165, align:'center', toolbar: '#tableToolBarLine'}
     	      ]]

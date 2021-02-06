@@ -6,6 +6,7 @@
     <result column="className" jdbcType="VARCHAR" property="className" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="state" jdbcType="INTEGER" property="state" />
+      <result column="classNum" jdbcType="INTEGER" property="classNum" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="createPerson" jdbcType="INTEGER" property="createPerson" />
   </resultMap>
@@ -32,9 +33,9 @@
   <!-- 插入 -->
    <insert id="addClass" parameterType="com.tjh.pojo.Class">
     insert into class
-    (className, remark,createPerson)
+    (className, remark,createPerson,classNum)
     values
-    (#{className,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER})
+    (#{className,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{createPerson,jdbcType=INTEGER},#{classNum,jdbcType=INTEGER})
   </insert>
   <!-- 修改数据状态 -->
    <delete id="updateClassStateByClassId" parameterType="Integer">
@@ -50,8 +51,8 @@
       <if test="remark != null and remark != '' ">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="createPerson != null and createPerson != ''">
-        createPerson = #{createPerson,jdbcType=INTEGER},
+      <if test="classNum != null and classNum != ''">
+          classNum = #{classNum,jdbcType=INTEGER},
       </if>
     </set>
     where classId = #{classId,jdbcType=INTEGER}
@@ -67,7 +68,7 @@
   		select classId, className, remark, state, createTime, createPerson from class where  ClassId = #{classId,jdbcType=INTEGER} and state = 1
   </select>
   <select id="loadAllClass" resultMap="classTable" parameterType="com.tjh.vo.ClassVo">
-  	  select r.classId,r.className,r.remark,r.createTime,u.userName
+  	  select r.classId,r.className,r.remark,r.createTime,u.userName,r.classNum
   	  from class r inner join sys_user u on r.createPerson = u.userid
 	    <if test="className != null and className != ''">
 	        and r.className like CONCAT('%',#{className},'%')

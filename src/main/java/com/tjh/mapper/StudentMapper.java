@@ -39,7 +39,11 @@ public interface StudentMapper {
 
 	public boolean deleteStudentByStudentId(Integer studentId);
 
-	List<Student> loadStudentByTeacher(Map<String,Object> parameter);
+	public List<Student> loadStudentByTeacher(Map<String,Object> parameter);
 
-	List<Student> loadStudentByParent(Map<String,Object> parameter);
+	public List<Student> loadStudentByParent(Map<String,Object> parameter);
+
+	public boolean updateStudentStateByStudentIdGoBack(@Param("studentId") Integer studentId,@Param("state") Integer state);
+
+	public boolean updateStudentStateByStudentIdLeave(@Param("studentId")Integer studentId,@Param("state")Integer state);
 }

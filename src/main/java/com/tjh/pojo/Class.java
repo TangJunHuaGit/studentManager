@@ -15,6 +15,8 @@ public class Class implements Serializable {
 
     private String remark;
 
+	private Integer  classNum;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
@@ -67,6 +69,14 @@ public class Class implements Serializable {
 
 	public void setCreatePerson(Integer createPerson) {
 		this.createPerson = createPerson;
+	}
+
+	public Integer getClassNum() {
+		return classNum;
+	}
+
+	public void setClassNum(Integer classNum) {
+		this.classNum = classNum;
 	}
 
 }

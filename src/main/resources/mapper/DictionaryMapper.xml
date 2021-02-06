@@ -114,8 +114,7 @@
         select reasonId,reasonText  from dictionary where reasonPid <![CDATA[ <> ]]> 0
     </select>
     <select id="loadPie" resultType="java.util.Map">
-        select d.reasonText as 'name',count(d.reasonId) as 'value' from student stu inner join dictionary d on stu.dictionaryId = d.reasonId where 	<![CDATA[ stu.state <> 3  ]]>
-        group by d.reasonText
+        select d.reasonText as 'name',count(d.reasonId) as 'value' from student stu inner join dictionary d on stu.dictionaryId = d.reasonId where stu.state in (2,3,5) group by d.reasonText
     </select>
     <update id="updateDictionaryStateByReasonIds" parameterType="Integer[]">
 	<foreach collection="reasonIds" separator=";" item="reasonId">

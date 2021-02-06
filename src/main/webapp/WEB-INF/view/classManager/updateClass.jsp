@@ -20,12 +20,18 @@
       <input type="text" name="className" lay-verify="required"  placeholder="请输班级名称" class="layui-input">
     </div>
   </div>
-  <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">备注</label>
+  <div class="layui-form-item">
+    <label class="layui-form-label">班级人数</label>
     <div class="layui-input-block">
-      <textarea placeholder="请输入备注" class="layui-textarea" name="remark"></textarea>
+      <input type="number" name="classNum" lay-verify="required"  placeholder="请输班级人数" class="layui-input">
     </div>
   </div>
+<%--  <div class="layui-form-item layui-form-text">--%>
+<%--    <label class="layui-form-label">备注</label>--%>
+<%--    <div class="layui-input-block">--%>
+<%--      <textarea placeholder="请输入备注" class="layui-textarea" name="remark"></textarea>--%>
+<%--    </div>--%>
+<%--  </div>--%>
   <div class="layui-form-item">
     <div class="layui-input-block">
       <button type="submit" class="layui-btn" lay-submit="" lay-filter="update-submit">确认修改</button>

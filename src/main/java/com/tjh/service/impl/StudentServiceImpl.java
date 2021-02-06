@@ -81,6 +81,12 @@ public class StudentServiceImpl implements StudentService{
 		return this.studentMapper.updateStudentStateByStudentId(studentId,state,studentReason);
 	}
 
+
+	@Override
+	public boolean updateStudentStateByStudentIdLeave(Integer studentId, Integer state) {
+		return this.studentMapper.updateStudentStateByStudentIdLeave(studentId,state);
+	}
+
 	@Override
 	public boolean deleteStudentByStudentIds(Integer[] ids) {
 		return this.studentMapper.deleteStudentByStudentIds(ids);
@@ -89,6 +95,11 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public boolean deleteStudentByStudentId(Integer studentId) {
 		return  this.studentMapper.deleteStudentByStudentId(studentId);
+	}
+
+	@Override
+	public boolean updateStudentStateByStudentIdGoBack(Integer studentId, Integer state) {
+		return studentMapper.updateStudentStateByStudentIdGoBack(studentId,state);
 	}
 
 	protected boolean isParent(List<SysRole> roleList){

@@ -10,6 +10,8 @@ public class Teacher {
 
     private String teacherName;
 
+    private String className;
+
     private String teacherPhone;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -106,5 +108,13 @@ public class Teacher {
 
     public void setCreatePerson(Integer createPerson) {
         this.createPerson = createPerson;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

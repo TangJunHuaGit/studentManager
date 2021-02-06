@@ -35,8 +35,11 @@ public interface StudentService {
 	public boolean updateStudentStateByStudentId(Integer studentId,Integer state,String studentReason);
 
 	//批量更新学生状态
-	public boolean deleteStudentByStudentIds(@Param("ids")Integer[] ids);
+	public boolean deleteStudentByStudentIds(Integer[] ids);
 
 	public boolean deleteStudentByStudentId(Integer studentId);
 
+	public boolean updateStudentStateByStudentIdGoBack(Integer studentId, Integer state);
+
+    boolean updateStudentStateByStudentIdLeave(Integer studentId, Integer state);
 }

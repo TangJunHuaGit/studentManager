@@ -144,6 +144,12 @@
             delete from student where studentId = #{studentId,jdbcType=INTEGER}
         </foreach>
     </update>
+    <update id="updateStudentStateByStudentIdGoBack">
+        update student set state = #{state}  where studentId = #{studentId,jdbcType=INTEGER}
+    </update>
+    <update id="updateStudentStateByStudentIdLeave">
+        update student set state = #{state}  where studentId = #{studentId,jdbcType=INTEGER}
+    </update>
     <!-- 插入 -->
     <insert id="addStudent" parameterType="com.tjh.pojo.Student">
         insert into student

@@ -112,7 +112,7 @@ layui.config({
         var context = canvas.getContext("2d");//获取到canvas画图的环境，演员表演的舞台
         canvas.width = canvas_width;
         canvas.height = canvas_height;
-        var sCode = "A,B,C,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0";
+        var sCode = "a,b,c,d,e,f,g,j,k,l,m,n,p,q,r,s,t,w,x,y,z,1,2,3,4,5,6,7,8,9,0";
         var aCode = sCode.split(",");
         var aLength = aCode.length;//获取到数组的长度
 

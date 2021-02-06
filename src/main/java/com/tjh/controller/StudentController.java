@@ -93,20 +93,28 @@ public class StudentController {
 			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
 		}
 	}
-
-	//提交申请
-	@Function(functionName = "updateStudentStateByStudentIdGoBack")
-	@RequestMapping("updateStudentStateByStudentIdGoBack")
+	@Function(functionName = "updateStudentStateByStudentIdLeave")
+	@RequestMapping("updateStudentStateByStudentIdLeave")
 	@ResponseBody
-	public ResultMessage updateStudentStateByStudentId(String studentId,String state,String studentReason){
-		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),studentReason);
+	public ResultMessage updateStudentStateByStudentIdLeave(String studentId,String state){
+		boolean flag = this.studentService.updateStudentStateByStudentIdLeave(Integer.valueOf(studentId),Integer.valueOf(state));
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{
 			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
 		}
 	}
-	//提交申请
+	@Function(functionName = "updateStudentStateByStudentIdGoBack")
+	@RequestMapping("updateStudentStateByStudentIdGoBack")
+	@ResponseBody
+	public ResultMessage updateStudentStateByStudentIdGoBack(String studentId,String state){
+		boolean flag = this.studentService.updateStudentStateByStudentIdGoBack(Integer.valueOf(studentId),Integer.valueOf(state));
+		if(flag){
+			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
+		}else{
+			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
+		}
+	}
 	@Function(functionName = "updateStudentStateByStudentIdAgree")
 	@RequestMapping("updateStudentStateByStudentIdAgree")
 	@ResponseBody
@@ -118,7 +126,6 @@ public class StudentController {
 			return ResultMessage.success(ResultMessage.FAILCODE, ResultMessage.FAIL);
 		}
 	}
-	//提交申请
 	@Function(functionName = "updateStudentStateByStudentIdNotAgree")
 	@RequestMapping("updateStudentStateByStudentIdNotAgree")
 	@ResponseBody
