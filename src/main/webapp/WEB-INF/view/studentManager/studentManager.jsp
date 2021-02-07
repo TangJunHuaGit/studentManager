@@ -182,13 +182,12 @@
                 ,{field:'studentId', title: 'studentId', sort: true,hide:true}
                 ,{field:'studentName', title: '学生名称'}
                 ,{field:'studentPhone', title: '手机号码'}
-                ,{field:'studentBirthday', title: '出生日期'}
                 ,{field:'className', title: '所属班级'}
                 ,{field:'teacherName', title: '班主任'}
-                ,{field:'remark', title: '备注', sort: true}
-                ,{field:'studentReason', title: '教师意见', sort: true}
+                ,{field:'reasonText', title: '请假原因'}
+                ,{field:'studentReason', title: '情况描述', sort: true}
+                ,{field:'remark', title: '教师意见', sort: true}
                 ,{field:'state', title: '状态', sort: true, align: 'center',templet: '#table-gender'}
-                ,{field:'userName', title: '创建人', sort: true, align: 'center'}
                 ,{field:'createTime', title: '创建时间', sort: true, align: 'center',width: 200}
                 ,{fixed: 'right',title: '操作',width: 200, align:'center', toolbar: '#tableToolBarLine'}
             ]]
@@ -288,7 +287,7 @@
                             url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
                             type:'POST',
                             async:true,    //或false,是否异步
-                            data:{studentId:studentId,state:"4",studentReason:value},
+                            data:{studentId:studentId,state:"4",remark:value},
                             timeout:5000,    //超时时间
                             dataType:'json',
                             success:function(data){
@@ -310,10 +309,10 @@
                             return  layer.msg("请输入审批建议");
                         };     // 得到value
                         $.ajax({
-                            url:"${ctx}/student/updateStudentStateByStudentIdAgree.action",
+                            url:"${ctx}/student/updateStudentStateByStudentIdNotAgree.action",
                             type:'POST',
                             async:true,    //或false,是否异步
-                            data:{studentId:studentId,state:"5",studentReason:value},
+                            data:{studentId:studentId,state:"5",remark:value},
                             timeout:5000,    //超时时间
                             dataType:'json',
                             success:function(data){
@@ -411,8 +410,22 @@
             });
         }
         function downLoad(studentId) {
-            var url = "${ctx}/upload/downLoadFile.action?studentId="+studentId;
-            window.open(url);
+            $.ajax({
+                url:'${ctx}/student/loadOneStudentByStudentId.action',
+                type:'POST',
+                async:true,    //或false,是否异步
+                timeout:5000,    //超时时间
+                data:{studentId:studentId},
+                dataType:'json',
+                success:function(data){
+                    if(!!data.studentSource){
+                        var url = "${ctx}/upload/downLoadFile.action?studentId="+studentId;
+                        window.open(url);
+                    }else{
+                        layer.msg("当前学生无文件！");
+                    }
+                }
+            });
         }
     });
 </script>

@@ -8,19 +8,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tjh.pojo.Class;
 
 public class ClassVo extends Class{
-	
+
 	private Integer[] ids;
-	
+
 	private Integer page;
-	
+
 	private Integer limit;
-	
+
 	private String userName;
+
+	private Integer teacherId;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date startTime;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date endTime;
@@ -72,7 +74,13 @@ public class ClassVo extends Class{
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	
-	
-	
+
+
+	public Integer getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(Integer teacherId) {
+		this.teacherId = teacherId;
+	}
 }

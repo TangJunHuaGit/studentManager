@@ -118,8 +118,8 @@ public class StudentController {
 	@Function(functionName = "updateStudentStateByStudentIdAgree")
 	@RequestMapping("updateStudentStateByStudentIdAgree")
 	@ResponseBody
-	public ResultMessage updateStudentStateByStudentIdAgree(String studentId,String state,String studentReason){
-		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),studentReason);
+	public ResultMessage updateStudentStateByStudentIdAgree(String studentId,String state,String remark){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),remark);
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{
@@ -129,8 +129,8 @@ public class StudentController {
 	@Function(functionName = "updateStudentStateByStudentIdNotAgree")
 	@RequestMapping("updateStudentStateByStudentIdNotAgree")
 	@ResponseBody
-	public ResultMessage updateStudentStateByStudentIdNotAgree(String studentId,String state,String studentReason){
-		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),studentReason);
+	public ResultMessage updateStudentStateByStudentIdNotAgree(String studentId,String state,String remark){
+		boolean flag = this.studentService.updateStudentStateByStudentId(Integer.valueOf(studentId),Integer.valueOf(state),remark);
 		if(flag){
 			return ResultMessage.success(ResultMessage.SUCCESSCODE, ResultMessage.SUCCESSFUL);
 		}else{

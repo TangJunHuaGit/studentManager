@@ -109,7 +109,7 @@
     	    tableIns = table.render({
     	      id:"classList",
     	      elem: '#classList'
-    	      ,url: "${ctx}/class/loadAllClass.action?createPerson=${user.user.userId}"
+    	      ,url: "${ctx}/class/loadAllClass.action?teacherId=${user.user.userId}"
     	      ,height: 'full-200'
     	      ,cellMinWidth: 80
     	      ,page: true
@@ -127,7 +127,7 @@
     	      ,done: function (res, curr, count) {
     	            if (curr > 1 && res.data.length === 0) {
     	                curr = curr - 1;
-    	                table.reload('classList', { 
+    	                table.reload('classList', {
     	                    page: {
     	                        curr: curr
     	                    },
@@ -139,7 +139,7 @@
           //查询
            $(".search_btn").click(function(){
                var params=$("#searchForm").serialize();
-               params+="&createPerson=${user.user.userId}"
+               params+="&teacherId=${user.user.userId}"
                table.reload('classList', {
                    url: '${ctx}/class/loadAllClass.action?'+params
                });
@@ -158,7 +158,7 @@
            table.on('tool(classList)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
         	    var data = obj.data //获得当前行数据
         	    ,layEvent = obj.event; //获得 lay-event 对应的值
-        	    
+
         	    var classId = obj.data.classId; //得到id
         	    if(layEvent === 'del'){
         	      layer.confirm('真的删除行么', function(index){
@@ -200,7 +200,7 @@
                               //关闭提示框
                               layer.close(index);
     	                    },500)
-                       }) 
+                       })
                    })
                }else{
                    layer.msg("请选择需要删除的班级");

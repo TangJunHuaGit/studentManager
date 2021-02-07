@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="${ctx}/resources/layuiadmin/layui/css/layui.css"
         media="all" />
 </head>
+<script type="application/javascript" >
+  var userPermission = '${currentUserPermission}';
+  var permissionObj = JSON.parse(userPermission);
+  var bianji = false;
+  var userId = '${user.user.userId}';
+</script>
 <body>
 <!-- -->
 
@@ -81,12 +87,12 @@
       <textarea placeholder="情况描述" class="layui-textarea" name="studentReason"></textarea>
     </div>
   </div>
- <%-- <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">备注</label>
+  <div class="layui-form-item layui-form-text" id="remark">
+    <label class="layui-form-label">教师意见</label>
     <div class="layui-input-block">
-      <textarea placeholder="请输入备注" class="layui-textarea" name="remark"></textarea>
+      <textarea placeholder="请输入教师意见" class="layui-textarea" name="remark" ></textarea>
     </div>
-  </div>--%>
+  </div>
   <div class="layui-form-item">
     <div class="layui-input-block">
       <button type="submit" class="layui-btn" lay-submit="" lay-filter="update-submit">确认修改</button>
@@ -114,6 +120,16 @@
             ,search = router.search;
 
     form.render();
+
+    layui.each(permissionObj, function(index, item){
+      if(item.functionCode == 'addStudent'){
+        bianji = true;
+      }
+    });
+    if(bianji){
+      $("#remark").css("display","none");
+      form.render();
+    }
 
     laydate.render({
       elem:"#studentBirthday"

@@ -65,40 +65,38 @@
 </delete>
 <!-- 加载单个数据 -->
   <select id="loadOneClassByClassId" resultType="com.tjh.pojo.Class" parameterType="Integer">
-  		select classId, className, remark, state, createTime, createPerson from class where  ClassId = #{classId,jdbcType=INTEGER} and state = 1
+  		select classId, className, remark, state,classNum,createTime, createPerson from class where  classId = #{classId,jdbcType=INTEGER}
   </select>
   <select id="loadAllClass" resultMap="classTable" parameterType="com.tjh.vo.ClassVo">
-  	  select r.classId,r.className,r.remark,r.createTime,u.userName,r.classNum
-  	  from class r inner join sys_user u on r.createPerson = u.userid
-	    <if test="className != null and className != ''">
-	        and r.className like CONCAT('%',#{className},'%')
-	    </if>
-      <if test="createPerson != null and createPerson != 20 and createPerson != ''">
-          and r.createPerson = #{createPerson}
+      select c.* from class c
+      <if test="teacherId != null and teacherId != 20 and teacherId != ''">
+          inner join teacher t on c.classId = t.classId and t.teacherId = #{teacherId}
       </if>
+	    <if test="className != null and className != ''">
+	        and c.className like CONCAT('%',#{className},'%')
+	    </if>
+
 	    <if test="startTime != null">
-	    	<![CDATA[ and r.createTime  >=  #{startTime}  ]]>
+	    	<![CDATA[ and c.createTime  >=  #{startTime}  ]]>
 	    </if>
 	    <if test="endTime != null">
-	    	<![CDATA[ and r.createTime  <=  #{endTime}  ]]>
+	    	<![CDATA[ and c.createTime  <=  #{endTime}  ]]>
 	    </if>
 	    limit #{page},#{limit}
   </select>
   <select id="loadTotalClass" resultType="Integer" parameterType="com.tjh.vo.ClassVo">
-  	  select count(*) as total from (select r.classId,r.className,r.remark,r.createTime,u.userName
-  	  from class r inner join sys_user u on r.createPerson = u.userid
+  	  select count(*) as total from ( select c.* from class c
+          <if test="teacherId != null and teacherId != 20 and  teacherId != ''">
+              inner join teacher t on c.classId = t.classId and c.teacherId = #{teacherId}
+          </if>
 	    <if test="className != null and className != ''">
-	        and r.className like CONCAT('%',#{className},'%')
-	    </if>
-	    <if test="createPerson != null and createPerson != 20 and  createPerson != ''">
-	        and r.createPerson = #{createPerson}
+	        and c.className like CONCAT('%',#{className},'%')
 	    </if>
 	    <if test="startTime != null">
-	    	<![CDATA[ and r.createTime  >=  #{startTime}  ]]>
+	    	<![CDATA[ and c.createTime  >=  #{startTime}  ]]>
 	    </if>
-
 	    <if test="endTime != null">
-	    	<![CDATA[ and r.createTime  <=  #{endTime}  ]]>
+	    	<![CDATA[ and c.createTime  <=  #{endTime}  ]]>
 	    </if>
 	    ) as a
   </select>

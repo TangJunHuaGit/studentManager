@@ -24,6 +24,8 @@ public class Student {
 
 	private String studentFileName;
 
+	private String reasonText;
+
 	private Integer dictionaryId;//请假类型
 
 	private Integer dictionaryPid;
@@ -170,5 +172,13 @@ public class Student {
 
 	public void setStudentFileName(String studentFileName) {
 		this.studentFileName = studentFileName;
+	}
+
+	public String getReasonText() {
+		return reasonText;
+	}
+
+	public void setReasonText(String reasonText) {
+		this.reasonText = reasonText;
 	}
 }

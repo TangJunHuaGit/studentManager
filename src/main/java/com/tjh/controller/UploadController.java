@@ -89,8 +89,6 @@ public class UploadController {
         String studentSource = student.getStudentSource();
         response.setHeader("Content-Disposition", "attachment;fileName="
                 +java.net.URLEncoder.encode(student.getStudentFileName(),"UTF-8"));
-
-
         //得到项目路径
         File tempFile = new File(studentSource);
         try {

@@ -137,7 +137,7 @@
         where studentId = #{studentId,jdbcType=INTEGER}
     </update>
     <update id="updateStudentStateByStudentId">
-        update student set state = #{state},studentReason=#{studentReason}  where studentId = #{studentId,jdbcType=INTEGER}
+        update student set state = #{state},remark=#{remark}  where studentId = #{studentId,jdbcType=INTEGER}
     </update>
     <update id="deleteStudentByStudentIds" parameterType="Integer[]">
         <foreach collection="ids" separator=";" item="studentId">
@@ -160,10 +160,11 @@
     </insert>
 
     <select id="loadStudentByTeacher" resultMap="studentTable" parameterType="map">
-        select stu.*,t.teacherName,c.className,u.userName from student stu
+        select stu.*,t.teacherName,c.className,u.userName,d.reasonText from student stu
         inner join class c on stu.classId = c.classId
         inner join teacher t on c.classId = t.classId
         inner join sys_user u on stu.createPerson = u.userId
+        inner join dictionary d on d.reasonId = stu.dictionaryId
         <if test="userId != 20">
             where t.teacherId = #{userId}
             <if test="studentName != null and studentName != ''">
@@ -178,10 +179,11 @@
         </if>
     </select>
     <select id="loadStudentByParent" resultMap="studentTable" parameterType="map">
-        select stu.*,t.teacherName,c.className,u.userName from student stu
+        select stu.*,t.teacherName,c.className,u.userName,d.reasonText from student stu
         inner join class c on stu.classId = c.classId
         inner join teacher t on c.classId = t.classId
         inner join sys_user u on stu.createPerson = u.userId
+        inner join dictionary d on d.reasonId = stu.dictionaryId
         <if test="userId != 20">
             where u.userId = #{userId}
             <if test="studentName != null and studentName != ''">
