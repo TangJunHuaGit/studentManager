@@ -74,15 +74,15 @@
     </div>
   </div>
   <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">备注</label>
+    <label class="layui-form-label">情况描述</label>
     <div class="layui-input-block">
-      <textarea placeholder="请输入备注" class="layui-textarea" name="remark"></textarea>
+      <textarea placeholder="请输入情况描述" class="layui-textarea" name="studentReason"></textarea>
     </div>
   </div>
-  <div class="layui-form-item layui-form-text">
+  <div class="layui-form-item layui-form-text" style="display: none;">
     <label class="layui-form-label">老师意见</label>
     <div class="layui-input-block">
-      <textarea placeholder="请输入老师意见"  class="layui-textarea" name="studentReason"></textarea>
+      <textarea placeholder="请输入老师意见"  class="layui-textarea" name="remark"></textarea>
     </div>
   </div>
   <div class="layui-form-item">

@@ -87,7 +87,7 @@
   <select id="loadTotalClass" resultType="Integer" parameterType="com.tjh.vo.ClassVo">
   	  select count(*) as total from ( select c.* from class c
           <if test="teacherId != null and teacherId != 20 and  teacherId != ''">
-              inner join teacher t on c.classId = t.classId and c.teacherId = #{teacherId}
+              inner join teacher t on c.classId = t.classId and t.teacherId = #{teacherId}
           </if>
 	    <if test="className != null and className != ''">
 	        and c.className like CONCAT('%',#{className},'%')
