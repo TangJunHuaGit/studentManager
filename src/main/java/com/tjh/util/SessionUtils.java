@@ -16,7 +16,6 @@ import java.util.List;
 
 /**
  * 解耦的方式得到web作用域
- * @author LJH
  *
  */
 public class SessionUtils {
