@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author 创建时间 2021/1/7 14:28
  * 描述
- * 当用户请求的URL有对应的mapping映射并且从dispatchServlet中出来，进入该过滤器
+ * 当用户请求的URL有对应的mapping映射，进入该过滤器
  */
 public class FunctionFilter extends GenericFilterBean {
     @Override
